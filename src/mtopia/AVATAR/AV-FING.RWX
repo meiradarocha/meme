@@ -1,0 +1,71 @@
+# This file is copyright by Immersive Systems, Inc.  All rights
+# reserved.  You are permitted to use this file subject to
+# the provisions and restrictions in the license agreement, which
+# is in the file LICENSE or LICENSE.txt or LICENSE.html.  If this
+# set of files does not contain a file by one of the three
+# preceding names, please contact the Metatopia project at
+# sourceforge.net or at immersive.com.
+
+##############################################################################
+#
+# RenderWare(tm) Script File
+# <AV-FING.rwx> Created from 3D Studio File <AV-FING.3DS> by 3ds2rwx V2.0a
+#
+##############################################################################
+
+ModelBegin
+
+  ClumpBegin
+Hints HS EDITABLE
+
+  TransformBegin
+    Transform 0.997250 0.074107 0.000000 0.0 -0.074107 0.997250 0.000000 0.0 0.000000 0.000000 1.000000 0.0 0.039269 -0.043654 -5.421117 1.0
+    # Object Object01
+    Vertex  -0.033136   0.068828   5.431250 
+    Vertex   0.010870   0.029304   5.431250 
+    Vertex   0.006891  -0.038563   5.431250 
+    Vertex  -0.044534  -0.073057   5.431250 
+    Vertex  -0.012625  -0.038661   5.431250 
+    Vertex  -0.014654   0.008672   5.431250 
+    Vertex  -0.047559   0.037056   5.431250 
+    Vertex  -0.033136   0.068828   5.409525 
+    Vertex   0.010870   0.029304   5.409525 
+    Vertex   0.006891  -0.038563   5.409525 
+    Vertex  -0.044534  -0.073057   5.409525 
+    Vertex  -0.012625  -0.038661   5.409525 
+    Vertex  -0.014654   0.008672   5.409525 
+    Vertex  -0.047559   0.037056   5.409525 
+    Surface 0.590000 0.590000 0.590000
+    Color 0.000000 1.000000 0.000000
+    Opacity 1.000000
+    GeometrySampling Solid
+    LightSampling Vertex
+    Texture NULL
+
+    Triangle 5 4 3
+    Triangle 2 1 7
+    Triangle 2 7 6
+    Triangle 3 2 6
+    Triangle 3 6 5
+    Triangle 1 2 9
+    Triangle 1 9 8
+    Triangle 2 3 10
+    Triangle 2 10 9
+    Triangle 3 4 11
+    Triangle 3 11 10
+    Triangle 4 5 12
+    Triangle 4 12 11
+    Triangle 5 6 13
+    Triangle 5 13 12
+    Triangle 6 7 14
+    Triangle 6 14 13
+    Triangle 7 1 8
+    Triangle 7 8 14
+    Triangle 10 11 12
+    Triangle 14 8 9
+    Triangle 13 14 9
+    Triangle 13 9 10
+    Triangle 12 13 10
+  TransformEnd
+ClumpEnd
+ModelEnd

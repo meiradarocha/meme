@@ -1,0 +1,114 @@
+\ This file is copyright by Immersive Systems, Inc.  All rights
+\ reserved.  You are permitted to use this file subject to
+\ the provisions and restrictions in the license agreement, which
+\ is in the file LICENSE or LICENSE.txt or LICENSE.html.  If this
+\ set of files does not contain a file by one of the three
+\ preceding names, please contact the Metatopia project at
+\ sourceforge.net or at immersive.com.
+
+\ Error codes returned by Meme's GetLastError primitive
+\ by Marc de Groot.
+\ Copyright (c) Immersive Systems, Inc.  All rights reserved.
+
+
+\
+\ ************* CHANGE ERRORS.H IF YOU CHANGE THIS FILE ******************
+\
+
+\ The no-error error code.
+0		constant		eNOERROR
+
+
+\
+\ These progress and error codes are returned by the network routines
+\
+1		constant		netDISCONNECTED
+1		constant		netESTABLISHED
+0		constant		netPENDING
+0		constant		netNOERROR
+-1		constant		netERROR
+-2		constant		netCONNECTREFUSED
+-3		constant		netCLOSEDEARLY
+-4		constant		netTIMEDOUT
+-5		constant		netUNRESOLVEDHOST
+-6		constant		netUNRESOLVEDARP
+-7		constant		netUNINITIALIZED
+-8		constant		netNOSOCKSPACE
+-9		constant		netINVALIDSOCK
+
+\
+\ These progress and error codes are returned by the serial comm routines
+\
+0		constant		serNOERROR
+-1		constant		serERROR
+-100	constant		serBADOPEN
+-101	constant		serBADPARAMS
+-102	constant		serBADCLOSE
+-103	constant		serCANTSETEVENTS
+-104	constant		serNOSPACE
+-105	constant		serREADFAILED	
+-106	constant		serWRITEFAILED	
+
+\
+\ Codes for RegisterDeckModule
+\
+-200	constant		eDECKALREADYREGISTERED	\ DeckModule is non-zero
+-201	constant		eDECKINVALIDMODULE		\ Invalid pointer to module
+
+\
+\ Codes for Adopts
+\
+-300	constant		eADOPTSCHILDISWORLD		\ Attempt to adopt the world obj
+-301	constant		eADOPTSSELF				\ Attempt to adopt self
+
+\
+\ Codes for Orphan
+\
+-400	constant		eORPHANNULLPARENT		\ Can't orphan an obj with no parent
+-401	constant		eORPHANWORLD			\ Can't orphan the world
+-402	constant		eORPHANBADPTRS			\ Null backPtr, failed CheckFamilyPtrs
+\
+\ CheckFamilyPtrs error codes
+\
+-500	constant		eFAMPTRSBADCHILDPTR		\ Child ptr invalid
+-501	constant		eFAMPTRSCHILDSBACKPTR	\ Child's backptr invalid
+-502	constant		eFAMPTRSBADSIBLINGPTR	\ Sibling ptr invalid
+-503	constant		eFAMPTRSSIBLINGSBACKPTR	\ Sibling's backptr invalid
+-504	constant		eFAMPTRSBACKPTR			\ Object's backptr invalid
+-505	constant		eFAMPTRSNULLPARENT		\ Backptr is non-null but parent is null
+-506	constant		eFAMPTRSBADPARENT		\ Invalid parent ptr
+-507	constant		eFAMPTRSNONNULLPARENT	\ Backptr is null but parent is non-null
+-508	constant		eFAMPTRSNONNULLSIBLING	\ Backptr is null but sibling is non-null
+-509	constant		eFAMPTRSBADOBJECT		\ Invalid object pointer (not an object)
+-510	constant		eFAMPTRSUNUSED			\ Object is unused
+-511	constant		eFAMPTRSCHILDUNUSED		\ Object's child is unused
+-512	constant		eFAMPTRSSIBLINGUNUSED	\ Object's sibling is unused
+-513	constant		eFAMPTRSBACKUNUSED		\ Object's backptr points to unused object
+-514	constant		eFAMPTRSPARENTUNUSED	\ Object's parent is unused
+
+\
+\ SendMessage error codes
+\
+-600	constant		eSMTIMEDOUT				\ Timed out before delivery
+
+\
+\ GetSubtreeMatrix and Transform error codes
+\
+-700	constant		eTRANSFORMTREETOODEEP	\ Object tree too deep
+-701	constant		eTRANSFORMINVERTFAILED	\ Matrix inversion failed
+-702	constant		eTRANSFORMCOMPOSEFAILED	\ Matrix composition failed
+-703	constant		eTRANSFORMVECTORFAILED	\ TransformVector() failed
+-704	constant		eTRANSFORMPOINTFAILED	\ TransformPoint() failed
+-705	constant		eTRANSFORMNOPARENT		\ Second object has no parent
+
+\
+\ Error codes from NewTexture and NewMaskedTexture
+-800	constant		eTEXINVALIDTEXFILE		\ Texture file invalid
+-801	constant		eTEXINVALIDMASKFILE		\ Mask file invalid
+
+\
+\ Error codes from SetCameraBackdrop
+-900	constant		eSCBINVALIDFILE			\ File invalid or not found
+-901	constant		eSCBNOSPACE				\ File req buff malloc failed
+-902	constant		eSCBBADOBJECT			\ Unused obj or not a camera
+

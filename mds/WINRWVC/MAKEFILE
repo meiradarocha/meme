@@ -1,0 +1,121 @@
+# makefile for building Meme with Watcom C/C++32 and 4GW DOS Extender
+
+CC=wcc386
+LINK=wlink
+ASM=masm
+
+# Stuff for RenderWare
+OLDRW=		c:\newrw
+RW=		c:\newestrw
+RWINC=		$(RW)\include
+RWLIB=		$(RW)\lib\rwdslp.lib
+
+# Stuff for WATTCP
+TCPINC=		net\include
+TCPLIB=		net\elib\wattcp.lib
+
+# Where to find the DOS extender
+DOS4GW=		C:\WATCOM\BIN\DOS4GW.EXE
+
+# Where the distribution hierarchy goes
+DIST=		.\meme
+
+# Where the files for the distribution floppy go
+DISTFLOPPY=	.\dist
+
+# Where the Meme viewer stuff goes
+MEMEVIEW=	.\memeview
+
+# Set up the compiler flags
+CFLAGS= /I=$(RWINC) /I=.. /I=$(TCPINC) /mf /4s /7 /s /zp4 /j /ei /oxtailm /d1
+CFLAGS= /I=$(RWINC) /I=.. /I=$(TCPINC) /mf /4s /7 /s /zp4 /j /ei /oxtailm /d2
+CFLAGS= /I=$(RWINC) /I=.. /I=$(TCPINC) /mf /4s /7 /s /zp4 /j /ei /oxtailm /r
+
+# Set up strip command
+STRIP= wstrip
+
+INCLUDE=config.h ..\forth.h ..\prims.h ..\meme.h ..\memever.h
+MOSTOBJS=main.obj matherr.obj chario.obj io.obj mallocl.obj syscall.obj extend.obj meme.obj console.obj memeser.obj serial.obj seriala.obj memerend.obj mememaus.obj memejoy.obj memenet.obj globals.obj decser.obj cman.obj $(RWLIB) $(TCPLIB)
+MEMEOBJS=forth.obj init.obj $(MOSTOBJS)
+VIEWOBJS=memeview.obj viewinit.obj $(MOSTOBJS)
+
+dist:		.SYMBOLIC
+		del $(DIST)\*.*
+		del $(DIST)\shapes\*.*
+#		copy $(RW)\convert\3dstorwx.exe $(DIST)
+		copy $(RW)\convert\dxftorwx.exe $(DIST)
+#		copy $(RW)\convert\giftoras.exe $(DIST)
+		copy $(RW)\misc\adapter.exe $(DIST)
+		copy $(RW)\misc\dosrwcfg.exe $(DIST)
+		copy $(RW)\misc\vesa.exe $(DIST)
+		copy $(DOS4GW) $(DIST)
+		copy config.exe $(DIST)
+		copy meme.exe $(DIST)
+		$(STRIP) $(DIST)\meme.exe
+		copy meme.dic $(DIST)
+		copy dosrw.std $(DIST)\dosrw.ini
+		copy dosrw.std $(DIST)
+		copy ..\mstructs.mh $(DIST)
+		copy ..\dbgdata.mh $(DIST)
+		copy ..\modcode\messages.mh $(DIST)
+		copy ..\whatis.doc $(DIST)
+		copy ..\flying.m $(DIST)
+		copy ..\movelite.m $(DIST)
+		copy ..\dwalk.m $(DIST)
+		copy ..\tnkmouse.m $(DIST)
+		copy ..\msrc\biomuse\biomuse.m $(DIST)
+		copy ..\msrc\biomuse\bmball.m $(DIST)
+		copy ..\msrc\biomuse\bmball2.m $(DIST)
+		copy ..\msrc\biomuse\bmmoveli.m $(DIST)
+		copy ..\msrc\biomuse\bmtracto.m $(DIST)
+		copy ..\msrc\biomuse\bmeggs.m $(DIST)
+		copy ..\spheres.m $(DIST)
+		copy ..\8queens.m $(DIST)
+		copy ..\bounce.m $(DIST)
+		copy ..\disthome.m $(DIST)\home.m
+		copy ..\joy.m $(DIST)
+		copy ..\joycam.m $(DIST)
+		copy ..\mousecam.m $(DIST)
+		copy ..\cmancam.m $(DIST)
+		copy ..\cman.mh $(DIST)
+		copy ..\modcode.mod $(DIST)
+		copy ..\deck.m $(DIST)
+		copy ..\bball.m $(DIST)
+		copy ..\clock.m $(DIST)
+		copy ..\door.m $(DIST)
+		copy ..\homeroom.m $(DIST)
+		copy ..\homerm1.m $(DIST)
+		copy ..\octo.m $(DIST)
+		copy ..\rainbow.m $(DIST)
+		copy ..\4balls.m $(DIST)
+		copy ..\homerm2.m $(DIST)
+		copy ..\swarm.m $(DIST)
+		copy ..\homerm3.m $(DIST)
+		copy ..\razzcube.m $(DIST)
+		copy ..\fltcube.m $(DIST)
+		copy $(OLDRW)\scripts\*.rwx $(DIST)\shapes
+		copy $(OLDRW)\textures\*.ras $(DIST)\shapes
+		copy ..\rwx\*.* $(DIST)\shapes
+
+floppy:		.SYMBOLIC
+		cd $(DIST)
+		..\sernum
+		cd ..
+		del $(DISTFLOPPY)\*.*
+		-pkzip -r -p $(DISTFLOPPY)\meme.zip $(DIST)\*.*
+		copy c:\util\pkunzip.exe $(DISTFLOPPY)
+ 		copy install.doc $(DISTFLOPPY)
+
+clean:	.SYMBOLIC
+		-del *.mod
+		-del *.lib
+		-del *.lst
+		-del *.crf
+		-del *.sym
+		-del *.map
+		-del *.err
+		-del *.obj
+		-del *.exe
+		-del meme.dic
+		-del foo
+		-del *.rex

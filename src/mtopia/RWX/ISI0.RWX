@@ -1,0 +1,70 @@
+##############################################################################
+#
+# RenderWare(tm) Script File
+# <ISI0.rwx> Created from 3D Studio File <ISI.3DS> by 3ds2rwx V2.0a
+# Object <WHITE>
+#
+##############################################################################
+
+ModelBegin
+
+  ClumpBegin
+    Vertex   8.874887  10.000000 -10.862390 	#	UV 1.000000 0.000000
+    Vertex  11.236723   0.000000 -10.513700 	#	UV 1.000000 0.000000
+    Vertex  19.000000   0.000000 -19.000000 	#	UV 1.000000 0.000000
+    Vertex  19.000000   0.000000  -8.000000 	#	UV 1.000000 0.000000
+    Vertex   8.000000   0.000000 -19.000000 	#	UV 1.000000 0.000000
+    Vertex   8.000000   0.000000 -10.500000 	#	UV 1.000000 0.000000
+    Vertex  10.862390  10.000000  -8.874887 	#	UV 1.000000 0.000000
+    Vertex  18.125113  10.000000  -8.874887 	#	UV 1.000000 0.000000
+    Vertex  10.500000   0.000000  -8.000000 	#	UV 1.000000 0.000000
+    Vertex   8.874887  10.000000 -18.125113 	#	UV 1.000000 0.000000
+    Vertex  18.125113  10.000000 -18.125113 	#	UV 1.000000 0.000000
+    Vertex   9.735240   2.000000  -9.012216 	#	UV 1.000000 0.000000
+    Vertex   9.611512   0.000000  -8.888488 	#	UV 1.000000 0.000000
+    Vertex  10.529616   2.000000 -11.220806 	#	UV 1.000000 0.000000
+    Vertex  10.529616   0.000000 -11.220806 	#	UV 1.000000 0.000000
+    Vertex   8.904406   0.000000  -9.595594 	#	UV 1.000000 0.000000
+    Vertex   9.028132   2.000000  -9.719322 	#	UV 1.000000 0.000000
+    Vertex  11.236723   2.000000 -10.513700 	#	UV 1.000000 0.000000
+    Surface 0.100000 0.272627 0.065216
+    Color 0.215686 0.215686 0.733333
+    Opacity 1.000000
+    GeometrySampling Solid
+    LightSampling Facet
+    Texture NULL
+
+    Triangle 7 11 1
+    Triangle 11 10 1
+    Triangle 7 8 11
+    Triangle 3 2 15
+    Triangle 3 4 2
+    Triangle 4 9 2
+    Triangle 15 5 3
+    Triangle 15 6 5
+    Triangle 9 13 2
+    Triangle 15 16 6
+    Triangle 10 6 1
+    Triangle 10 5 6
+    Triangle 9 8 7
+    Triangle 9 4 8
+    Triangle 8 3 11
+    Triangle 8 4 3
+    Triangle 11 5 10
+    Triangle 11 3 5
+    Triangle 7 12 9
+    Triangle 7 17 12
+    Triangle 7 1 17
+    Triangle 1 6 17
+    Triangle 12 13 9
+    Triangle 6 16 17
+    Triangle 2 14 15
+    Triangle 2 18 14
+    Triangle 17 15 14
+    Triangle 17 16 15
+    Triangle 2 12 18
+    Triangle 2 13 12
+    Triangle 12 17 18
+    Triangle 17 14 18
+  ClumpEnd
+ModelEnd

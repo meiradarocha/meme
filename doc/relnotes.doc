@@ -1,0 +1,254 @@
+{\rtf1\ansi\ansicpg1252\uc1 \deff0\deflang1033\deflangfe1033{\fonttbl{\f0\froman\fcharset0\fprq2{\*\panose 02020603050405020304}Times New Roman;}{\f1\fswiss\fcharset0\fprq2{\*\panose 020b0604020202020204}Arial;}
+{\f2\fmodern\fcharset0\fprq1{\*\panose 02070309020205020404}Courier New;}{\f3\froman\fcharset2\fprq2{\*\panose 05050102010706020507}Symbol;}{\f16\froman\fcharset238\fprq2 Times New Roman CE;}{\f17\froman\fcharset204\fprq2 Times New Roman Cyr;}
+{\f19\froman\fcharset161\fprq2 Times New Roman Greek;}{\f20\froman\fcharset162\fprq2 Times New Roman Tur;}{\f21\froman\fcharset186\fprq2 Times New Roman Baltic;}{\f22\fswiss\fcharset238\fprq2 Arial CE;}{\f23\fswiss\fcharset204\fprq2 Arial Cyr;}
+{\f25\fswiss\fcharset161\fprq2 Arial Greek;}{\f26\fswiss\fcharset162\fprq2 Arial Tur;}{\f27\fswiss\fcharset186\fprq2 Arial Baltic;}{\f28\fmodern\fcharset238\fprq1 Courier New CE;}{\f29\fmodern\fcharset204\fprq1 Courier New Cyr;}
+{\f31\fmodern\fcharset161\fprq1 Courier New Greek;}{\f32\fmodern\fcharset162\fprq1 Courier New Tur;}{\f33\fmodern\fcharset186\fprq1 Courier New Baltic;}}{\colortbl;\red0\green0\blue0;\red0\green0\blue255;\red0\green255\blue255;\red0\green255\blue0;
+\red255\green0\blue255;\red255\green0\blue0;\red255\green255\blue0;\red255\green255\blue255;\red0\green0\blue128;\red0\green128\blue128;\red0\green128\blue0;\red128\green0\blue128;\red128\green0\blue0;\red128\green128\blue0;\red128\green128\blue128;
+\red192\green192\blue192;}{\stylesheet{\qj\sb200\keep\nowidctlpar\widctlpar\adjustright \fs20\lang1024\cgrid \snext0 Normal;}{\s1\qj\sb240\keep\nowidctlpar\widctlpar\outlinelevel0\adjustright \b\f1\fs36\lang1024\cgrid \sbasedon0 \snext0 heading 1;}{
+\s2\sb200\sl480\slmult0\keep\keepn\nowidctlpar\widctlpar\outlinelevel1\adjustright \b\f1\fs28\lang1024\cgrid \sbasedon0 \snext0 heading 2;}{\s3\li360\sb200\sl480\slmult0\keep\keepn\nowidctlpar\widctlpar\outlinelevel2\adjustright \b\lang1024\cgrid 
+\sbasedon0 \snext0 heading 3;}{\s4\qj\li720\sb200\keep\keepn\nowidctlpar\widctlpar\outlinelevel3\adjustright \b\fs20\ul\lang1024\cgrid \sbasedon0 \snext0 heading 4;}{\s5\qj\li900\sb200\keep\nowidctlpar\widctlpar\outlinelevel4\adjustright 
+\b\fs20\lang1024\cgrid \sbasedon0 \snext0 heading 5;}{\*\cs10 \additive Default Paragraph Font;}{\s15\qj\li2880\ri720\sb200\keep\nowidctlpar\widctlpar\tldot\tx8280\tqr\tx8640\adjustright \fs20\lang1024\cgrid \sbasedon0 \snext0 \sautoupd toc 5;}{
+\s16\qj\li2160\ri720\sb200\keep\nowidctlpar\widctlpar\tldot\tx8280\tqr\tx8640\adjustright \fs20\lang1024\cgrid \sbasedon0 \snext0 \sautoupd toc 4;}{\s17\qj\li1440\ri720\sb200\keep\nowidctlpar\widctlpar\tldot\tx8280\tqr\tx8640\adjustright 
+\fs20\lang1024\cgrid \sbasedon0 \snext0 \sautoupd toc 3;}{\s18\qj\li720\ri720\sb200\keep\nowidctlpar\widctlpar\tldot\tx8280\tqr\tx8640\adjustright \fs20\lang1024\cgrid \sbasedon0 \snext0 \sautoupd toc 2;}{\s19\qj\sb200\keep\nowidctlpar\widctlpar
+\tqc\tx4320\tqr\tx8640\adjustright \fs20\lang1024\cgrid \sbasedon0 \snext19 footer;}{\s20\qj\sb200\keep\nowidctlpar\widctlpar\tqc\tx4320\tqr\tx8640\adjustright \fs20\lang1024\cgrid \sbasedon0 \snext20 header;}{\s21\qj\sb200\keep\nowidctlpar\widctlpar\box
+\brdrs\brdrw15 \adjustright \fs20\lang1024\cgrid \sbasedon0 \snext21 note;}{\s22\qj\fi-2520\li2520\sb200\keep\nowidctlpar\widctlpar\box\brdrdb\brdrw15 \adjustright \fs20\lang1024\cgrid \sbasedon0 \snext22 command list;}{
+\s23\sb200\keep\nowidctlpar\widctlpar\box\brdrdot\brdrw15 \adjustright \fs20\lang1024\cgrid \sbasedon21 \snext23 stack behavior;}{\s24\sl480\slmult0\keep\nowidctlpar\widctlpar
+\tx360\tx720\tx1080\tx1440\tx1800\tx2160\tx2520\tx2880\tx3240\tx3600\tx3960\tx4320\tx4680\tx5040\tx5400\tx5760\tx6120\tx6480\tx6840\tx7200\tx7560\tx7920\tx8280\adjustright \b\f2\fs16\lang1024\cgrid \sbasedon0 \snext24 code;}{
+\s25\keep\nowidctlpar\widctlpar\tx360\tx720\tx1080\tx1440\tx1800\tx2160\tx2520\tx2880\tx3240\tx3600\tx3960\tx4320\tx4680\tx5040\tx5400\tx5760\tx6120\tx6480\tx6840\tx7200\tx7560\tx7920\tx8280\adjustright \b\f2\fs16\lang1024\cgrid \sbasedon24 \snext25 
+single-spaced code;}{\s26\qj\sb200\keep\nowidctlpar\widctlpar\adjustright \fs20\lang1024\cgrid \sbasedon0 \snext26 Date;}{\s27\qj\sb200\sl360\slmult1\keep\nowidctlpar\widctlpar\adjustright \fs20\lang1024\cgrid \sbasedon0 \snext27 Normal1.5;}{
+\s28\qj\fi-360\li360\sb200\keep\nowidctlpar\widctlpar{\*\pn \pnlvlblt\ilvl10\ls2047\pnrnot0\pnf3\pnstart1\pnindent360\pnhang{\pntxtb \'b7}}\ls2047\ilvl10\adjustright \fs20\lang1024\cgrid \sbasedon0 \snext28 \sautoupd List Bullet;}{
+\s29\qj\sb200\sa120\keep\nowidctlpar\widctlpar\adjustright \fs20\lang1024\cgrid \sbasedon0 \snext29 Body Text;}{\s30\qj\li360\sb200\sa120\keep\nowidctlpar\widctlpar\adjustright \fs20\lang1024\cgrid \sbasedon0 \snext30 Body Text 2;}}{\*\listtable
+{\list\listtemplateid482361006\listsimple{\listlevel\levelnfc23\leveljc0\levelfollow0\levelstartat1\levelspace0\levelindent0{\leveltext\'01\u-3913 ?;}{\levelnumbers;}\f3\fbias0 \fi-360\li360\jclisttab\tx360 }{\listname ;}\listid-119}
+{\list\listtemplateid-1\listsimple{\listlevel\levelnfc0\leveljc0\levelfollow0\levelstartat0\levelspace0\levelindent0{\leveltext\'01*;}{\levelnumbers;}}{\listname ;}\listid-2}}{\*\listoverridetable{\listoverride\listid-119\listoverridecount0\ls1}
+{\listoverride\listid-119\listoverridecount0\ls2}{\listoverride\listid-119\listoverridecount0\ls3}{\listoverride\listid-119\listoverridecount0\ls4}{\listoverride\listid-119\listoverridecount0\ls5}{\listoverride\listid-2\listoverridecount1{\lfolevel
+\listoverrideformat{\listlevel\levelnfc23\leveljc0\levelfollow0\levelstartat1\levelold\levelspace0\levelindent360{\leveltext\'01\u-3913 ?;}{\levelnumbers;}\f3\fbias0 \fi-360\li360 }}\ls6}}{\info
+{\title Release Notes for Meme for Windows version 2.6 (Pre-Beta)}{\author Marc de Groot}{\operator Marc de Groot}{\creatim\yr1995\mo9\dy5\hr6\min56}{\revtim\yr1999\mo4\dy15\hr10\min1}{\version62}{\edmins895}{\nofpages12}{\nofwords3339}{\nofchars19036}
+{\*\company Immersive Systems, Inc.}{\nofcharsws23377}{\vern71}}\widowctrl\ftnbj\aenddoc\lytprtmet\linkstyles\hyphcaps0\formshade\viewkind1\viewscale75\pgbrdrhead\pgbrdrfoot \fet0{\*\template E:\\src\\Meme\\doc\\dist\\memedoc.dot}\sectd 
+\linex0\endnhere\sectdefaultcl {\*\pnseclvl1\pnucrm\pnstart1\pnindent720\pnhang{\pntxta ?}}{\*\pnseclvl2\pnucltr\pnstart1\pnindent720\pnhang{\pntxta ?}}{\*\pnseclvl3\pndec\pnstart1\pnindent720\pnhang{\pntxta ?}}{\*\pnseclvl4
+\pnlcltr\pnstart1\pnindent720\pnhang{\pntxta ?}}{\*\pnseclvl5\pndec\pnstart1\pnindent720\pnhang{\pntxtb ?}{\pntxta ?}}{\*\pnseclvl6\pnlcltr\pnstart1\pnindent720\pnhang{\pntxtb ?}{\pntxta ?}}{\*\pnseclvl7\pnlcrm\pnstart1\pnindent720\pnhang{\pntxtb ?}
+{\pntxta ?}}{\*\pnseclvl8\pnlcltr\pnstart1\pnindent720\pnhang{\pntxtb ?}{\pntxta ?}}{\*\pnseclvl9\pnlcrm\pnstart1\pnindent720\pnhang{\pntxtb ?}{\pntxta ?}}\pard\plain \s2\sb200\sl480\slmult0\keep\keepn\nowidctlpar\widctlpar\outlinelevel1\adjustright 
+\b\f1\fs28\lang1024\cgrid {Release Notes for the Meme Development System for Windows Version 2.79 (Beta)
+\par }\pard\plain \s26\qj\sb200\keep\nowidctlpar\widctlpar\adjustright \fs20\lang1024\cgrid {15 April 1999
+\par This release of the Meme Development System has added functionality for 3D accelerator cards using the Voodoo chipset from 3DFX.  In addition, Meme now recognizes and uses DirectDraw capability if available on your machine.
+\par The manual has been expanded.  T
+he information contained in it is sufficiently important to the developer that we have supplied a version of the Programming Guide that contains incomplete sections in some places, rather than shipping a neater but less informative early version of this d
+ocument.
+\par Your comments and suggestions are welcome.  Feel free to use the information on the following page to get in touch with us at any time.
+\par Thanks for choosing  Immersive Systems.
+\par \tab \tab \tab \tab \tab \tab \tab \tab Yours,
+\par 
+\par }\pard \s26\sb200\keep\nowidctlpar\widctlpar\adjustright {\tab \tab \tab \tab \tab \tab \tab \tab Marc de Groot, CEO\line \tab \tab \tab \tab \tab \tab \tab \tab Immersive Systems, Inc.
+\par }\pard\plain \s2\sb200\sl480\slmult0\keep\keepn\nowidctlpar\widctlpar\outlinelevel1\adjustright \b\f1\fs28\lang1024\cgrid {\page How to get in touch with us
+\par }\pard\plain \s27\qj\sb200\sl360\slmult1\keep\nowidctlpar\widctlpar\adjustright \fs20\lang1024\cgrid {You can contact us in several ways; postal mail, telephone, and electronic mail are recommended.  Here are addresses for Immersive:
+\par }\pard \s27\sb200\sl360\slmult1\keep\nowidctlpar\widctlpar\adjustright {\b Mailing address:}{\line Immersive Systems, Inc. \line 4487 23}{\super rd}{ Street  # 2\line San Francisco, CA 94114\line }{\b \line Telephone: }{ \tab \tab \tab \tab (415) 641-VR4U
+
+\par }{\b World-Wide Web:}{\tab \tab \tab http://www.immersive.com
+\par }{\b E-mail addresses:}{ \line info@immersive.com\tab \tab \tab For general information and product inquiries\line meme-support@immersive.com\tab \tab For tech support questions and bug reports\line 
+\par }\pard\plain \s2\sb200\sl480\slmult0\keep\keepn\nowidctlpar\widctlpar\outlinelevel1\adjustright \b\f1\fs28\lang1024\cgrid {\page  Getting started with Meme
+\par }\pard\plain \s3\li360\sb200\sl480\slmult0\keep\keepn\nowidctlpar\widctlpar\outlinelevel2\adjustright \b\lang1024\cgrid {HARDWARE REQUIREMENTS
+\par }\pard\plain \s27\sb200\sl360\slmult1\keep\nowidctlpar\widctlpar\adjustright \fs20\lang1024\cgrid {386 or better PC (486-33MHz minimum recommended for satisfactory performance)\line A minimum of 4 megabytes of RAM.  8 megabytes are recommended. \line 
+You will need about 2 megabytes of disk space to install Meme. \line It is recommended that Meme be used with a color display and VGA or SVGA card in a 16-bit (64k colors) display mode.
+\par }\pard\plain \s3\li360\sb200\sl480\slmult0\keep\keepn\nowidctlpar\widctlpar\outlinelevel2\adjustright \b\lang1024\cgrid {SOFTWARE REQUIREMENTS
+\par }\pard\plain \s27\qj\sb200\sl360\slmult1\keep\nowidctlpar\widctlpar\adjustright \fs20\lang1024\cgrid {One of: Windows 95 with TCP/IP installed, Windows NT with TCP/IP installed, or Windows 3.x with Win32s and WINSOCK installed.
+\par You must have Win32s to run Meme on a computer with Windows 3.x.  If you do not have Win32s, it is available for anonymous FTP from ftp.microsoft.com.  It is also available at ftp.immersive.com in the \ldblquote incoming\rdblquote 
+ directory.  The name of the file is pw1118.exe.  Please note t
+hat the directory itself has been marked unreadable, and it will appear empty in a directory listing.  Because of this, some web browsers will have trouble retrieving the file.  It is recommended that a text-based FTP client be used for downloading the fi
+le from Immersive Systems\rquote  site. 
+\par }\pard\plain \s3\li360\sb200\sl480\slmult0\keep\keepn\nowidctlpar\widctlpar\outlinelevel2\adjustright \b\lang1024\cgrid {INSTALLATION
+\par }\pard\plain \s27\qj\sb200\sl360\slmult1\keep\nowidctlpar\widctlpar\adjustright \fs20\lang1024\cgrid {
+Meme is distributed as a self-extracting archive.  Double-click the archive file to start the installation procedure.  Follow the instructions given to you during installation.
+\par }\pard \s27\sb200\sl360\slmult1\keep\nowidctlpar\widctlpar\adjustright {When the installation is finished, you should have the following files in Meme\rquote s home directory:
+\par !README.1ST\tab A brief message advising the user to print the Release Notes.
+\par 3dstorwx.exe\tab The 3-D Studio file conversion program
+\par config.exe\tab The Meme configuration program.  You will not need to use this\line \tab \tab program unless you want to enable or disable Meme\rquote s network interface.\line \tab \tab See the }{\ul Meme Programming Guide}{ and the }{\ul Bugs}{
+ section of this\line \tab \tab document for details.
+\par dos4gw.exe\tab DOS Extender for the file conversion programs
+\par dxftorwx.exe\tab The AutoCAD DXF file conversion program
+\par floating.txt\tab A glossary of the floating-point math functions in Meme
+\par meme.dic\tab The Meme dictionary file\emdash used by Meme while running
+\par meme.exe\tab Meme itself
+\par memedoc.dot\tab A Word for Windows 7.0 template file.  It contains typestyles for the documentation.
+\par memefile\tab A directory containing 3D object and texture files
+\par pgmguide.doc\tab The Meme Programming Guide
+\par relnotes.doc\tab This document
+\par src\tab \tab A directory containing examples of Meme programs
+\par whatis.txt\tab A glossary of the general-purpose functions in Meme
+\par In addition, the following files have been placed in the Windows system directory:
+\par rwdl6b21.dll\tab Rendering engine display driver for 16-bit VGA displays
+\par rwdlvb21.xxx\tab Rendering engine display driver for the 3DFX Voodoo chipset
+\par rwl21.dll\tab Rendering engine library
+\par }\pard \s27\qj\sb200\sl360\slmult1\keep\nowidctlpar\widctlpar\adjustright {If any of the files are missing, please contact Immersive Systems for assistance.
+\par The Windows SYSTEM directory is a subdirectory of the Windows installation directory.  Under Windows 95 and Windows 3.x, it is often }{\f2 C:\\WINDOWS\\SYSTEM}{.  Under Windows NT, it is often }{\f2 C:\\WINDOWS\\SYSTEM32}{
+.  Note that if Windows was not installed in }{\f2 C:\\WINDOWS}{, the directory path will be different than one of those mentioned above.
+\par }\pard \s27\qj\sb200\sl360\slmult1\keep\nowidctlpar\widctlpar\brdrt\brdrs\brdrw10\brsp20 \brdrl\brdrs\brdrw10\brsp80 \brdrb\brdrs\brdrw10\brsp20 \brdrr\brdrs\brdrw10\brsp80 \adjustright {\b If you have a 3D accel
+erator card that uses the Voodoo chipset from 3DFX}{, you can choose to render Meme\rquote 
+s virtual worlds using the greatly increased power of the accelerator.  To use the acclerator card, rename the file rwdlvb21.xxx to rwdlvb21.dll.  This file is placed in the Windows system directory during installation of the Meme Development System.  }{
+\b Note:}{ If you do not rename this file, Meme will render to a window on the computer\rquote s VGA adapter, even though the accelerator card is installed.
+\par }\pard\plain \s2\sb200\sl480\slmult0\keep\keepn\nowidctlpar\widctlpar\outlinelevel1\adjustright \b\f1\fs28\lang1024\cgrid {The Demo Programs
+\par }\pard\plain \s27\sb200\sl360\slmult1\keep\nowidctlpar\widctlpar\adjustright \fs20\lang1024\cgrid {In the \ldblquote }{\f2 src}{\rdblquote  directory you will find the following files:\line dbgdata.mh\tab 
+A Meme header file with the data structure for the debugger\line dispatch.mh\tab A Meme header file associated with NetDispatch\line errors.mh\tab A Meme header file containing error codes.}{\fs28\ul \line }{flying.m\tab \tab Meme source code for
+ a simple airplane simulator\line getahead.m\tab Meme source code for a two-user interactive demo\line head.m\tab \tab Meme source code for a scene with a head and lights\line messages.mh\tab A Meme header file associated with messages and their headers
+\line mstructs.mh\tab A Meme header file associated with modules and their headers\line net.m\tab \tab Meme source code associated with networking functions\line spinball.m\tab Meme source code for a spinning ball
+\par }\pard \s27\qj\sb200\sl360\slmult1\keep\nowidctlpar\widctlpar\adjustright {There are four demos included.  The demo programs are supplied in source code form.  You can edit the sourc
+e code with a text editor.  Meme source code files (by convention) have a suffix of \ldblquote .M\rdblquote  on DOS and Windows 3.1 machines, and \ldblquote .m\rdblquote  on Windows 95, NT and Unix machines.
+\par To compile the code, start Meme and change directory to the \ldblquote }{\f2 src}{\rdblquote  directory with the following line:
+\par }{\f2 cd \\meme\\src
+\par }{Compile the program by typing
+\par }{\f2 fload progname.m
+\par }{(Substitute the program\rquote s actual name for \ldblquote progname\rdblquote  in these examples.)
+\par To run the program, use the \ldblquote mload\rdblquote  command as shown on the next line:
+\par }{\f2 mload progname.mm
+\par }{Note that the name of the compiled program ends in \ldblquote }{\f2 .mm}{\rdblquote ; in contrast to the source\rquote s \ldblquote }{\f2 .m}{\rdblquote  suffix.
+\par \page The demo programs are as follows.  Each program\rquote s filename has the name given in its description here, followed by the \ldblquote }{\f2 .m}{\rdblquote  suffix.
+\par SPINBALL - A very simple program with a red faceted ball turning against a green background.
+\par HEAD - A scene with a head sitting on a checkerboard plane.  Two lights hover in a circle over the head, casting varying patterns of light and dark on its features.
+\par FLYING - A l
+arge checkerboard plane with objects moving in the sky above it.  The user can navigate through the scene by using the mouse as an airplane joystick.  The airplane does not move until a mouse button is pressed.  Use the left button to fly slowly and the r
+ight button to fly fast.  When the mouse cursor is in the center of Meme\rquote 
+s graphical window, the airplane will fly straight and level.  Pulling back on the on the joystick, i. e. moving the cursor toward the bottom of the window, will cause the airplane to 
+climb.  Pushing forward on the joystick will cause the airplane to dive.  Moving the joystick left or right causes the airplane to turn left or right.
+\par GETAHEAD - This two-user program demonstrates the networking abilities of Meme.  To use this demo, Meme m
+ust be installed on two computers (or accessible to both via a shared disk.)  These computers must be able to communicate over a network running TCP/IP.  Meme ships with its networking interface disabled.  Follow the instructions for using CONFIG.EXE to e
+n
+able networking if you have not already done so.  Under Windows NT or Windows 3.x, start the Meme interpreter by double-clicking its icon, or run it from the Run... menu item of the Program Manager or File Manager.  Under Windows 95, start the Meme interp
+reter by selecting it from the Start menu under the Programs heading.  When Meme starts, type the following command at its command prompt:
+\par }{\f2 mload getahead.mm
+\par }{The demo will start, and will ask you for the hostname of the other person running the demo.  Type in the name of your partner\rquote 
+s computer.  You can also type the IP number of the computer if you wish.  Have your partner do the same, using your computer\rquote s nameor IP number.  After a few moments the graphical window will show a checkerboard.  You can drive 
+around on the checkerboard using the mouse.  Press the left mouse button to move.  Pushing the mouse away from you moves forward in the virtual world; pulling the mouse toward you moves backward.
+\par Move the mouse left or right to turn.  When the program star
+ts, you and your partner will be standing on the checkerboard in the same spot.  One of you should move forward a bit and turn around.  You should be able to see each other at that point.  Interaction in this program is limited to driving.
+\par }\pard\plain \s2\sb200\sl480\slmult0\keep\keepn\nowidctlpar\widctlpar\outlinelevel1\adjustright \b\f1\fs28\lang1024\cgrid {Changes since version 2.6
+\par {\pntext\pard\plain\s28 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}}\pard\plain \s28\qj\fi-360\li360\sb200\keep\nowidctlpar\widctlpar{\*\pn \pnlvlblt\ilvl0\ls6\pnrnot0\pnf3\pnstart1\pnindent360\pnhang{\pntxtb \'b7}}\ls6\adjustright 
+\fs20\lang1024\cgrid {The interpreter now has networking disabled by default.  Run the CONFIG program to enable networking.
+\par {\pntext\pard\plain\s28 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}Materials have changed.  If any of the red, green, or blue coefficients in a material are negative, the color will be ignored when the mate
+rial is applied to a polygon or shape.  If  the opacity coefficient is negative it will be ignored when the material is applied.  If any of the ambient, diffuse, or specular reflectivity coefficients are negative, the reflectivity will be ignored when the
+ material is applied.  
+\par {\pntext\pard\plain\s28 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}The meme }{\b DestroyMaterial}{ no longer destroys any texture that might be referenced by the material.  The programmer must explicitly call }{\b DestroyTexture}{
+ when the texture is no longer needed.
+\par {\pntext\pard\plain\s28 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}}{\b ShowHier}{, }{\b ShowUsed}{, and }{\b .object}{ have been improved.
+\par {\pntext\pard\plain\s28 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}}{\b SelectObject}{ has been added.
+\par }\pard\plain \s23\li360\sb200\keep\nowidctlpar\widctlpar\box\brdrdot\brdrw15 \adjustright \fs20\lang1024\cgrid {\b SelectObject}{ \tab ( -- objaddr )
+\par }\pard\plain \s30\qj\li360\sb200\sa120\keep\nowidctlpar\widctlpar\adjustright \fs20\lang1024\cgrid {
+SelectObject waits for a down-to-up transition of the left mouse button.  The returned value is the address of the object whose polygon was under the mouse pointer when the transition o
+ccured.  If there was no polygon under the pointer, or if the polygon did not belong to an object, a zero is returned.}{\fs24 
+\par {\pntext\pard\plain\s28 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}}\pard\plain \s28\qj\fi-360\li360\sb200\keep\nowidctlpar\widctlpar{\*\pn \pnlvlblt\ilvl0\ls6\pnrnot0\pnf3\pnstart1\pnindent360\pnhang{\pntxtb \'b7}}\ls6\adjustright 
+\fs20\lang1024\cgrid {Several memes have been added that allow reading and writing of an object\rquote s fields in groups.}{\fs24 
+\par }\pard\plain \s23\li360\sb200\keep\nowidctlpar\widctlpar\box\brdrdot\brdrw15 {\*\pn \pnlvlcont\ilvl0\ls0\pnrnot0\pndec }\adjustright \fs20\lang1024\cgrid {\b xyz@}{\tab \tab ( objaddr -- ) ( [float] -- x y z )\line }{\b xyz!\tab \tab }{
+( objaddr -- ) ( [float] x y z -- )\line }{\b ypr@}{\tab \tab ( objaddr -- ) ( [float] -- yaw pitch roll )\line }{\b ypr!\tab }{\tab ( objaddr -- ) ( [float] yaw pitch roll -- )\line }{\b scale@}{\tab \tab 
+( objaddr -- ) ( [float] -- xscale yscale zscale )\line }{\b scale!}{\tab \tab ( objaddr -- ) ( [float] xscale yscale zscale -- )\line }{\b transform@}{\tab \tab ( objaddr -- ) ( [float] -- x y z  xscale yscale zscale yaw pitch roll )\line }{\b transform!
+}{\tab \tab ( objaddr -- ) ( [float] x y z  xscale yscale zscale yaw pitch roll -- )
+\par {\pntext\pard\plain\s28 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}}\pard\plain \s28\qj\fi-360\li360\sb200\keep\nowidctlpar\widctlpar{\*\pn \pnlvlblt\ilvl0\ls6\pnrnot0\pnf3\pnstart1\pnindent360\pnhang{\pntxtb \'b7}}\ls6\adjustright 
+\fs20\lang1024\cgrid {The meme }{\b AbsolutePosition}{ has been replaced by }{\b Transform}{.
+\par }\pard\plain \s23\li360\sb200\keep\nowidctlpar\widctlpar\box\brdrdot\brdrw15 {\*\pn \pnlvlcont\ilvl0\ls0\pnrnot0\pndec }\adjustright \fs20\lang1024\cgrid {\b Transform}{ \tab \tab ( obj1 obj2 obj3 -- err )
+\par }\pard\plain \s29\qj\li270\sb200\sa120\keep\nowidctlpar\widctlpar\tx0{\*\pn \pnlvlcont\ilvl0\ls0\pnrnot0\pndec }\adjustright \fs20\lang1024\cgrid {\b Transform}{
+ takes three object addresses as its arguments.  It leaves a boolean on the stack on exit.  The boolean is FALSE if successful and TRUE if error.  On error, }{\b GetLastError}{ returns an error code.
+\par }\pard \s29\qj\li270\sb200\sa120\keep\nowidctlpar\widctlpar{\*\pn \pnlvlcont\ilvl0\ls0\pnrnot0\pndec }\adjustright {To understand the use of }{\b Transform}{
+, consider two avatars, Alice and Bob.  Alice is holding a ball which she hands to Bob.  The ball starts as a child of Alice\rquote s hand.  After she hands it to Bob the ball is a child of Bob\rquote s hand.  Alice and Bob\rquote 
+s hands are in different positions and orientations in world coordinates, yet the ball must not change position or orientation (with respect to world coordinates) when handed from Alice to Bob.  To achieve this, the ball\rquote 
+s position and orientation fields must be modified as a function of the relationship between their hands.
+\par }{\b Transform}{ sets the translation, rotation and scale fields of obj3 as a function of the relationship between obj1 and obj2.  Specifically: if obj1 were moved from its present place in the object tree to be a child of obj2, and
+ obj1 were not to move with respect to world coordinates, its translation and orientation fields would need to be modified.  Those are the values written to obj3.  In the example above, the ball (as a child of Alice\rquote s hand) is obj1.  Bob\rquote 
+s hand is obj2.  Obj3 can be the ball, or it can be a scratch object that has been created for the purpose of receiving the values.
+\par Assume }{\b BHand}{ and }{\b Ball}{ are memes that return the object addresses of Bob\rquote s hand and the ball, respectively.  The following phrase will transfer the ball from Alice\rquote s hand to Bob\rquote s:
+\par }\pard\plain \s25\li270\keep\nowidctlpar\widctlpar\tx360\tx720\tx1080\tx1440\tx1800\tx2160\tx2520\tx2880\tx3240\tx3600\tx3960\tx4320\tx4680\tx5040\tx5400\tx5760\tx6120\tx6480\tx6840\tx7200\tx7560\tx7920\tx8280{\*\pn \pnlvlcont\ilvl0\ls0\pnrnot0\pndec }
+\adjustright \b\f2\fs16\lang1024\cgrid {Ball BHand Ball Transform  BHand Ball Adopts
+\par {\pntext\pard\plain\s28 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}}\pard\plain \s28\qj\fi-360\li360\sb200\keep\nowidctlpar\widctlpar{\*\pn \pnlvlblt\ilvl0\ls6\pnrnot0\pnf3\pnstart1\pnindent360\pnhang{\pntxtb \'b7}}\ls6\adjustright 
+\fs20\lang1024\cgrid {File caching has been added for remote file access.  Files read from remote hosts (by specifying a URL) are now saved on the local hard disk, so multiple reads of a remot
+e file result in only one transfer of the file over the network connection.  The cached files are stored in the }{\b MEMETMP}{ directory.  If the }{\b MEMETMP}{ environment variable is not defined, the temporary directory is one of \\TMP, \\TEMP, or the }
+{\b MEME}{ directory.  The presence of these directories is tested, in the order mentioned, until one is found to exist.
+\par {\pntext\pard\plain\s28 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}A new command-line option has been added for hosts behind firewalls.  The -p option specifies the hostname and port number of the HTTP proxy used to access W
+orld-Wide Web servers.  To use the -p option, specify \ldblquote -p hostname:port\rdblquote  when starting Meme.  For instance, if the hostname of the proxy is \ldblquote proxyhost\rdblquote  and the port number is 5000, specify \ldblquote 
+-p proxyhost:5000\rdblquote  on the command line.
+\par {\pntext\pard\plain\s28 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}
+If the network interface is disabled or encounters an error on startup (as reported in the startup banner in the Meme Command Window), all URLs are treated as local file names.  When trying to open a remote file, the URL type specifier and hostname are st
+ripped from the file name, and the }{\b MEMEFILES}{ paths are searched for the file.
+\par {\pntext\pard\plain\s28 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}\page The module data structure has changed.  Modules now start with the following header, which is included in the file mstructs.mh.
+\par }\pard\plain \s24\li360\sl480\slmult0\keep\nowidctlpar\widctlpar\tx360\tx720\tx1080\tx1440\tx1800\tx2160\tx2520\tx2880\tx3240\tx3600\tx3960\tx4320\tx4680\tx5040\tx5400\tx5760\tx6120\tx6480\tx6840\tx7200\tx7560\tx7920\tx8280\adjustright 
+\b\f2\fs16\lang1024\cgrid {BeginStruct
+\par }\pard\plain \s25\li360\keep\nowidctlpar\widctlpar\tx360\tx720\tx1080\tx1440\tx1800\tx2160\tx2520\tx2880\tx3240\tx3600\tx3960\tx4320\tx4680\tx5040\tx5400\tx5760\tx6120\tx6480\tx6840\tx7200\tx7560\tx7920\tx8280\adjustright \b\f2\fs16\lang1024\cgrid {\tab 
+Int ModuleMagic\tab \tab \tab \tab \tab \\ Magic #\line \tab #threads Ints LinkFieldPtrs\tab \tab \\ Like a vocabulary\line \tab Int VocLinkPtr\tab \tab \tab \tab \tab \tab \\ Like a vocabulary (always 0)\line \tab Int ModuleMaxFileSize\tab \tab \tab 
+\tab \\ Max # bytes in module\line \tab Int ModuleDP\tab \tab \tab \tab \tab \tab \\ Top of module's dictionary\line \tab Int 1stTaskPtr\tab \tab \tab \tab \tab \tab \\ Pointer to first task\line \tab Int LastTaskLinkPtr\tab \tab \tab \tab \\
+ Pointer to last task's link\line \tab Int RelTableOffset\tab \tab \tab \tab \tab \\ Offset from module addr to rel table\line \tab Int ModuleLoaded\tab \tab \tab \tab \tab \\ Is-module-loaded flag\line \tab Int CFAOfGo\tab \tab \tab \tab \tab \tab \tab 
+\\ Xaddr of the "go" meme\line \tab Int CFAOfReceiver\tab \tab \tab \tab \tab \\ Xaddr of the "receiver" meme\line \tab Int CompilationOrigin\tab \tab \tab \tab \\ Base addr of module at compile time\line \tab Int CompilationLibOrigin\tab \tab \tab \\
+ Base addr of std library at compile time\line \tab Int ModuleCreator\tab \tab \tab \tab \tab \\ Module that created this module\line \tab Int ModuleTagPointer\tab \tab \tab \tab \\ Ptr to module ID string\line \tab Int ModuleAuxPointer\tab \tab \tab 
+\tab \\ User-defined pointer\line \tab Lbl ModuleDict\tab \tab \tab \tab \tab \tab \\ Start of dictionary\line Struct Modules\line \line C0DEBA5E constant ModuleMagicNumber\tab \\ Value for the ModuleMagic field
+\par }\pard\plain \qj\fi-360\li360\sb200\keep\nowidctlpar\widctlpar\adjustright \fs20\lang1024\cgrid {\tab Several new fields have been added to the module header, which are described below.
+\par \tab The }{\b ModuleMagic}{ field contains a \ldblquote magic number\rdblquote , or file signature value that is checked when a module is loaded.  The magic number is the value of }{\b ModuleMagicNumber}{
+ which is a 32-bit integer.  The ModuleMagic field of a module\rquote s disk image can be examined to determine its
+ byte order, which may need to be modified when the module is loaded into RAM.  A module that has been loaded with NewCompound or LoadModuleFromFile is always stored using the native byte order of the processor.
+\par \tab The }{\b ModuleCreator}{ field contains a pointer to the module that created this module.  Note that the creator is not necessarily the parent of this module in the hierarchy of articulation.
+\par \tab The }{\b ModuleTagPointer}{ field contains a pointer to a cstring (a null-terminated ASCII string) that identifies the t
+ype of object defined by the module.  The tag string of all compound objects can be examined to determine, for example, whether a module of a certain type is near a given object in the virtual space.  The contents of the tag string is determined by the pr
+ogrammer; at this time there are no values reserved by the system.  The ModuleTagPointer contains a zero if there is no tag string.
+\par \tab The }{\b ModuleAuxPointer}{ field is provided for the convenience of the programmer.  The auxiliary pointer can be used to find data in the module when only the module\rquote s base address is known.  Typically, the module\rquote s tag string (see }{
+\b ModuleTagPointer}{, above) is examined to determine the meaning, if any, of the }{\b ModuleAuxPointer}{.
+\par {\pntext\pard\plain\s28 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}}\pard\plain \s28\qj\fi-360\li360\sb200\keep\nowidctlpar\widctlpar{\*\pn \pnlvlblt\ilvl0\ls6\pnrnot0\pnf3\pnstart1\pnindent360\pnhang{\pntxtb \'b7}}\ls6\adjustright 
+\fs20\lang1024\cgrid {Sprite objects have been added.  A sprite object is a single square polygon, 1 unit by 1 unit.  The plane of the object is always perpendicular to the line of  sight of the camera.  Sprite objects are created with }{\b NewSprite}{.
+
+\par }\pard\plain \s23\sb200\keep\nowidctlpar\widctlpar\box\brdrdot\brdrw15 {\*\pn \pnlvlcont\ilvl0\ls0\pnrnot0\pndec }\adjustright \fs20\lang1024\cgrid {\b NewSprite}{\tab \tab \tab ( parent linktype textureptr -- objaddr )\line \tab \tab \tab where:\tab 
+parent is the object address of the parent object.\line \tab \tab \tab \tab linktype is one of }{\b swivelLink}{ or }{\b lockedLink.\line \tab \tab \tab \tab }{textureptr is a pointer to a texture, as returned by }{\b NewTexture.\line \tab \tab \tab \tab 
+}{objaddr is the object address.  objaddr is zero if an error occurred.
+\par }\pard\plain \qj\fi-360\li360\sb200\keep\nowidctlpar\widctlpar{\*\pn \pnlvlcont\ilvl0\ls0\pnrnot0\pndec }\adjustright \fs20\lang1024\cgrid {\tab Sprite objects are always created
+ with a texture applied.  The texture can be one or multiple frames, and can be a masked texture.  Sprite objects have their own object type whose value is returned by }{\b spriteObject}{
+.  Sprite objects are only of one type; their subtype field is unused.  Spri
+te objects act in all respects like visible objects, except that setting their yaw and pitch angles has no effect on their orientation, and their surfaces are not affected by light sources.  Note that the yaw and pitch angles will still affect any childre
+n of sprite objects.
+\par {\pntext\pard\plain\s28 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}}\pard\plain \s28\qj\fi-360\li360\sb200\keep\nowidctlpar\widctlpar{\*\pn \pnlvlblt\ilvl0\ls6\pnrnot0\pnf3\pnstart1\pnindent360\pnhang{\pntxtb \'b7}}\ls6\adjustright 
+\fs20\lang1024\cgrid {Masked textures have been added.  A masked texture has transparent pixels.  This allows the construction of objects with curved or ragged edges, as well as allowing holes to be made through polygon faces.  Masked textures are created
+ with }{\b NewMaskedTexture}{.
+\par }\pard\plain \s23\sb200\keep\nowidctlpar\widctlpar\box\brdrdot\brdrw15 {\*\pn \pnlvlcont\ilvl0\ls0\pnrnot0\pndec }\adjustright \fs20\lang1024\cgrid {\b NewMaskedTexture}{\tab \tab ( texturefilename maskfilename -- textureptr )\line \tab \tab \tab where:
+\tab texturefilename is a pointer to a cstring with the name of the texture\line \tab \tab \tab \tab file.\line \tab \tab \tab \tab maskfilename is a pointer to a cstring with the name of the mask file.\line \tab \tab \tab \tab 
+textureptr is a pointer to the newly created texture.\line \tab \tab \tab \tab textureptr is zero on error.
+\par }\pard\plain \qj\fi-360\li360\sb200\keep\nowidctlpar\widctlpar{\*\pn \pnlvlcont\ilvl0\ls0\pnrnot0\pndec }\adjustright \fs20\lang1024\cgrid {\tab 
+The mask is an image file the same size as the texture file.  Pixels in the mask whose brightness is less than one half the maximum brightness will become transparen
+t pixels in the resulting masked texture.  Masked textures can be multiple frames, and act like textures in all other respects as well.
+\par {\pntext\pard\plain\s28 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}}\pard\plain \s28\qj\fi-360\li360\sb200\keep\nowidctlpar\widctlpar{\*\pn \pnlvlblt\ilvl0\ls6\pnrnot0\pnf3\pnstart1\pnindent360\pnhang{\pntxtb \'b7}}\ls6\adjustright 
+\fs20\lang1024\cgrid {\b GetPolygon}{ has been added.  This meme returns a pointer to a polygon, given a pointer to a visible object or a sprite object, and a polygon number.  The polygon numbers range from zero through the number of polygons - 1.
+\par }\pard\plain \s23\sb200\keep\nowidctlpar\widctlpar\box\brdrdot\brdrw15 {\*\pn \pnlvlcont\ilvl0\ls0\pnrnot0\pndec }\adjustright \fs20\lang1024\cgrid {\b GetPolygon}{\tab \tab \tab ( index objaddr -- polygonptr )\line \tab \tab \tab where:\tab 
+index the polygon number, from 0 to #polygons - 1.\line \tab \tab \tab \tab objaddr is the address of a visible or sprite object.\line \tab \tab \tab \tab polygonptr is a pointer to the polygon.  polygonptr is zero on error.
+\par {\pntext\pard\plain\s28 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}}\pard\plain \s28\qj\fi-360\li360\sb200\keep\nowidctlpar\widctlpar{\*\pn \pnlvlblt\ilvl0\ls6\pnrnot0\pnf3\pnstart1\pnindent360\pnhang{\pntxtb \'b7}}\ls6\adjustright 
+\fs20\lang1024\cgrid {Backdrops have been added.  A backdrop is an image that is applied to the entire viewport, behind all the objects.  The backdrop image is read from a disk file, and is
+ in the same format as a texture file.  Unlike textures, backdrops can be any size.  If the backdrop is smaller than the viewport, it is tiled to fill the viewport completely.  A backdrop offset can be specified that determines which pixel of the backdrop
+ is in the upper left corner of the viewport.
+\par }\pard\plain \qj\fi-360\li360\sb200\keep\nowidctlpar\widctlpar{\*\pn \pnlvlcont\ilvl0\ls0\pnrnot0\pndec }\adjustright \fs20\lang1024\cgrid {\tab 
+Backdrops are specified on a per-camera basis.  The backdrop completely covers the viewport, so any background color that was previously set is no longer seen.
+\par }\pard\plain \s23\sb200\keep\nowidctlpar\widctlpar\box\brdrdot\brdrw15 {\*\pn \pnlvlcont\ilvl0\ls0\pnrnot0\pndec }\adjustright \fs20\lang1024\cgrid {\b SetCameraBackdrop}{\tab \tab ( objaddr backdropfilename -- )\line \tab \tab \tab where:\tab 
+objaddr is a pointer to a camera object.\line \tab \tab \tab \tab backdropfilename is a pointer to a cstring with the name of the\line \tab \tab \tab \tab backdrop file.  If backdropfilename is zero, any existing backdrop is\line \tab \tab \tab \tab 
+removed.\line \line }{\b SetCameraBackdropOffset}{\tab ( objaddr x y -- )\line \tab \tab \tab where:\tab objaddr is a pointer to a camera object.\line \tab \tab \tab \tab x is the x offset of the upper left pixel\line \tab \tab \tab \tab 
+y is the y offset of the upper left pixel
+\par {\pntext\pard\plain\s28 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}}\pard\plain \s28\qj\fi-360\li360\sb200\keep\nowidctlpar\widctlpar{\*\pn \pnlvlblt\ilvl0\ls6\pnrnot0\pnf3\pnstart1\pnindent360\pnhang{\pntxtb \'b7}}\ls6\adjustright 
+\fs20\lang1024\cgrid {\page Setting a specific frame in a multi-frame texture can be accomplished with }{\b SetTextureFrame}{.  Frame numbers range from zero to the number of frames - 1.  If the frame number is out of range, }{\b SetTextureFrame}{
+ has no effect.
+\par }\pard\plain \s23\sb200\keep\nowidctlpar\widctlpar\box\brdrdot\brdrw15 {\*\pn \pnlvlcont\ilvl0\ls0\pnrnot0\pndec }\adjustright \fs20\lang1024\cgrid {\b SetTextureFrame}{\tab \tab ( frame# textureptr -- )\line \tab \tab \tab where:\tab 
+frame# is the number of the frame to show.\line \tab \tab \tab \tab textureptr is a pointer to the texture.
+\par {\pntext\pard\plain\s28 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}}\pard\plain \s28\qj\fi-360\li360\sb200\keep\nowidctlpar\widctlpar{\*\pn \pnlvlblt\ilvl0\ls6\pnrnot0\pnf3\pnstart1\pnindent360\pnhang{\pntxtb \'b7}}\ls6\adjustright 
+\fs20\lang1024\cgrid {Primitives have been added that allow the addition of individual vertices and polygons to a shape.  Two primitives reverse the surface normals of polygons.}{
+\par }\pard\plain \s23\fi-2160\li2160\sb200\keep\nowidctlpar\widctlpar\box\brdrdot\brdrw15 {\*\pn \pnlvlcont\ilvl0\ls0\pnrnot0\pndec }\adjustright \fs20\lang1024\cgrid {\b EmptyShape\tab }{( }{objaddr -- )\line Delete all geometry from the 
+shape.  Leave a shape with zero vertices and zero polygons.
+\par }{\b AddVertex\tab }{( objaddr \endash  vindex ) ( [float] x y z -- )\line Add a vertex to the shape, setting it to (x, y, z).  Return the vertex index.
+\par }{\b AddPolygon\tab }{( vindexlistaddr n objaddr \endash  polygonptr )\line Add an n-vertex polygon to the shape. Vindexlistaddr is the address of an array of 32-bit vertex indices.
+\par }{\b AddShape\tab }{( srcobjaddr destobjaddr -- )\line Add all of the geometry in the source object to the destination object.  The source object is unchanged.
+\par }{\b ReversePolygonNormal\tab }{( polygonptr -- )\line Reversese the surface normal.  This causes the polygon to be visible from the opposite side.
+\par }{\b ReverseShapeNormals\tab }{( objaddr -- )\line Reverse the normals of all polygons in the shape.}{
+\par }\pard\plain \s2\sb200\sl480\slmult0\keep\keepn\nowidctlpar\widctlpar{\*\pn \pnlvlcont\ilvl0\ls0\pnrnot0\pndec }\outlinelevel1\adjustright \b\f1\fs28\lang1024\cgrid {Known bugs, misfeatures and omissions
+\par }\pard\plain \s3\li360\sb200\sl480\slmult0\keep\keepn\nowidctlpar\widctlpar{\*\pn \pnlvlcont\ilvl0\ls0\pnrnot0\pndec }\outlinelevel2\adjustright \b\lang1024\cgrid {In the software
+\par {\pntext\pard\plain\s27 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}}\pard\plain \s27\qj\fi-360\li360\sb200\sl360\slmult1\keep\nowidctlpar\widctlpar{\*\pn \pnlvlblt\ilvl0\ls6\pnrnot0\pnf3\pnstart1\pnindent360\pnhang{\pntxtb \'b7}}
+\ls6\adjustright \fs20\lang1024\cgrid {The proxy code that allows Meme to read files through a firewall is not compatible with the SOCKS protocol. SOCKS is an all-purpose proxy, and at some sites no other proxies are enabled by the system
+ administrator.  If Meme is used behind a firewall, it cannot read files from web servers unless there is an HTTP proxy enabled, and cannot read files whose URLs start with the \ldblquote meme:\rdblquote  access specifier.
+\par {\pntext\pard\plain\s27 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}}\pard \s27\qj\fi-360\li360\sb200\sl360\slmult1\keep\nowidctlpar\widctlpar{\*\pn \pnlvlblt\ilvl0\ls6\pnrnot0\pnf3\pnstart1\pnindent360\pnhang{\pntxtb \'b7}}
+\ls6\adjustright {Colored lights only work when rendering to a frame buffer that is 16 bits deep or deeper.  In 4- and 8-bit modes the lights are always white.
+\par {\pntext\pard\plain\s27 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}}\pard \s27\qj\fi-360\li360\sb200\sl360\slmult1\keep\nowidctlpar\widctlpar{\*\pn \pnlvlblt\ilvl0\ls6\pnrnot0\pnf3\pnstart1\pnindent360\pnhang{\pntxtb \'b7}}
+\ls6\adjustright {Joystick support is not implemented in this release.
+\par }\pard\plain \s3\li360\sb200\sl480\slmult0\keep\keepn\nowidctlpar\widctlpar{\*\pn \pnlvlcont\ilvl0\ls0\pnrnot0\pndec }\outlinelevel2\adjustright \b\lang1024\cgrid {In the documentation
+\par {\pntext\pard\plain\s27 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}}\pard\plain \s27\qj\fi-360\li360\sb200\sl360\slmult1\keep\nowidctlpar\widctlpar{\*\pn \pnlvlblt\ilvl0\ls6\pnrnot0\pnf3\pnstart1\pnindent360\pnhang{\pntxtb \'b7}}
+\ls6\adjustright \fs20\lang1024\cgrid {The }{\ul Meme Programming Guide}{ is in a preliminary form.  At this stage of development it should be usable by programmers who are experienced with Forth.  Some sections of the }{\ul Programming Guide}{
+ are blank; they exist only as section headings 
+\par {\pntext\pard\plain\s27 \f3\fs20\lang1024\cgrid \loch\af3\dbch\af0\hich\f3 \'b7\tab}}\pard \s27\qj\fi-360\li360\sb200\sl360\slmult1\keep\nowidctlpar\widctlpar{\*\pn \pnlvlblt\ilvl0\ls6\pnrnot0\pnf3\pnstart1\pnindent360\pnhang{\pntxtb \'b7}}
+\ls6\adjustright {The }{\ul Meme Glossary}{ has not been included in this release.  There are two files in Meme\rquote s installation directory, \ldblquote whatis.txt\rdblquote  and \ldblquote floating.txt\rdblquote 
+, which describe the stack effect and behavior of the most important primitive functions in Meme.  
+\par }\pard\plain \s3\li360\sb200\sl480\slmult0\keep\keepn\nowidctlpar\widctlpar\outlinelevel2\adjustright \b\lang1024\cgrid {Notice
+\par }\pard\plain \s27\qj\sb200\sl360\slmult1\keep\nowidctlpar\widctlpar\adjustright \fs20\lang1024\cgrid {Meme is a trademark of Immersive Systems, Inc. 
+ Navigator is a trademark of Netscape Communications.  Windows, Windows NT, and Windows 95 are trademarks of Microsoft.
+\par This document is copyright \'a9 1995-1999 by Immersive Systems, Inc.  All rights reserved.  Unauthorized reproduction of this document is prohibited.
+\par }}

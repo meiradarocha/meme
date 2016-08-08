@@ -1,0 +1,29 @@
+# This file is copyright by Immersive Systems, Inc.  All rights
+# reserved.  You are permitted to use this file subject to
+# the provisions and restrictions in the license agreement, which
+# is in the file LICENSE or LICENSE.txt or LICENSE.html.  If this
+# set of files does not contain a file by one of the three
+# preceding names, please contact the Metatopia project at
+# sourceforge.net or at immersive.com.
+
+# RenderWare (TM) Script File
+# A simple sqare.
+
+ModelBegin
+      ClumpBegin 
+        Color 0.000000 0.000000 0.000000
+        Surface 0.000000 0.000000 0.000000
+        LightSampling Vertex
+        GeometrySampling Solid
+        Texture NULL
+
+        Vertex -0.500000 -0.500000  0.000000	UV 0 1
+        Vertex  0.500000 -0.500000  0.000000	UV 1 1 
+        Vertex  0.500000  0.500000  0.000000	UV 1 0
+        Vertex -0.500000  0.500000  0.000000	UV 0 0
+
+        Color 1.0 1.0 1.0
+        Surface 0.500000 0.500000 0.100000
+        Quad 1 2 3 4
+      ClumpEnd
+ModelEnd

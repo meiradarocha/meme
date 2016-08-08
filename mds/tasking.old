@@ -1,0 +1,299 @@
+\ This file is copyright by Immersive Systems, Inc.  All rights
+\ reserved.  You are permitted to use this file subject to
+\ the provisions and restrictions in the license agreement, which
+\ is in the file LICENSE or LICENSE.txt or LICENSE.html.  If this
+\ set of files does not contain a file by one of the three
+\ preceding names, please contact the Metatopia project at
+\ sourceforge.net or at immersive.com.
+
+\ New multitasking code for Meme.
+\ by Marc de Groot.
+\ Copyright (c) Immersive Systems, Inc.  All rights reserved.
+
+mod\ : local ( task-base user-var-addr -- user-var-addr-in-tasks-space )
+mod\    up@ - +
+mod\ ;
+
+: sleep	( task-addr -- )	task-active? local off ;
+: wake	( task-addr -- )	task-active? local on ;
+: stop	( -- )				up@ sleep pause ;
+
+: compute-task-size	\ sp-#elems fp-#elems rp-#elems dict-bytes -- 
+					\ sp-#elems fp-#elems rp-#elems dict-bytes total-bytes
+	3 pick /n*						\ # bytes for int stack
+	3 pick /f * +					\ Add # bytes for float stack
+	2 pick /n* + 80 +				\ Add # bytes for r stack and tib
+	over +							\ Add # dictionary bytes
+	user-size +						\ Add # user area bytes
+;
+
+\ Allocate space for a task on the heap.  Return the task address.  Return
+\ 0 if can't allocate.
+: allocate-heap-task	\ sp-#elems fp-#elems rp-#elems dict-bytes -- 
+						\ sp-#elems fp-#elems rp-#elems dict-bytes task-addr
+	compute-task-size
+	alloc-mem
+;
+
+: allocate-dict-task	\ sp-#elems fp-#elems rp-#elems dict-bytes -- 
+						\ sp-#elems fp-#elems rp-#elems dict-bytes task-addr
+	compute-task-size
+	here swap allot align
+;
+
+: initialize-task	\ sp-#elems fp-#elems rp-#elems dict-bytes task-addr --
+
+	\ Copy my user area to her user area
+	up@ over #user @ cmove
+
+	\ Her link already points to my successor.  Set my link to point to
+	\ to her.
+	dup link !
+
+	\ Save my user pointer on r stk, set her user pointer
+	up@ >r up!						( -- sp-# fp-# rp-# dict-bytes )
+
+	\ Make sure her link has the relocation bit set
+	link @ link set-relocation-bit !
+
+	\ Save task size in user variable
+	compute-task-size 				( -- sp-# fp-# rp-# dict-bytes t-size )
+
+	\ Set top of return stack
+	up@ + dup rp0 set-relocation-bit !	( -- sp-# fp-# rp-# dict-bytes rs-top )
+
+	\ Set TIB and top of parameter stack
+	2 pick /n* 80 + - 
+\	dup tib set-relocation-bit !	*** Error!
+	dup 'tib set-relocation-bit !
+	dup sp0 set-relocation-bit !		( -- sp-# fp-# rp-# dict-bytes is-top )
+
+	\ Set top of float stack
+	4 pick /n* -
+	dup fp0 set-relocation-bit !
+	
+	\ Set start of dictionary
+	3 pick /f * - swap -
+	dp set-relocation-bit !				( -- sp-# fp-# rp-# )
+
+	drop drop drop						( -- )
+
+	\ Set user pointer
+	up@ up0 set-relocation-bit !		( -- )
+
+	\ Clear the per-task data pointer
+	pertask off							( -- )
+
+	\ Clear the region DB state pointer
+	region-var off						( -- )
+
+	\ Put new task to sleep
+	up@ sleep							( -- )
+
+	\ Restore my up
+	r> up!								( -- )
+;
+
+
+\ Find the address of the task link that points to task-addr
+: find-task-link	( task-addr -- link-addr )
+	up@
+	begin
+		link local dup @	\ -- task-addr link-addr link-contents
+		2 pick <>			\ -- task-addr link-addr boolean
+	while
+		@					\ -- task-addr next-task-addr
+	repeat
+	nip						\ -- link-addr
+;
+
+\ Unlink the task from the circularly linked list.
+\ NOTE! This code will fail if the task has not already been linked.
+: unlink-task		\ task-addr --
+	dup						\ -- task-addr task-addr
+	dup link local @ swap	\ -- task-addr successor task-addr
+	find-task-link			\ -- task-addr successor link-addr
+	set-relocation-bit !	\ -- task-addr
+	dup link local !		\ Link task to self just in case (like if
+							\ the debugger runs off the end of the vectored
+							\ meme.)
+;
+
+\ Long-jump to the parameter field of a colon definition
+: longjmp >r ;
+
+\ Wrapper code for tasks allocated in dictionary
+: dict-task-wrapper	( ip -- )
+
+	\ Initialize the vocabulary
+main\	only forth also
+mod\	forth
+
+	\ Long-jump to the address on the int stack
+	longjmp
+
+	\ Make my task sleep; sleep again if awoken.
+	begin
+		stop pause
+	again
+;
+
+\ Set the task's execution vector
+: vector-dict-task	\ ip task-addr --
+	up@ -rot   up!		( my-up cfa )
+
+
+	\ Push the initial IP on the task's int stack
+	sp0 @ /n - dup					\ -- my-up ip sp sp
+	saved-sp set-relocation-bit !	\ -- my-up ip sp
+	set-relocation-bit !			\ -- my-up
+
+	\ Initialize ip for the task
+	['] dict-task-wrapper >body
+			saved-ip set-relocation-bit !	( my-up )
+
+	\ Initialize fp, rp for the task
+	fp0 @	saved-fp set-relocation-bit !	( my-up )
+	rp0 @	saved-rp set-relocation-bit !	( my-up )
+
+	up!
+;
+
+\ Wrapper code for tasks allocated on the heap
+: heap-task-wrapper	( cfa -- )
+
+	\ Initialize the vocabulary
+main\	only forth also
+mod\	forth
+
+	\ Execute the meme whose CFA has been placed on stack.
+	execute
+
+	\ Unlink the task and free the associated memory.
+	up@ dup unlink-task free-mem
+
+	\ Enter the main task; don't try and follow the link anymore
+	>maintask
+;
+
+
+\ Set the task's execution vector
+: vector-heap-task	\ cfa task-addr --
+	up@ -rot   up!		( my-up cfa )
+
+
+	\ Push the CFA on the task's int stack
+	sp0 @ /n - dup					\ -- my-up cfa sp sp
+	saved-sp set-relocation-bit !	\ -- my-up cfa sp
+	!								\ -- my-up
+
+	\ Initialize ip for the task
+	['] heap-task-wrapper >body
+			saved-ip set-relocation-bit !	( my-up )
+
+	\ Initialize fp, rp for the task
+	fp0 @	saved-fp set-relocation-bit !	( my-up )
+	rp0 @	saved-rp set-relocation-bit !	( my-up )
+
+	up!
+;
+
+\ Leave standard stack size and dict size values on stack.
+: std-task-size	\ -- sp-#elems fp-#elems rp-#elems dict-bytes
+	64 32 64 256
+;
+
+\ Allocate a new task on the heap, initialize its user area, and
+\ set it up to run a meme.  Don't wake the task.
+: NewTask	( cfa -- task-adr )
+	std-task-size 			\ -- cfa sp-# fp-# rp-# dict-bytes
+	allocate-heap-task		\ -- cfa sp-# fp-# rp-# dict-bytes task-adr
+	dup
+	if
+		dup >r initialize-task	\ -- cfa
+		r@ vector-heap-task		\ --
+		r>						\ -- task-adr
+	else
+		nip nip nip nip nip		\ -- task-adr
+	then
+;
+
+\ Put the task to sleep, unlink it, and free its heap space.
+: DestroyTask ( task-adr -- )
+	dup sleep
+	dup unlink-task
+	free-mem
+;
+
+\ Spawn a task running the cfa.  When cfa exits, unlink and deallocate
+\ the task.
+: SpawnTask ( cfa -- )
+	NewTask wake
+;
+
+\ Define a background task.
+: background
+	create
+	std-task-size 			\ -- sp-# fp-# rp-# dict-bytes
+	allocate-dict-task		\ -- sp-# fp-# rp-# dict-bytes task-adr
+	dup >r 					\ -- sp-# fp-# rp-# dict-bytes task-adr
+	initialize-task			\ -- 
+	here r@					\ -- ip task-adr
+	vector-dict-task		\ --
+	r> named-task? local on	\ --
+	!csp ]
+	does>
+;
+
+\ *****************************************************************************
+\ Convenience memes.
+
+: bg ' SpawnTask ;
+
+\ ************************************************************************
+\ The following code prints the names of all the available tasks.
+\ Note that this code must be compiled by the main task or it will not
+\ work.
+
+\ Given the task addr (user area addr) of a task, returns the task addr
+\ of the next task in the circular linked list.
+: NextTask	( adr1 -- adr2 )
+	link local @			\ Get link from task's user area
+;
+
+variable currtask		\ The task that's running .Task
+
+\ Given the task adr, print the meme name of the task
+: .Task	( adr -- )
+	." UP =" dup 12 u.r space
+	dup task-active? local @
+	if
+		." Awake " else ." Asleep" 
+	then
+	space space
+	dup maintask = if				\ if the main task
+		drop ." Main Task "
+	else
+		dup currtask @ = if			\ If the current (but not main) task
+			drop ." Current Task "	\ Drop task adr and print
+		else						\ If this is not the main task
+			dup named-task? local @
+			if
+				body> >name			\ Compute adr of name field
+				.id					\ Print the name
+			else
+				drop ." - unnamed -"
+			then
+		then
+	then
+;
+\ Print the names of all tasks
+: .Tasks	( -- )	
+	up@ dup currtask !	\ ( -- adr )
+	begin				\ For each task in linked list
+		dup .Task cr	\ Print name ( -- adr )
+		NextTask		\ Follow link ( adr1 -- adr2 )
+		dup currtask @ = \ Check if back to current task
+	until				\ Loop if not
+	drop				\ Drop task adr
+;

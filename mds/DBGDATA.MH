@@ -1,0 +1,29 @@
+\ This file is copyright by Immersive Systems, Inc.  All rights
+\ reserved.  You are permitted to use this file subject to
+\ the provisions and restrictions in the license agreement, which
+\ is in the file LICENSE or LICENSE.txt or LICENSE.html.  If this
+\ set of files does not contain a file by one of the three
+\ preceding names, please contact the Metatopia project at
+\ sourceforge.net or at immersive.com.
+
+\ Data structure for the anomaloscope
+\ by Marc de Groot.
+\ Copyright (c) Immersive Systems, Inc.  All rights reserved.
+
+\ *************************************************************************
+\ The following is the data structure for the anomaloscope.
+
+\ This is the data structure for debugger-data.  debugger-data is defined
+\ in the kernel now, so that there is one data structure available for
+\ all compiled copies of the debugger.
+BeginStruct
+	Int		_IP			\ Debugger's IP
+	Int		_starting-rp		\ RP on entry to debugger
+	Int		_debug-in-progress	\ Flag for "idle"
+	2 Ints		_non-colon-def		\ Buffer for executing prims
+	Int		_prp			\ Private return stack pointer
+	1024 Ints	_private-rtn-stk	\ Private return stack
+	Lbl		_prp0			\ Initial p r stack pointer
+	10 Ints		_slop			\ To allow for mishaps
+Struct DebuggerData
+

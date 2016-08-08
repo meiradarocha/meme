@@ -1,0 +1,815 @@
+!  ( n adr  -- )
+   Stores a number at adr
+!csp  ( -- )
+   Remembers the stack pointer
+"  ( -- adr len )    ccc"
+   Collects a string from the input stream
+""  ( -- adr )    ccc
+   Collects a word from the input stream
+",  ( adr len -- )
+   Places a string at the top of the dictionary
+".  ( adr -- )
+   Displays a packed string.  Equivalent to COUNT TYPE
+"chdir  ( string -- )
+   Changes to the directory whose name is the packed string "string"
+"command  ( string -- )
+   Executes the system command line contained in the packed string "string"
+"compile  ( string -- )
+   Compiles or interprets a word
+"copy  ( fromadr toadr -- )
+   Copies a packed string from fromadr to toadr
+"create  ( str -- )
+   Defines a word from a string on the stack
+"load  ( filename -- )
+   Interprets the file whose name is the packed string on the stack
+"temp  ( -- str )
+   Converts a digit in pictured numeric output
+#>  ( l  --  adr +n )
+   Ends pictured numeric output
+#align  ( -- n )
+   The alignment granularity for the cpu; 2 for 68000
+#line  ( -- adr )
+   User variable containing the line number on the output device
+#out  ( -- adr )
+   User variable containing the column number on the output device
+#s  ( +l  --  0  )
+   Converts the rest of the digits in pictured numeric output
+#threads  ( -- n )
+   The number of threads used by the dictionary hashing scheme
+#tib  ( -- adr )
+   Size of Terminal Input Buffer
+#user  ( -- n )
+   The first unused USER area offset
+#vocs  ( -- n )
+   The number of vocabularies that can be in the search order at one time
+'  ( -- acf )    name
+   Finds a word in the dictionary
+'user#  ( -- user# )    name
+   Finds the user number associated with the word if there is one
+'word  ( -- adr )
+   The address where WORD puts its string
+(  ( -- )
+   Begins a comment
+(")  ( -- adr len )
+   Run-time word compiled by "
+("s)  ( -- adr )
+   Run-time word compiled by [""]
+(')  ( -- acf )
+   Run-time word compiled by [']
+(+loop)  ( n -- )
+   Run-time word compiled by +LOOP
+(.")  ( -- )
+   Run-time word compiled by ."
+(.)  ( n -- adr len )
+   Converts a signed number to a character string
+(.s  ( -- )
+   Displays the contents of the data stack
+(;code)  ( -- )
+   Run-time word compiled by ;CODE and DOES>
+(?do)  ( end start -- )
+   Run-time word compiled by ?DO
+(abort")  ( flag -- )
+   Run-time word compiled by ABORT"
+(compile)  ( acf -- )
+   Compiles a compilation address into the dictionary
+(do)  ( end start -- )
+   Run-time word compiled by DO
+(does)  ( -- )
+   Run-time word compiled by DOES>
+(interpret  ( -- )
+   The Default implementation of INTERPRET
+(is)  ( action-acf -- )
+   Run-time word compiled by IS
+(lit)  ( -- n )
+   Run-time word compiled by DO-LITERAL
+(llit)  ( -- l )
+   Run-time word compiled by DO-LITERAL
+(loop)  ( -- )
+   Run-time word compiled by LOOP
+(s  ( -- )    stack-comment
+   Alternate form of stack comment
+(see)  ( acf -- )
+   Decompiles the word
+(u.)  ( u -- adr len )
+   Converts an unsigned number to a character string
+(where  ( -- )
+   The Default implementation of WHERE
+*  ( n1 n2  --  n3 )
+   Multiplies n1 times n2
++  ( n1 n2 -- n3 )
+   Adds n1+n2
++!  ( n adr -- )
+   Adds n to the number stored at adr
++loop  ( n -- )
+   Ends DO .. +LOOP construct; adds n to loop index
++str  ( adr1 -- adr2 )
+   Finds the end of the packed string at adr1
+,  ( n -- )
+   Places a number in the dictionary
+,"  ( -- )    ccc"
+   Places a string at the top of the dictionary
+-  ( n1 n2 -- n3 )
+   Subtracts n1-n2
+-rot  ( n1 n2 n3  ---  n3 n1 n2 )
+   Shuffles top 3 stack items
+-trailing  ( adr +n1  --  adr +n2 )
+   Removes trailing spaces
+.  ( n  -- )
+   Displays a number
+."  ( -- )    ccc"
+   Compiles a string for later display
+.(  ( -- )    ccc)
+   Displays a string immediately
+.id  ( anf -- )
+   Displays the name of a word from its name field address
+.name  ( acf -- )
+   Displays the name of a word from its compilation address
+.r  ( n +n -- )
+   Displays a number in a fixed width field
+.s  ( -- )
+   Displays the contents of the data stack
+/  ( n1 n2  --  n3 )
+   Divides n1/n2
+/c  ( -- n )
+   The number of bytes in a byte; 1
+/c*  ( n1 -- n2 )
+   Multiplies by the size of a byte
+/l  ( -- n )
+   The number of bytes in a longword; 4 on a 32-bit system
+/l*  ( n1 -- n2 )
+   Multiply by the size of a longword
+/link  ( -- n )
+   The number of bytes in a dictionary link; 4 on a 32-bit system
+/mod  ( n1 n2  --  n3 n4 )
+   n3 is remainder, n4 is quotient of n1/n2
+/n  ( -- n )
+   The number of bytes in a normal; 4 on a 32-bit system
+/n*  ( n1 -- n2 )
+   Multiplies by the size of a stack item
+/token  ( -- n )
+   The number of bytes in a compiled address; 4 on a 32-bit system
+/w  ( -- n )
+   The number of bytes in a 16-bit word; 2
+/w*  ( n1 -- n2 )
+   Multiply by the size of a word
+0<  ( n  --  flag )
+   Is n < 0 ?
+0=  ( n  --  flag )
+   Is n = 0 ?
+0>  ( n  --  flag )
+   Is n > 0 ?
+1+  ( n1  --  n2 )
+   Add 1
+1-  ( n1  --  n2 )
+   Subtracts 1
+16-bit  ( -- )
+   Noop on a 16-bit system, aborts on a 32-bit system
+16\  ( -- )
+   Ignores rest of line if not a 16-bit system
+2!  ( n1 n2 adr -- )
+   Stores 2 numbers at adr
+2*  ( n1 -- n2 )
+   Multiplies by 2
+2+  ( n1 -- n2 )
+   Adds 2
+2-  ( n1 -- n2 )
+   Subtracts 2
+2/  ( n1 -- n2 )
+   Divides by 2
+2@  ( adr -- n1 n2 )
+   Fetchs 2 numbers from adr
+2drop  ( n1 n2  -- )
+   Removes 2 numbers from stack
+2dup  ( n1 n2 --  n1 n2  n1 n2 )
+   Duplicates 2 numbers
+32-bit  ( -- )
+   Aborts if the Forth system is a 16-bit implementation
+32\  ( -- )
+   Ignores rest of line in a 16-bit system; no-op on a 32-bit system
+:  ( -- sys )    name
+   Starts the compilation of a new colon definition
+;  ( -- )
+   Finishes the compilation of a colon definition
+;s  ( -- )
+   Terminates the loading of the current input file
+<  ( n1 n2  --  flag )
+   Is n1 < n2 ?
+<#  ( -- )
+   Initializes pictured numeric output
+<<  ( n1 cnt -- n2 )
+   Left shifts n1 by count places
+<=  ( n1 n2  --  flag )
+   True if n1 is less than or equal to n2
+<>  ( n1 n2  --  flag )
+   True if n1 is not equal to n2
+<mark  ( -- adr )
+   Remembers target of backward branch
+<resolve  ( adr -- )
+   Finishes a backward branch
+<w@  ( adr -- n )
+   Fetchs the signed 16-bit word at addr
+=  ( n1 n2  --  flag )
+   Is n1 = n2 ?
+>  ( n1 n2  --  flag )
+   Is n1 > n2 ?
+>=  ( n1 n2  -- flag )
+   True if n1 is greater than or equal to n2
+>>  ( n1 cnt -- n2 )
+   Rights shift n1 by "cnt" places
+>>a  ( n1 cnt -- n2 )
+   Arithmetic rights shift n1 by "cnt" places (sign bit copied to high bits)
+>body  ( acf -- apf )
+   Finds the parameter field address from the compilation address
+>data  ( acf -- adr )
+   Finds the data storage address for the word at acf
+>in  ( -- adr )
+   Variable containing input stream offset; Implemented in BLOCK.FTH
+>link  ( acf -- alf )
+   Finds link field address from compilation address
+>mark  ( -- adr )
+   Remembers the location of forward branch
+>name  ( acf -- anf )
+   Finds name field address from compilation address
+>r  ( n -- )
+   Moves a number to the return stack
+>relbit  ( adr -- byte-adr bitmask )
+   Returns byte address and mask of the relocation bit for the addess "adr"
+>resolve  ( adr -- )
+   Finishes a forward branch
+>type  ( adr +n -- )
+   Displays characters and stores them at PAD
+>user  ( apf -- user-var-adr )
+   Finds a user number that is in the parameter field
+>user#  ( acf -- user# )
+   Finds the user number associated with the word if there is one
+?  ( adr  -- )
+   Displays the contents of a variable
+?branch  ( flag -- )
+   High-level conditional branch
+?comp  ( -- )
+   Aborts if not compiling
+?cr  ( -- )
+   New line if fewer than no space left on this one
+?csp  ( -- )
+   Checks stack pointer against value saved by !CSP
+?do  ( w1 w2 -- )
+   Begins a ?DO .. LOOP to be executed 0 or more times
+?dup  ( n  --  n n )
+   Duplicates n if it is non-zero
+?exec  ( -- )
+   Aborts if not interpreting
+?leave  ( flag -- )
+   Exits from a DO .. LOOP if flag is nonzero
+?line  ( n -- )
+   New line if fewer than n spaces left on this one
+?pairs  ( n1 n2 -- )
+   Aborts if n1 is not equal to n2
+?stack  ( -- )
+   Aborts if the stack pointer is out of range
+@  ( adr  --  n )
+   Fetches a number from adr
+abort  ( -- )
+   Aborts current execution and interprets keyboard commands
+abort"  ( flag -- )    ccc"
+   Conditional abort with message
+abs  ( n -- u )
+   Absolute value
+alias  ( -- )    new-name existing-name
+   Creates a new name for an existing word
+align  ( -- )
+   Makes sure the dictionary pointer is on a machine word boundary
+aligned  ( adr1 -- adr2 )
+   Adjusts an address to a machine word boundary
+allot  ( n -- )
+   Allocates space in the dictionary
+and  ( n1 n2 -- n3 )
+   Logical and
+another?  ( -- [ anf ] more? )
+   Selects next word in vocabulary
+ascii  ( -- char )    ccc
+   Numerical value of first ascii character of next word
+base  ( --  adr )
+   Variable containing number base
+begin  ( -- )
+   Begins a BEGIN .. WHILE .. REPEAT loop
+between  ( n min max -- f )
+   True if min <= n <= max
+bl  ( -- n )
+   The ascii code for the space character; decimal 32
+blk  ( -- adr )
+   Variable containing input block number; Implemented in BLOCK.FTH
+body>  ( apf -- acf )
+   Finds compilation address from parameter field address
+bounds  ( adr1 len -- adr2 adr1 )
+   Converts address and length to endadr startadr
+branch  ( -- )
+   High-level unconditional branch
+bwjoin  ( b.low b.high -- w )
+   Joins two bytes to form a 16-bit number
+bye  ( -- )
+   Exits from Forth
+c!  ( n -- adr )
+   Stores a byte at adr
+c@  ( adr -- n )
+   Fetches a byte from adr
+ca+  ( adr1 index -- adr2 )
+   Increments adr1 by index times the size of a byte
+ca1+  ( adr1 -- adr2 )
+   Increments adr1 by the size of a byte
+canonical  ( adr -- adr )
+   Converts a string to lower case
+caps  ( -- adr )
+   USER variable controlling upper case/lower case sensitivity
+case  ( selector -- selector )
+   Begins a CASE ... ENDCASE conditional
+catch ( acf -- 0|error )
+   Executes 'acf'.  Returns 0 if no THROW occurred, else returns error code.
+ccall  ( args ... format call# -- [ result ] )
+   Executes user C function "call#", passing args according to "format" string
+ccall:  ( table-entry# -- )  name   { arg-spec arg-spec ... -- result-spec }
+   Creates a forth word to execute a user-supplied C function
+cmove  ( adr1 adr2 u -- )
+   Copies u bytes from adr1 to adr2
+cmove>  ( adr1 adr2 u -- )
+   Copies u bytes from adr1 to adr2
+code  ( -- sys )    name
+   Starts the definition of an assembly language word
+compile  ( -- )
+   Compiles next word at run time
+constant  ( n -- )    name
+   Defines a constant
+context  ( -- adr )
+   Array of vocabularies to search
+control  ( -- char )    ccc
+   Control character number of first character of next word
+convert  ( +l1 adr1  --  +l2 adr2 )
+   Converts a string to a number
+count  ( adr1 --  adr2 +n )
+   Unpacks a packed string
+cr  ( -- )
+   Terminates a line on the display and goes to the next line
+crash  ( -- )
+   Initial action for words defined by DEFER
+create  ( -- )    name
+   Generic defining word
+current  ( -- adr )
+   Variable containing compilation vocabulary
+decimal  ( -- )
+   Set number base to 10
+defer  ( -- )    name
+   Defining word for forward references or execution vectors
+definer  ( acf -- definer-acf )
+   Finds the word which defined the word at acf
+definitions  ( -- )
+   Sets compilation vocabulary
+delimiter  ( -- adr )
+   USER variable containing the actual delimiter found by WORD
+depth  ( -- +n )
+   How many numbers on stack?
+digit  ( char base -- digit true | char false )
+   Converts a character to a digit
+do  ( n1 n2 -- )
+   Begins a DO .. LOOP
+do-defined  ( cfa immediate? -- ?? )
+   Called to handle a predefined word during interpreting or compilation
+do-literal  ( l -- ?? )
+   Called to handle number during interpreting or compilation
+do-undefined  ( str -- )
+   Called to handle an undefined word during interpreting or compilation
+does>  ( -- adr )
+   Starts the run-time clause for defining words
+dpl  ( -- adr )
+   Variable containing the position of the decimal point in last number input
+drop  ( n -- )
+   Removes n from the stack
+du  ( adr -- adr+64 )
+   Displays 64 bytes of memory starting at adr
+dump  ( adr len -- )
+   Displays len bytes of memory starting at adr
+dup  ( n -- n n )
+   Duplicates n.
+else  ( -- )
+   Executes the following code if IF failed
+emit  ( char -- )
+   Displays the character
+end-string-array  ( -- )
+   Finishes the definition of a string array
+endcase  ( selector -- )
+   Terminates a CASE ... ENDCASE conditional
+endof  ( -- )
+   Terminates an OF ... ENDOF clause within a CASE ... ENDCASE conditional
+entry  ( -- adr )
+   USER variable used to implement multitasking
+erase  ( adr u -- )
+   Sets u bytes of memory to 0
+errno  ( -- adr )
+   USER variable containing the last system error code
+error-output  ( -- )
+   Selects the error output stream
+execute  ( acf -- )
+   Executes the word whose compilation address is on the stack
+exit  ( -- )
+   Returns from the current word
+expect  ( adr +n -- )
+   Gets a line of input from the keyboard and stores it at adr
+false  ( -- 0 )
+   The value FALSE, which is 0
+fclose  ( fd -- )
+   Closes the file whose descriptor is "fd"
+fcr  ( fd -- )
+   Writes the end-of-line sequence to the file "fd"
+fexit  ( -- )
+   Ignores the rest of the current input file
+fflush  ( fd -- )
+   Forces file buffers to be written to the file.
+fgetc  ( fd -- char )
+   Returns next character from file whose descriptor is "fd", or -1 at end.
+fgetline  ( adr fd -- fd eofbool )
+   Reads next line from file "fd" to "adr".  eofbool is 0 if EOF.
+fgets  ( adr maxlen fd -- #bytes-read )
+   Reads up to "maxlen" characters from file "fd" into buffer at "adr".
+fill  ( adr u byte  -- )
+   Sets u bytes of memory to byte
+find  ( adr1 -- adr2 n )
+   Finds a word in the dictionary
+fload  ( -- )    filename
+   Interprets a file
+follow  ( threads -- )
+   Prepares to scan a vocabulary; see ANOTHER?
+fopen  ( string mode -- fd )
+   Opens the file "string" in mode "mode" (READ, WRITE, MODIFY).
+forth  ( -- )
+   The main vocabulary
+forth-83  ( -- )
+   Asserts the dialect
+fputc  ( char fd -- )
+   Writes the character "char" to the file whose descriptor is "fd"
+fputs  ( adr len fd -- )
+   Writes "len" characters from the buffer at "adr" to the file "fd"
+fseek  ( l.position fd -- )
+   Sets position of file "fd" to the 32-bit number "l.position"
+fsize  ( fd -- l.size )
+   Returns 32-bit size of the file "fd"
+ftell  ( fd -- l.position )
+   Returns 32-bit current position within the file "fd"
+fungetc  ( char fd -- )
+   Puts "char" back on file "fd"; undoes "fgetc"
+here  ( -- adr )
+   Address of top of dictionary
+hex  ( -- )
+   Sets the number base to 16
+hidden  ( -- )
+   Vocabulary containing words used only to implement other words
+hide  ( -- )
+   Makes the most recent word invisible
+hold  ( char  -- )
+   Inserts the char in the pictured numeric output string
+i  ( -- n )
+   Loop index
+if  ( flag -- )
+   Executes following code if flag is true
+immediate  ( -- )
+   Marks the last word as immediate
+immediate?  ( acf -- flag )
+   True if word is immediate
+input-file-name  ( -- str )
+   The name of the file being interpreted.
+interpret  ( -- )
+   Interprets the input stream
+is  ( action-acf -- )    name
+   Installs a new action in a DEFER word
+j  ( -- n )
+   Loop index for next enclosing loop
+key  ( -- char )
+   Explicit 32-bit addition
+l+!  ( l adr  -- )
+   Adds l to the 32-bit number at adr
+l,  ( l -- )
+   Places a longword in the dictionary
+l->n  ( l -- n )
+   Converts a longword to a stack item; noop on this system
+l.  ( l -- )
+   Displays a 32-bit signed number
+l0=  ( l  --  flag )
+   True if l is zero
+l<  ( l1 l2  --  flag )
+   True if l1 is less than l2
+l=  ( l1 l2 -- flag )
+   True if l1 is equal to l2
+l>=  ( l1 l2 -- flag )
+   True if l1 is less than l2; explicitly 32-bit
+l>name  ( alf -- anf )
+   Finds the name field address from link field address
+l>r  ( l -- )
+   Moves a longword to the return stack
+l@  ( adr -- l )
+   Fetchs the 32-bit longword at adr
+la+  ( adr1 index -- adr2 )
+   Increments adr1 by index times the size of a longword
+la1+  ( adr1 -- adr2 )
+   Increments adr1 by the size of a longword
+land  ( l1 l2 -- l3 )
+   Explicit 32-bit logical and
+last  ( -- adr )
+   USER variable containing the name field address of the last word created
+lastacf  ( -- acf )
+   The compilation address of the last word created
+lbetween  ( l1 lmin lmax -- flag )
+   True if lmin <= l1 <= lmax; explicitly 32-bit
+lbsplit  ( l -- b.low b.mlow b.mhigh b.high )
+   Splits a longword into four bytes
+lconstant  ( l -- )    name
+   Defines a 32-bit constant
+ldrop  ( l -- )
+   Removes a longword from the stack
+ldup  ( l -- l l )
+   Duplicates l
+leave  ( -- )
+   Exit from DO .. LOOP
+link!  ( link adr -- )
+   Stores a dictionary link
+link@  ( lfa -- link )
+   Fetches a dictionary link
+literal  ( -- n )
+   Compiles a number
+literal?  ( str -- str false | n true )
+   Checks to see if a string is a number during interpreting or compilation
+lliteral  ( -- l )
+   Compiles an explicit 32-bit number
+lmargin  ( -- adr )
+   Variable containg left margin for output formatting
+lnegate  ( l1 -- l2 )
+   Explicit 32-bit negation
+lnover  ( l1 n -- l1 n l2 )
+   Copies a longword over a normal
+lnswap  ( l n -- n l )
+   Swaps a longword and a normal
+long?  ( -- flag )
+   True if the number that was just input contained a decimal point
+loop  ( -- )
+   End of DO .. LOOP
+lose  ( -- )
+   Compiled in place of an undefined word; aborts
+lr>  ( -- l )
+   Moves a longword from the return stack
+lswap  ( l1 l2 -- l2 l1 )
+   Swap 2 longwords
+lvariable  ( -- )    name
+   Define a 32-bit variable
+lwithin  ( l1 lmin lmax -- flag )
+   True if lmin <= l1 < lmax; explicitly 32-bit
+lwsplit  ( l -- w.low w.high )
+   Split a longword into two words
+max  ( n1 n2  --  n3 )
+   n3 is maximum of n1 and n2
+maxdp  ( -- adr )
+   The highest address that the dictionary can grow to
+maxprimitive  ( -- n )
+   The maximum number of Forth words implemented directly in C
+min  ( n1 n2  --  n3 )
+   n3 is minimum of n1 and n2
+mod  ( n1 n2  -- n3 )
+   Remainder of n1/n2
+move  ( adr1 adr2 u -- )
+   Copies u bytes from adr1 to adr2
+mu/mod  ( ul n -- n.rem ul.quot )
+   Divides longword by normal giving normal remainder and long quotient
+n->l  ( u -- l )
+   Converts a stack item to a longword; noop on this system
+n->w  ( n -- w )
+   Converts a stack item to a word
+n>link  ( anf -- alf )
+   Finds link field from name field
+na+  ( adr1 index -- adr2 )
+   Increments adr1 by index times the size of a stack item
+na1+  ( adr1 -- adr2 )
+   Increments adr1 by the size of a stack item
+name->string  ( anf -- str )
+   Converts the name of a Forth word to a packed string
+name>  ( anf -- acf )
+   Finds compilation address from name field
+negate  ( n1 -- n2 )
+   Changes the sign of n1
+newline  ( -- char )
+   The character which ends a line in a text file.
+nip  ( n1 n2 -- n2 )
+   Discards the second element from the data stack
+nlover  ( n1 l -- n1 l n2 )
+   Copies a normal over a longword
+nlswap  ( n l -- l n )
+   Swaps a normal and a longword
+noop  ( -- )
+   Does nothing
+not  ( n1 -- n2 )
+   One's complement
+number?  ( adr -- l flag )
+   Converts a character string to a 32-bit number
+nuser  ( -- )    name
+   Defines and allocates space for a User variable
+of  ( selector test-value -- )
+   Begins an OF ... ENDOF clause within a CASE ... ENDCASE conditional
+off  ( adr  -- )
+   Stores false at adr
+on  ( adr  -- )
+   Stores true at adr
+or  ( n1 n2 -- n3 )
+   Logical or
+origin  ( -- adr )
+   The address of the start of the Forth system
+over  ( n1 n2  --  n1 n2 n3 )
+   n3 is a copy of n1.
+pack  ( adr1 len adr2 -- adr2 )
+   Makes a packed string from adr1 len, placing it at adr2
+pad  ( --  adr )
+   The address of a scratch area used to temporary storage
+pick  ( n1  --  n2 )
+   Copies n-th number
+place  ( adr1 len adr2 -- )
+   Makes a packed string from adr1 len, placing it at adr2
+primitive?  ( acf -- flag )
+   True if acf is a reference to a Forth word implemented directly in C
+printable?  ( char -- flag )
+   True if character is printable
+quit  ( -- )
+   Interprets keyboard commands
+r>  ( -- n )
+   Moves a number from the return stack to the data stack
+r@  ( -- n )
+   Copies the top of the return stack to the data stack
+repeat  ( -- )
+   Ends a BEGIN .. WHILE .. REPEAT loop
+restore-output  ( -- )
+   Goes back to the old output stream after ERROR-OUTPUT
+reveal  ( -- )
+   Makes the most recent word visible
+rmargin  ( -- adr )
+   Variable containg right margin for output formatting
+root  ( -- )
+   The vocabulary selected by ONLY
+rot  ( n1 n2 n3  ---  n2 n3 n1 )
+   Rotates 3 numbers
+rp!  ( adr -- )
+   Changes the return stack pointer
+rp0  ( -- adr )
+   A variable containing the address of the bottom of the return stack
+rp@  ( -- adr )
+   The address of the top of the return stack
+s->l  ( n -- l )
+   Converts a signed stack item to a longword; noop on this system
+s.  ( n -- )
+   Displays n as a signed number
+save-forth  ( filename -- )
+   Writes the Forth dictionary to a file.
+see  ( -- )    name
+   Decompiles the named word
+shift  ( n1 n2 -- n3 )
+   Sets sign of pictured output
+skipstr  ( -- adr len )
+   Used to implement words with in-line strings
+sp!  ( adr -- )
+   Changes the data stack pointer
+sp0  ( --  ADDR )
+   Variable containing the address of the bottom of the Data Stack
+sp@  ( -- adr )
+   The address of the top of the data stack
+space  ( -- )
+   Displays a space character
+spaces  ( +n  -- )
+   Displays n spaces
+span  ( -- adr )
+   Variable containing the number of characters read by EXPECT
+state  ( -- adr )
+   Variable that is nonzero in compile state
+string-array  ( -- )     name
+   Begins the definition of a string array
+swap  ( n1 n2  --  n2 n1 )
+   Exchanges the top 2 stack entries.
+syscall  ( args ... format sycall# -- error? )
+   Executes system call "syscall#", passing args according to "format" string
+ta+  ( adr1 index -- adr2 )
+   Increments adr1 by index times the size of a compiled address
+ta1+  ( adr1 -- adr2 )
+   Increments adr1 by the size of a compiled address
+td  ( -- ? )
+   Interprets the next word or number in DECIMAL mode
+th  ( -- ? )
+   Interprets the next word or number in HEX mode
+then  ( -- )
+   Terminates an IF ... ELSE ... THEN
+throw  ( error -- )
+   Aborts back to most recent CATCH point.  See CATCH.
+tib  ( -- adr )
+   The address of the Text Input Buffer
+to-column  ( column -- )
+   Advances the output to the indicated column
+token!  ( adr2 adr1 -- )
+   Stores a relocatable address at adr1
+token,  ( adr -- )
+   Places a relocatable address in the dictionary
+token@  ( adr1 -- adr2 )
+   Fetches a relocatable address
+true  ( -- -1 )
+   The value TRUE , which is -1
+tuck  ( n1 n2 -- n2 n1 n2 )
+   Copies the top of the stack underneath the second item
+type  ( adr +n -- )
+   Displays n characters
+u.  ( u -- )
+   Displays an unsigned number
+u.r  ( u +n -- )
+   Prints an unsigned number in fixed width field
+u<  ( u1 u2  --  flag )
+   Unsigned version of < .
+u<=  ( u1 n2 -- flag )
+   True if u1 is less than or equal to u2
+u>  ( u1 n2 -- flag )
+   True if u1 is greater than u2
+u>=  ( u1 n2 -- flag )
+   True if u1 is greater than or equal to u2
+ualloc  ( size -- new-user-number )
+   Allocates space in the user area
+ul*  ( ul1 ul2 -- lproduct )
+   Unsigned 32x32 -> 32 multiply
+um*  ( uw1 uw2 -- ul )
+   16 bits times 16 bits unsigned multiply
+um/mod  ( ul un -- un.rem un.quot )
+   Divide unsigned 32-bit number by unsigned number
+unnest  ( -- )
+   Returns from a colon definition
+until  ( flag -- )
+   Continues executing a BEGIN .. UNTIL loop until flag is true
+up!  ( adr -- )
+   Changes the starting address of the user area
+up0  ( -- adr )
+   User variable containing the starting address of the USER area
+up@  ( --  adr )
+   The starting address of the aser area
+user  ( offset -- )    name
+   Defines a variable at the given offset in the User area
+user-size  ( -- n )
+   The size in bytes of the USER area.
+variable  ( -- )    name
+   Defines a variable
+vfind  ( str voc-ptr -- cfa 1 )
+   Searches for a word in a single vocabulary
+voc-link  ( -- adr )
+   USER variable containing the address of the last vocabulary created
+vocabulary  ( -- )    name
+   Defines a new vocabulary
+w!  ( w adr -- )
+   Stores a 16-bit word at adr
+w,  ( w -- )
+   Places a word in the dictionary
+w->l  ( uw -- l )
+   Converts an unsigned 16-bit number to a 32-bit number
+w@  ( adr -- w )
+   Fetches the unsigned word at adr
+wa+  ( adr1 index -- adr2 )
+   Increments adr1 by index times the size of a word
+wa1+  ( adr1 -- adr2 )
+   Increments adr1 by the size of a word
+warning  ( -- adr )
+   USER variable controlling "isn't Unique" messages
+wbsplit  ( w -- b.low b.high )
+   Split a 16-bit number into two bytes
+where  ( -- )
+   Prints a message telling where in the input stream you are
+while  ( flag  -- )
+   Continues execution of BEGIN .. WHILE .. REPEAT loop while flag is true
+why  ( -- )
+   Tells why the last failing system command failed
+within  ( n min max -- f )
+   True if n <= x < max
+wljoin  ( w.low w.high -- l )
+   Joins two words to form a longword
+word  ( char -- adr )
+   Collects a char-delimited string from the input stream
+words  ( -- )
+   Displays the words in the context vocabulary
+xor  ( n1 n2 -- n3 )
+   Exclusive or
+[  ( -- )
+   Begins interpreting
+[""]  ( -- )    ccc
+   Collects a word from the input stream and compiles it as a string
+[']  ( -- adr )
+   Compiles the compilation address of a word
+[compile]  ( -- )
+   Compiles the next word even if it's immediate
+\  ( -- )    rest-of-line
+   Skips the rest of the line
+\c  ( -- )    rest-of-line
+   Skips the rest of the line
+\dtc  ( -- )
+   Does nothing
+\itc  ( -- )
+   Ignores the rest of the line
+\needs  ( -- )    name rest-of-line
+   Interprets the rest of the line if needed-word is not already defined
+\t16  ( -- )
+   Ignores the rest of the line
+\t32  ( -- )
+   Does nothing
+]  ( -- )
+   Begins compilation
+

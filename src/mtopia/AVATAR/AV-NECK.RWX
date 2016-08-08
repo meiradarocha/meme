@@ -1,0 +1,71 @@
+# This file is copyright by Immersive Systems, Inc.  All rights
+# reserved.  You are permitted to use this file subject to
+# the provisions and restrictions in the license agreement, which
+# is in the file LICENSE or LICENSE.txt or LICENSE.html.  If this
+# set of files does not contain a file by one of the three
+# preceding names, please contact the Metatopia project at
+# sourceforge.net or at immersive.com.
+
+##############################################################################
+#
+# RenderWare(tm) Script File
+# <AV-NECK.rwx> Created from 3D Studio File <AV-NECK.3DS> by 3ds2rwx V2.0a
+#
+##############################################################################
+
+ModelBegin
+
+  ClumpBegin
+Hints HS EDITABLE
+
+  TransformBegin
+    Transform 1.000000 0.000000 0.000000 0.0 0.000000 0.000000 -1.000000 0.0 0.000000 1.000000 0.000000 0.0 0.000000 0.025000 0.000000 1.0
+    # Object Neck
+    Vertex   0.050000   0.000000  -0.025000 		UV 1.750000 0.500000
+    Vertex   0.025000   0.043301  -0.025000 		UV 1.916667 0.500000
+    Vertex  -0.025000   0.043301  -0.025000 		UV 1.083333 0.500000
+    Vertex  -0.050000   0.000000  -0.025000 		UV 1.250000 0.500000
+    Vertex  -0.025000  -0.043301  -0.025000 		UV 1.416667 0.500000
+    Vertex   0.025000  -0.043301  -0.025000 		UV 1.583333 0.500000
+    Vertex   0.050000   0.000000   0.025000 		UV 1.750000 0.250000
+    Vertex   0.025000   0.043301   0.025000 		UV 1.916667 0.250000
+    Vertex  -0.025000   0.043301   0.025000 		UV 1.083333 0.250000
+    Vertex  -0.050000   0.000000   0.025000 		UV 1.250000 0.250000
+    Vertex  -0.025000  -0.043301   0.025000 		UV 1.416667 0.250000
+    Vertex   0.025000  -0.043301   0.025000 		UV 1.583333 0.250000
+    Vertex   0.000000   0.000000   0.025000 		UV 1.831825 1.000000
+    Vertex   0.000000   0.000000  -0.025000 		UV 1.831825 1.000000
+    Surface 0.590000 0.590000 0.590000
+    Color 0.000000 1.000000 0.000000
+    Opacity 1.000000
+    GeometrySampling Solid
+    LightSampling Vertex
+    Texture NULL
+
+    Triangle 1 2 8
+    Triangle 1 8 7
+    Triangle 2 3 9
+    Triangle 2 9 8
+    Triangle 3 4 10
+    Triangle 3 10 9
+    Triangle 4 5 11
+    Triangle 4 11 10
+    Triangle 5 6 12
+    Triangle 5 12 11
+    Triangle 6 1 7
+    Triangle 6 7 12
+    Triangle 2 1 14
+    Triangle 3 2 14
+    Triangle 4 3 14
+    Triangle 5 4 14
+    Triangle 6 5 14
+    Triangle 1 6 14
+    Triangle 7 8 13
+    Triangle 8 9 13
+    Triangle 9 10 13
+    Triangle 10 11 13
+    Triangle 11 12 13
+    Triangle 12 7 13
+  TransformEnd
+ClumpEnd
+ModelEnd

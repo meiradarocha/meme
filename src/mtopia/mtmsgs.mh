@@ -1,0 +1,467 @@
+\ This file is copyright by Immersive Systems, Inc.  All rights
+\ reserved.  You are permitted to use this file subject to
+\ the provisions and restrictions in the license agreement, which
+\ is in the file LICENSE or LICENSE.txt or LICENSE.html.  If this
+\ set of files does not contain a file by one of the three
+\ preceding names, please contact the Metatopia project at
+\ sourceforge.net or at immersive.com.
+
+\ Metatopia header file
+\ by Zap Andersson
+\
+\ Copyright (c) 1995, 1996 by Immersive Systems, Inc.  All rights reserved.
+\
+\ 05Sep96 MdG	2.69b	Added d\ and p\ and rewrote Backtrace.
+\ 17Feb96 MdG	2.66b	Code taken over by MdG.
+
+\
+\ Common code needed by all modules
+\
+
+\ *****************************************************************************
+\ These memes are normally supplied by mt.m.  They are here in case
+\ mtmsgs.mh is loaded into the main dictionary for testing.
+
+\needs d\	: d\ ; immediate
+\needs p\	: p\ [compile] \ ; immediate
+
+\ *****************************************************************************
+\ Stack backtrace code
+
+' memes token@ constant doColon				\ Code field value for colon defs
+
+\ Given an ip, scan backwards until you find the cfa.  This assumes
+\ that the ip is within a colon definition, and it is not absolutely
+\ guaranteed to work, but in practice it nearly always does.
+\ Because there are "pathological" snippets of high-level compiled code
+\ created in places like C-language auto variables, FindCfa is limited
+\ to 100 iterations lest it run off the start of memory.
+\ Note that the value 100 is more or less arbitrary.
+\ This definition is dependent on the alignment requirements of the machine.
+: FindCfa { ip -- }		\ ip -- cfa.or.0
+	ip up@ - abs 3000000 > if	\ If the rtn stk item and the task ptr
+								\ are more than 3000000 apart, it's not
+								\ a return addr.
+		0 exit
+	then
+	100 						\ Put a loop count on the stack
+	begin
+		dup
+	while						\ While count is non-zero
+		1-						\ Decrement it
+		ip #align - dup to ip	\ Bump ip backwards
+		token@ doColon = if		\ If it points at the code field
+			drop 				\ Drop the count
+			ip exit				\ Leave the cfa and return
+		then
+	repeat						\ Arrive here if count is zero
+;
+
+\ Print one backtrace item
+: .1Trace	\ rtn.stk.item.addr --
+	." Rstk loc " dup u.				\ Print rtn stack address
+	." is "
+	@									\ Get the stack item
+	dup u. 								\ Print the putative rtn addr
+	FindCfa ?dup if						\ If the code field was found
+		." which points into " 
+		>name .id						\ Print the colon def name
+	then
+	cr		
+;
+
+\ Print a stack backtrace
+: Backtrace		\ --
+	cr ." Backtrace:" cr
+	." Taskptr= " up@ u. cr
+	." Init RP= " rp0 @ u. cr
+	rp@ rp0 @ = if
+		." Rstk empty" cr 
+	else
+		rp@
+		begin
+			dup rp0 @ u<
+		while				\ while rp < the initial rp
+			dup .1Trace		\ print the return stack item
+			/n +			\ point at the next return stack item
+		repeat
+		drop				\ drop the pointer
+	then
+;
+
+d\	: pause
+d\	  depth  if ." Stack: " depth . cr Backtrace then
+d\	  fdepth if ." FStack: " fdepth . cr Backtrace then
+d\	  pause
+d\	;
+
+\ *****************************************************************************
+\ IPList routines
+
+BeginStruct
+   Int IPListNext
+   Int IPListHostID
+   Int IPListModuleID
+   Int IPListMessage
+Struct IPList
+
+variable IPListRoot
+
+0 IPListRoot !
+
+\ SearchIPList ( HostID -- foundStruct )
+
+: SearchIPList { HostID ; tempIPListRoot -- }
+   IPListRoot @ to tempIPListRoot
+   begin
+      tempIPListRoot 0= if
+         0 exit \ No match
+      else
+         tempIPListRoot IPListHostID @ HostID = if
+            tempIPListRoot exit \ A match
+         then
+      then     
+      tempIPListRoot IPListNext @ to tempIPListRoot
+   again 
+;
+
+\ AddIPList ( HostID moduleID -- )
+
+: AddIPList { HostID moduleID ; temp tempIPListRoot -- }
+   [SizeOf] IPList alloc-mem to tempIPListRoot
+
+   tempIPListRoot if
+      HostID   tempIPListRoot IPListHostID !
+      moduleID tempIPListRoot IPListModuleID !
+      0        tempIPListRoot IPListNext !
+
+      \ If there is a list
+      IPListRoot @ if
+         IPListRoot @ to temp
+         begin
+            \ Test if this item already exists
+            temp IPListHostID @ HostID =
+            temp IPListModuleID @ moduleID = and
+            if
+               \ If so, exit
+               tempIPListRoot free-mem
+               exit
+            then
+            temp IPListNext @ 0= if
+               tempIPListRoot  temp IPListNext !
+               exit
+            then
+            temp IPListNext @ to temp
+         again       
+
+      \ If there is no list
+      else
+         tempIPListRoot IPListRoot !
+      then
+   then
+;
+
+
+
+\ This routine is called from background tasks now; it must
+\ never have a "pause" put into it without taking care that
+\ there won't be contention for the value of IPListRoot.
+
+: DeleteIPListItem { HostID ModuleID ; lastItem tempIPListRoot -- }
+d\ cr ." Delete request IP " HostID hex u. decimal ." MH " ModuleID . cr
+   0 to lastItem
+   IPListRoot @ to tempIPListRoot 
+   begin
+      tempIPListRoot 0= if
+         exit \ No match
+      else
+         tempIPListRoot IPListHostID @   HostID   = 
+         tempIPListRoot IPListModuleID @ ModuleID = and 
+         if
+            lastItem if
+               tempIPListRoot IPListNext @ lastItem IPListNext !
+            else
+               tempIPListRoot IPListNext @ IPListRoot !
+            then
+            tempIPListRoot free-mem
+            exit
+         then
+      then     
+      tempIPListRoot to lastItem
+      tempIPListRoot IPListNext @ to tempIPListRoot
+   again 
+;
+
+\ The old "MessageToAll" used as a synchronuous version....
+
+
+variable SynTemp
+variable SynNext
+
+: SynMessageToAll { Message -- }
+   IPListRoot @  SynTemp !
+   begin
+      SynTemp @ 0= if
+\         cr ." All messages sent - returning"
+         exit 
+      else
+         SynTemp @ IPListHostID @ Message mhDestHostID !
+         SynTemp @ IPListModuleID @ Message mhDestModuleID !
+         SynTemp @ IPListNext @ SynNext !
+  
+         \ If SendMessage fails, then delete that item!
+
+\         cr ." SendMessage:" Message mhMsgBody @ .
+\         cr ."    IP " SynTemp @ IPListHostID @ hex u. decimal
+\         cr ."    MH " SynTemp @ IPListModuleID @ .           
+\         cr
+ 
+         Message SendMessage if
+           cr ."    IP Dropped because of SendMessage failure" 
+           SynTemp @ IPListHostID @ SynTemp @ IPListModuleID @ DeleteIPListItem
+         then
+
+\         cr ." Message sent"
+
+         SynNext @ SynTemp !
+
+\         cr ." Moved to next item..."
+      then     
+   again    
+;
+
+
+\ The rewritten MessageToAll
+\
+\ Some important points:
+\ - The user variable "pertask" is used to pass the address of the
+\   IPList struct to the background task.  This variable has a different
+\   address for each task.  It is at a fixed offset from the task pointer,
+\   which is also the user variable pointer.  The meme "up@" returns the
+\   current task pointer.
+\ - In most cases the code run by a background task is an infinite loop.
+\   When the code exits instead of looping, there is wrapper code that
+\   that executes.  That wrapper code shuts down the task and unlinks
+\   it from the task list.  In the case of a task on the heap, it also
+\   deallocates the associated memory buffer.  When cleanup is complete,
+\  control is passed directly to the main task, since the task's link
+\  can no longer be depended on.
+
+\ SendMsgProc - This is the routine that the background task executes.
+
+: SendMsgProc  \ --
+   pertask @ IPListMessage @ SendMessage if
+
+      ." IP Dropped because of SendMessage failure: " 
+      pertask @ IPListHostID @ u. cr
+
+      \ If SendMessage fails, then delete that item!
+      pertask @ IPListMessage @ free-mem
+      pertask @ IPListHostID @ pertask @ IPListModuleID @ DeleteIPListItem
+
+   then
+;
+
+\ SpawnSendMsgTask - This routine creates the task that sends the message.
+
+: SpawnSendMsgTask   { msg IPptr ; msglen msgbuff taskptr -- }
+   msg mhMsgLen @ to msglen 
+   msglen alloc-mem to msgbuff
+   msgbuff 0= if
+      ." SpawnSendMsgTask: couldn't allocate the msg buffer " exit
+   then
+   msg msgbuff msglen cmove
+   IPptr IPListHostID @ msgbuff mhDestHostID !
+   IPptr IPListModuleID @ msgbuff mhDestModuleID !
+   msgbuff IPptr IPListMessage !
+   ['] SendMsgProc NewTask ?dup 0= if
+      ." SpawnSendMsgTask: couldn't allocate the task " 
+      msgbuff free-mem exit
+   then
+   to taskptr
+   IPptr taskptr pertask local !
+   taskptr wake
+;
+
+\ MessageToAll - Send the same message to all visitors to the space
+
+: MessageToAll \ msg --
+   IPListRoot @            \ -- msg IPptr
+   begin
+      ?dup              \ -- msg IPptr [IPptr]
+   while                \ -- msg [IPptr]
+      2dup SpawnSendMsgTask   \ -- msg IPptr
+      IPListNext @         \ -- msg nextIPPtr
+   repeat      
+   drop                 \ --
+   pause
+;
+
+\ MessageToAllButSelf - Send the same message to all visitors to the space except yourself
+
+: MessageToAllButSelf \ msg --
+   IPListRoot @ IPListNext @  \ -- msg IPptr
+   begin
+      ?dup              \ -- msg IPptr [IPptr]
+   while                \ -- msg [IPptr]
+      2dup SpawnSendMsgTask   \ -- msg IPptr
+      IPListNext @         \ -- msg nextIPPtr
+   repeat      
+   drop                 \ --
+   pause
+;
+
+\ For debugging
+	: PrintIPList { ; temp -- }
+d\		IPListRoot @ to temp
+d\		cr ." IP List:"
+d\		begin
+d\			temp 0= if
+d\				exit 
+d\			else
+d\				cr 
+d\				." IP " temp IPListHostID @ hex u. decimal
+d\				." MH " temp IPListModuleID @ .           
+d\			then     
+d\			temp IPListNext @ to temp
+d\		again    
+d\		cr
+	;
+
+
+\ Deck-to-deck messages
+1000 constant msgLogIn  
+1001 constant msgLogInACK
+1002 constant msgLogInNAK
+1003 constant msgLogOut 
+
+1004 constant msgCreateOBJ  \ The deck->deck CREATE OBJECT message
+   BeginStruct
+      Int COBmsgCode
+      Int COBmasterHostID  
+      Int COBmasterModuleID
+      Lbl COBslaveURL
+   Struct COBMsg
+
+1005 constant msgIPList     \ The list of IP's are sent with this message
+   BeginStruct
+      Int IPLmsgCode
+      Int IPLHostID  
+   Struct IPLMsg
+
+\ Object-to-deck messages
+2001 constant msgExitSpace  \ Leave this place!
+2002 constant msgNewSpace   \ Enter this place instead...
+   BeginStruct
+      Int   ENTmsgCode
+      Float ENTnewX
+      Float ENTnewY
+      Float ENTnewZ
+      Float ENTnewYaw
+      Lbl   ENTspaceID        \ Space ID (i.e. URL) of space to enter
+   Struct ENTMsg
+
+2010 constant msgDeleteObject \ Delete-an-object order 
+2011 constant msgDeleteSlave  \ Delete-a-slave. (Like DeleteObject, but with pre-info)
+   BeginStruct
+      Int DELmsgCode
+      Int DELmoduleID  \ Module ID of thing to delete
+   Struct DELMsg
+
+\ object-to-object messages
+3000 constant msgPing?      \ A ping message
+3001 constant msgPong!      \ The reply
+3010 constant msgMyState?   \ Slave asks master - what is my state?
+3011 constant msgYourState! \ Master informs slave - this is your state
+3020 constant msgSlaveLeave \ Slave informs master - I am dying
+3021 constant msgMasterDied \ Master informs slave - I am dying
+
+\ Deck-to-object messages
+4000 constant msgReplicateTo \ The deck->object order to replicate itself to a host
+   BeginStruct
+      Int RPTmsgCode
+      Int RPTHostID  
+   Struct RPTMsg
+
+\ Some Pointer-device-related messages
+
+5000 constant msgTouched        \ When the mousepointer enters a geometry
+5001 constant msgNotTouched     \ When the mousepointer leaves a geometry
+5002 constant msgNewTouched     \ We are still touched, but this message
+                                \ means "on another subobject"
+5008 constant msgHandleTouched  \ When an object has handled a msgTouched...
+
+5010 constant msgLMouseDown
+5011 constant msgLMouseUp
+5012 constant msgRMouseDown
+5013 constant msgRMouseUp
+
+5020 constant msgWantMouse?     \ Query an object - do you want the mouse?
+5021 constant msgGrabMouse      \ Yes I do
+5022 constant msgReleaseMouse   \ Not any more
+
+5022 constant msgKeyPress       \ A keyboard keypress
+   BeginStruct
+      Int KEYmsgCode
+      Int KEYascii
+   Struct KEYMsg
+
+
+\ Some avatar messages. Always sent to the localAvatar object (i.e. the
+\ Avatar master, by other objects.
+
+6000 constant msgAvaNavStop   \ Turn off the avatar's own navigation
+6001 constant msgAvaNavStart  \ Turn on the avatar's own navigation again
+
+6010 constant msgAvaMoved     \ Some external force repositioned the avatar (E.g. collission)
+
+
+\ Some space-related messages
+
+7000 constant msgSpaceInit    \ You are alone here - space, initialize yourself!
+
+
+\ Some common code
+
+\ A message for the delete-object call
+create myDELMsg SizeOf MsgHeaders SizeOf DELMsg + dup allot
+myDELMsg mhMsgLen !
+
+
+\ Kill all slaves, and delete the structures - All except yourself
+
+: KillAllSlaves { ; temp otemp -- }   
+   IPListRoot @ IPListNext @ to temp
+   0 IPListRoot @ IPListNext !
+
+   begin
+      temp
+   while
+      msgDeleteSlave        myDELMsg mhMsgBody !
+      localHost             myDELMsg mhSrcHostID !
+      moduleOrigin          myDELMsg mhSrcModuleID !
+      temp IPListHostID @   myDELMsg mhDestHostID !
+      0                     myDELMsg mhDestModuleID !
+      temp IPListModuleID @ myDELMsg mhMsgBody DELmoduleID !
+
+      myDELMsg SendMessage drop
+
+      temp to otemp 
+      temp IPListNext @ to temp
+
+      otemp free-mem \ Delete the structure!
+   repeat
+;
+
+\ Destroy all children to a given object. 
+\ (not recursive, one level only. Any children of
+\ the children are the childs responsibility)
+
+: DestroyChildren { obj -- }
+   begin
+      obj child @ ?dup
+   while      
+d\      ." Destroying object type: " dup objecttype @ . cr
+      DestroyObject
+   repeat   
+;

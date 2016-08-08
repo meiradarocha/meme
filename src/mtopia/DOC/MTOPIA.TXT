@@ -1,0 +1,11 @@
+06Sep96 MdG
+The deck receives the following messages:
+msgLogIn		Someone wants to visit the local space
+msgLogOut		A visitor leaves the local space
+msgLogInACK		Local user has succeeded in visiting a remote space
+msgLogInNAK		Local user has failed to visit a remote space
+msgExitSpace	Owner of a remote space is kicking us out
+msgNewSpace		Local user enters a new space
+msgIPList		A remote user has sent his hostID to add to the IPList
+msgCreateOBJ	Create an object that is being replicated to my host
+msgDeleteobject	Delete an object

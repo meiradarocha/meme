@@ -1,0 +1,22 @@
+\ This file is copyright by Immersive Systems, Inc.  All rights
+\ reserved.  You are permitted to use this file subject to
+\ the provisions and restrictions in the license agreement, which
+\ is in the file LICENSE or LICENSE.txt or LICENSE.html.  If this
+\ set of files does not contain a file by one of the three
+\ preceding names, please contact the Metatopia project at
+\ sourceforge.net or at immersive.com.
+
+\ NetDispatch event flags
+\ by Marc de Groot
+\ Copyright (c) Immersive Systems, Inc.  All rights reserved.
+
+\ These are the bitmasks for the events
+\ that cause NetDispatch to reawaken a task.
+
+1		constant		ndREAD		\ Data ready for reading
+2		constant		ndWRITE		\ Socket ready to accept data for writing
+4		constant		ndOOB		\ Out-of-band data ready for reading
+8		constant		ndACCEPT	\ Incoming connection ready to establish
+16		constant		ndCONNECT	\ Outgoing connection established
+32		constant		ndCLOSE		\ Connection closed
+4096	constant		ndTIMER		\ Timeout

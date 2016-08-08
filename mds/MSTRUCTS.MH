@@ -1,0 +1,75 @@
+\ This file is copyright by Immersive Systems, Inc.  All rights
+\ reserved.  You are permitted to use this file subject to
+\ the provisions and restrictions in the license agreement, which
+\ is in the file LICENSE or LICENSE.txt or LICENSE.html.  If this
+\ set of files does not contain a file by one of the three
+\ preceding names, please contact the Metatopia project at
+\ sourceforge.net or at immersive.com.
+
+\ Data structures for the modules.
+\ by Marc de Groot.
+\ Copyright (c) Immersive Systems, Inc.  All rights reserved.
+
+\ Structure of a module buffer:
+\ Magic number
+\ Vocabulary structure:
+\	Pointers to link fields, one per thread
+\	voc-link pointer (always zero)
+\ Module's DP (top of dictionary)
+\ UP of first task, that is the most recently defined task
+\ Addr of link of last task, that is the first task defined in the module.
+\ Byte offset of relocation table (from start of dictionary).
+\ Flag indicating whether the module is currently loaded with code.
+\ CFA of the "go" meme: CFA of the meme that runs at load and unload time.
+\ Dictionary
+\ Relocation table
+\
+\ The "go" meme runs when the module is loaded and unloaded.  At load time
+\ the "go" meme is passed a -1 on the stack.  At unload time the "go" meme is
+\ passed a 0.
+
+\ When a module is read in, it is read in starting at the beginning
+\ of the struct, at LinkFieldPtrs.  This is because the base of the
+\ module needs to look like a vocabulary structure.  VocLinkPtr and
+\ ModuleMaxFileSize must not be overwritten by the module that is read in,
+\ and that is why the code for ReadModuleFromFile saves these values
+\ across the file read, and then restores them.  (VocLinkPtr is no longer
+\ used and is always 0.)
+\
+\ Note that the meme TotalModuleSize returns a number of bytes based
+\ on the RelTableOffset stored in the loaded module.  This value can
+\ be used rewrite a modified module.  It is distinct from ModuleMaxFileSize,
+\ which is the largest size module file that can be loaded.  This value
+\ is the physical size of the module as it is allocated in the dictionary.
+
+base @ hex
+C0DEBA5E constant ModuleMagicNumber
+base !
+
+BeginStruct
+	Int ModuleMagic					\ Magic # 
+	#threads Ints LinkFieldPtrs		\ Like a vocabulary
+	Int VocLinkPtr					\ Like a vocabulary (always 0)
+	Int ModuleMaxFileSize			\ Max # bytes in module
+	Int ModuleDP					\ Top of module's dictionary
+	Int 1stTaskPtr					\ Pointer to first task
+	Int LastTaskLinkPtr				\ Pointer to last task's link
+	Int RelTableOffset				\ Offset from module addr to rel table
+	Int ModuleLoaded				\ Is-module-loaded flag
+	Int CFAOfGo						\ Xaddr of the "go" meme
+	Int CFAOfReceiver				\ Xaddr of the "receiver" meme
+	Int CompilationOrigin			\ Base addr of module at compile time
+	Int	CompilationLibOrigin		\ Base addr of std library at compile time
+	Int ModuleCreator				\ Module that created this module
+	Int ModuleTagPointer			\ Ptr to module ID string
+	Int	ModuleAuxPointer			\ Ptr to module aux string
+	Lbl ModuleDict					\ Start of dictionary
+Struct Modules
+
+\ This is the structure at the does> address of modules defined with
+\ Module: and "Module:.  The mod-link is used by (forget.
+BeginStruct
+	Int MLink		\ The mod-link
+	Int MAddr		\ Module address
+	Int MSize		\ Module total size (for reallocation)
+Struct NamedModules

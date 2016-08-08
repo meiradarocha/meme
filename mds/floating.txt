@@ -1,0 +1,350 @@
+
+		C Forth 83 Floating Point
+
+The C Forth 83 Floating Point interface is intended to conform to the
+Forth Vendors Group proposed Forth Floating Point Standard.
+
+This implementation has the following characteristics:
+
+* Floating point numbers are kept on a separate floating point stack.
+* The floating point format is whatever the C floating point implementation
+  uses for double precision floating point.
+
+Floating point numeric input:
+
+    Floating point numbers are of the form, for example:
+	+1234.5678E-6
+
+    The "E" is mandatory; it allows the Forth number parser to
+    distinguish this as a floating point number.  Examples:
+
+    	1E0   -1.3E-4
+
+    The presence of a decimal point is not in itself sufficient to
+    distinguish a number as being floating point.  The "E" must be
+    present.
+
+    Floating point numbers are only recognized if BASE is decimal.
+
+    Floating point numbers may be both interpreted and compiled in the
+    usual way.
+
+Glossary:
+	Words marked "FVG" are specified by the Forth Vendors Group
+	proposed floating point standard.
+
+F+		fp1 fp2 -- fp3			 	FVG
+	Floating-point addition.  fp3 is the sum of fp1 and fp2.
+
+F-		fp1 fp2 -- fp3		 		FVG
+	Floating-point subtraction.  fp3 is the difference fp1 minus fp2.
+
+F*		fp1 fp2 -- fp3				FVG
+	Floating-point multiplication.  fp3 is the product of fp1 and fp2.
+
+F/		fp1 fp2 -- fp3				FVG
+	Floating-point division.  fp3 is the quotient of fp1 divided by fp2.
+
+F**		fp1 fp2 -- fp3				FVG
+	Floating-point exponentiation.  fp3 is the value of fp1 raised to the
+	power fp2.
+
+FCOS		fp1 -- fp2				FVG
+	fp2 is the cosine of fp1.  Input argument is in radians.
+
+FSIN		fp1 -- fp2				FVG
+	fp2 is the sine of fp1.  Input argument is in radians.
+
+FSINCOS		fp1 -- fp2 fp3				FVG
+	fp2 is the sine of fp1 and fp3 is the cosine of fp3.  Input argument
+	is in radians.
+
+FTAN		fp1 -- fp2				FVG
+	fp2 is the tangent of r1.  The tangent of pi/2 or 3pi/2 radians
+	returns the largest floating point number representable in the
+	implementation's binary format.
+
+FALN		fp1 -- fp2				FVG
+	The exponential function.  fp2 is the value of e raised to the power
+	of fp1.
+
+FLN		fp1 -- fp2				FVG
+	fp2 is the natural logarithm of fp1.
+
+FSQRT		fp1 -- fp2				FVG
+	fp2 is the square root of fp1.
+
+FLOG		fp1 -- fp2				FVG
+	fp2 is the base 10 logarithm of fp1.
+
+FATAN		fp1 -- fp2				FVG
+	fp2 is the arctangent of fp1.  This operator is valid for all floating
+	point numbers.  The result is in the range -pi/2 to pi/2 radians.
+
+FASIN		fp1 -- fp2				FVG
+	fp2 is the arcsine of fp1.  Valid for -1 <= fp1 <= 1.  The result
+	is in the range -pi/2 to pi/2 radians.
+
+FACOS		fp1 -- fp2				FVG
+	fp2 is the arccosine of fp1.  Valid for -1 <= fp1 <= 1.  The result
+	is in the range -pi/2 to pi/2 radians.
+
+FSINH		fp1 -- fp2				FVG
+	fp2 is the hyperbolic sine of fp1.
+
+FCOSH		fp1 -- fp2				FVG
+	fp2 is the hyperbolic cosine of fp1.
+
+FTANH		fp1 -- fp2				FVG
+	fp2 is the hyperbolic tangent of fp1.
+
+FVARIABLE 	-- (compilation)			FVG
+		-- addr (execution)
+	A defining word used in the form:
+		FVARIABLE cccc
+	When FVARIABLE executes, it creates the definition cccc with its 
+	parameter field uninitialized.  When cccc is later executed, the 
+	address of the parameter field is left on the stack, so that a 
+	F@ or F! operation may access this location.
+
+FCONSTANT 	fp -- (compilation)			FVG
+		-- fp (execution)
+	A defining word used in the form:
+		fp FCONSTANT <name>
+	When FCONSTANT executes, it creates the definition <name>
+	so that when <name> is later executed, the floating point
+	number fp is left on the stack.
+
+FALOG		fp1 -- fp2				FVG
+	fp2 is the result of raising 10 to the fp1 power.
+
+F.		fp --					FVG
+	Display fp on the currently selected output device in fixed-point
+	form; i.e., the location of the decimal point is adjusted as 
+	necessary so that no exponent need be displayed.  The number of
+	digits specified by the most recent execution of the word PLACES
+	are printed to the right of the decimal point.  A trailing blank 
+	follows.  For example, 4 PLACES 1.2345E02 F. will display as
+	123.4500b (where the character "b" denotes an ASCII blank).
+
+F.R		fp n1 n2 --				FVG
+	Display fp on the currently selected output device in fixed-point
+	form with n1 digits to the right of the decimal place, right
+	justified in a field of width n.  Numbers that cannot be represented
+	within the given field width are printed in exponential form.
+	If the current system base is not decimal, an error condition
+	exists.  For example, 1.2345E2  4  12  F.R  will display as
+	bbbb123.4500 (where the character "b" denotes an ASCII blank).
+
+	** Not implemented **
+
+F.S		--
+	Print the contents of the floating point stack without affecting
+	its contents.  The number on the top of the stack appears on the
+	right-hand side of the line.
+
+E.		fp --					FVG
+	Display fp in exponential form.  The significand contains the 
+	maximum number of significant digits allowed by the floating-point 
+	data format, and the exponent is explicitly displayed even if it is 
+	zero.  A trailing blank follows.  If the current system base is not 
+	decimal, an error condition exists.  
+
+E.R		fp n1 n2 --				FVG
+	Display fp on the currently selected output device in exponential
+	form with n1 digits to the right of the decimal place, right
+	justified in a field of width n.  If the current system base is
+	not decimal, an error condition exists.  For example, 1.234E0
+	5  12  E.R  will display as  bb.12340E-01  (where the character
+	"b" denotes an ASCII blank).
+
+	** Not implemented **
+
+FLOAT 		l -- fp					FVG
+	Convert a signed long integer into its floating-point equivalent,
+	removing the long integer from the Forth parameter stack and 
+	leaving the result on the floating-point stack.
+
+INT		fp -- l					FVG
+	Truncate a floating-point number to a signed long integer (round it 
+	toward zero), removing the fp number from the floating-point stack 
+	and leaving the result on the Forth parameter stack.  Underflow gives
+	a zero result, overflow is an error condition.
+
+FIX		fp -- l					FVG
+	Convert a floating-point number to a signed long integer, rounding
+	towards the nearest integer, removing the fp number from the
+	floating-point stack, and leaving the result on the Forth parameter
+	stack.  Underflow gives a zero result, overflow is an error condition.
+
+FABS		fp1 --fp2				FVG
+	fp2 is the absolute value of the floating-point number fp1 .
+
+FNEGATE		fp1 -- fp2				FVG
+	fp2 is the negative of the floating-point number fp1 .
+
+F!		f addr -- 				FVG
+	Store a floating-point number from the floating-point stack
+	into the address that is on top of the Forth parameter stack.
+	
+F@		addr -- f				FVG
+	Fetch a floating-point number to the top of the floating-point
+	stack from the address that is on top of the Forth parameter
+	stack.
+
+FDROP		fp --					FVG
+	Discard floating-point number on top of the stack.
+
+FSWAP		fp1 fp2 -- fp2 fp1			FVG
+	Interchange the two floating-point numbers on top of the stack.
+
+FOVER		fp1 fp2 -- fp1 fp2 fp1			FVG
+	Copy the second floating-point number on the stack to the top of
+	the stack.
+
+FDUP		fp -- fp fp				FVG
+	Duplicate the floating-point number on top of the stack.
+
+FROT		fp1 fp2 fp3 -- fp2 fp3 fp1		FVG
+	Rotate the third floating-point number to the top of the stack.
+
+FPOP		f -- l l
+	Move the fp number on top of the floating-point stack to the 
+	top two cells of the parameter stack, without converting it to an 
+	integer.  fpop just moves the bits, without any sort
+	of format conversion.
+
+FPUSH		l l -- f
+	Push the top two numbers on the parameter stack to the top cell
+	of the floating-point stack, without converting them to fp.
+	fpop just moves the bits, without any sort of format conversion.
+
+F0=		fp -- f					FVG
+	True if the floating-point number on top of the stack is equal to
+	zero.  The fp number is removed from the floating-point stack,
+	and the flag is left on top of the Forth parameter stack.
+
+F0<>		fp -- f
+	True if the floating-point number on top of the stack is not equal
+	to zero.  The fp number is removed from the floating-point stack,
+	and the flag is left on top of the Forth parameter stack.
+
+F0<		fp -- f					FVG
+	True if the floating-point number on top of the fp stack is less
+	than zero.  The fp number is removed from the floating-point
+	stack, and the flag is left on top of the Forth parameter stack.
+
+F0>=		fp -- f
+	True if the floating-point number on top of the fp stack is greater
+	than or equal to zero.  The fp number is removed from the floating-
+	point stack, and the flag is left on top of the Forth parameter stack.
+
+F0<=		fp -- f
+	True if the floating-point number on top of the fp stack is less
+	than or equal to zero.  The fp number is removed from the floating-
+	point stack, and the flag is left on top of the Forth parameter stack.
+
+F0>		fp -- f					FVG
+	True if the floating-point number on top of the fp stack is greater
+	than zero.  The fp number is removed from the floating-point stack,
+	and the flag is left on top of the Forth parameter stack.
+
+F<		fp1 fp2 -- f				FVG
+	True if fp1 is less than fp2 .  The two floating-point
+	numbers are removed from the floating-point stack, and the flag
+	is left on top of the Forth parameter stack.
+
+F>		fp1 fp2 -- f				FVG
+	True if fp1 is greater than fp2 .  The two floating-point
+	numbers are removed from the floating-point stack, and the flag
+	is left on top of the Forth parameter stack.
+
+F<=		fp1 fp2 -- f
+	True if fp1 is less than or equal to fp2 .  The two floating-point
+	numbers are removed from the floating-point stack, and the flag
+	is left on top of the Forth parameter stack.
+
+F>=		fp1 fp2 -- f
+	True if fp1 is greater than or equal to fp2 .  The two floating-point
+	numbers are removed from the floating-point stack, and the flag
+	is left on top of the Forth parameter stack.
+
+F=		fp1 fp2 -- f					FVG
+	True if fp1 is equal to fp2 .  The two floating-point
+	numbers are removed from the floating-point stack, and the flag
+	is left on top of the Forth parameter stack.
+
+F<>		fp1 fp2 -- f
+	True if fp1 is not equal to fp2 .  The two floating-point
+	numbers are removed from the floating-point stack, and the flag
+	is left on top of the Forth parameter stack.
+
+FMAX		fp1 fp2 -- fp3
+	fp3 is the larger of the 2 floating point numbers fp1 and fp2
+
+FMIN		fp1 fp2 -- fp3
+	fp3 is the smaller of the 2 floating point numbers fp1 and fp2
+
+FCEIL		fp1 -- l
+	l is the smallest integer which is as least as large as the floating
+	point number fp1.  fp1 is removed from the floating point stack and
+	the result is left on the parameter stack.
+	
+FFLOOR		fp1 -- l
+	l is the largest integer which is not larger than the floating
+	point number fp1.  fp1 is removed from the floating point stack and
+	the result is left on the parameter stack.
+	
+FP!		n  --
+	Store the integer on the parameter stack into the floating-point
+	stack pointer.  Used for initialization.
+
+FP@		-- addr
+	Fetch the current contents of the floating-point stack pointer to
+	the parameter stack.
+
+FDEPTH		-- n
+	n is the number of floating point numbers currently on the floating
+	point stack.
+
+FP0		-- addr
+	addr is the address of a USER variable which contains the 32-bit
+	address of the of the top of the floating point stack area.
+	The stack grows towards low memory from there.  FP0 L@ FP!
+	would empty the floating point stack, but see INITF .
+
+FCLEAR		--
+	Clears the floating point stack.
+
+/F		-- n
+	Leaves the size, in bytes, of a floating point number in storage 
+	format.  In this system, the value is 8.
+
+(FLITERAL)	-- fp
+	The run-time work compiled by fliteral which takes
+	a floating point number from the executing code stream
+	and leaves it on the floating point stack.
+
+FLITERAL	fp --					C,I
+	The floating point number is removed from the floating point stack
+	and compiled into the current definition so that when the definition
+	is later executed, that floating point number will be left on the
+	floating point stack.
+
+Floating point example:
+
+This example prints a table of the values of the sine function at 1/10
+radian intervals between 0 and two-pi.
+
+3.1415926535E0  2E0  f* fconstant 2pi
+
+: sine-table ( -- )
+   0E0			( angle )
+   begin
+      fdup 2pi  f<      ( angle end? )
+   while
+      fdup f.  fdup fsin  f.  cr
+      .1E0   f+		( angle' )
+   repeat
+;
+

@@ -1,0 +1,92 @@
+* Syntax:	profile
+*
+* Synopsis:	This is the WATCOM VIDEO initialization file.
+*
+
+* MdG's additions
+set source \meme\doswat\*.c \meme\*.c
+set radix 16
+
+set menu	on
+set level	mix
+set symbol	/ignore {*} {*_} {_*}
+set implicit	on
+set radix	/0n 10
+set radix	/0x 16
+set radix	/0   8
+
+/_dbg@dbg$has_regs = 0
+
+* if dbg$os == 6, we're debugging a QNX program and want tab stops set to 4
+if _dbg@dbg$os==6   {set tab 4}
+
+if _dbg@dbg$monitor >= 1 && _dbg@dbg$monitor != 4 {invoke colours}
+
+do _dbg@dbg$dvsr = 0n5
+if _dbg@dbg$bottom >= 0n32 { /_dbg@dbg$dvsr = 0n4 }
+do _dbg@dbg$tiny = ( _dbg@dbg$bottom - _dbg@dbg$top - 0n2) / _dbg@dbg$dvsr
+do _dbg@dbg$bot = _dbg@dbg$bottom - 1 - _dbg@dbg$tiny - 1
+
+do _dbg@dbg$rgt = _dbg@dbg$right-8-5*_dbg@dbg$32
+display command /close {Command Window} _dbg@dbg$top, _dbg@dbg$top+5, _dbg@dbg$rgt-20, _dbg@dbg$rgt-1
+display register /close {CPU} _dbg@dbg$top, _dbg@dbg$top+19, _dbg@dbg$rgt, _dbg@dbg$right
+display stack /close {Stack} _dbg@dbg$top, _dbg@dbg$top+19, _dbg@dbg$rgt-7-3*_dbg@dbg$32, _dbg@dbg$rgt-1
+display fpu /close {FPU} _dbg@dbg$top, _dbg@dbg$top+9, _dbg@dbg$left, _dbg@dbg$right-7
+display dialogue {Dialogue: *} _dbg@dbg$bot+1, _dbg@dbg$bottom-1, _dbg@dbg$left, _dbg@dbg$right
+display memory /close {Memory Window} _dbg@dbg$bot+1, _dbg@dbg$bottom-1, _dbg@dbg$rgt-36, _dbg@dbg$rgt-1
+display thread /close {Threads} _dbg@dbg$bot+1, _dbg@dbg$bottom-1, _dbg@dbg$rgt-57, _dbg@dbg$rgt-35
+invoke src
+
+set menu add restart
+set menu add animate
+set menu add view
+set menu add src
+set menu add mix
+set menu add asm
+set menu add flip
+
+set pf 1  {help}
+set pf 2  {if _dbg@dbg$has_regs {d reg/c} {d reg /o}; /_dbg@dbg$has_regs+=3; <wind}
+invoke toggle 4  {disp fpu /o} {disp fpu /c}
+set pf 5  {reg -1}
+set pf 6  {reg +1}
+set pf 7  {/++_dbg@dbg$wind_split;<wind}
+invoke toggle 8  {set menu off;<wind} {set menu on;<wind}
+set pf 10 {set menu activate}
+* alt fn keys
+set pf 39 {set input source}
+set pf 40 {set input assembly}
+
+set macro assembly 'G' {g}
+set macro assembly 'g' {g dbg$code}
+set macro assembly 'i' {t/a/i}
+set macro assembly 'n' {t/a/n}
+set macro assembly ' ' {t/a/o}
+set macro assembly 'b' {b dbg$code}
+set macro assembly 'c' {b/c/dbg$code}
+
+set macro source 'v' {view}
+set macro source 'G' {g}
+set macro source 'g' {g dbg$code}
+set macro source 'i' {t/s/i}
+set macro source 'n' {t/s/n}
+set macro source ' ' {t/s/o}
+set macro source 'b' {b dbg$code}
+set macro source 'c' {b/c/dbg$code}
+
+set macro fpu 'b' {set fpu binary}
+set macro fpu 'd' {set fpu decimal}
+
+if ?_dbg@nogo || !_dbg@dbg$loaded {
+    * nothing to do
+} elseif ?FMAIN {
+    go FMAIN
+} elseif ?main {
+    go main
+} elseif _dbg@dbg$os == 8 || _dbg@dbg$os == 10 {
+    if ?FWINMAIN {
+	go FWINMAIN
+    } elseif ?WINMAIN {
+	go WINMAIN
+    }
+}

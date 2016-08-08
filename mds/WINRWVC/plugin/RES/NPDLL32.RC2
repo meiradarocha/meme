@@ -1,0 +1,56 @@
+//
+// PLUGTEST.RC2 - resources Microsoft Visual C++ does not edit directly
+//
+
+#ifdef APSTUDIO_INVOKED
+	#error this file is not editable by Microsoft Visual C++
+#endif //APSTUDIO_INVOKED
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 2,67,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+
+            VALUE "CompanyName",     "Immersive Systems, Inc.\0"
+            VALUE "FileDescription", "Meme virtual world viewer plug-in\0"
+            VALUE "FileVersion",     "0.0.0.1\0"
+            VALUE "InternalName",    "Meme viewer plug-in\0"
+            VALUE "LegalCopyright",  "Copyright (c) Immersive Systems, Inc.\0"
+            VALUE "LegalTrademarks", "Meme, Memeview, Metatopia\0"
+            VALUE "OriginalFilename","npmeme.dll\0"
+            VALUE "ProductName",     "Meme virtual world viewer plug-in\0"
+            VALUE "ProductVersion",  "2.67.0.0\0"
+            VALUE "MIMEType",        "application/x-meme|x-world/x-meme\0"
+            VALUE "FileExtents",     "mm\0"
+            VALUE "FileOpenName",    "Meme modules (*.mm)\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Add manually edited resources here...
+
+/////////////////////////////////////////////////////////////////////////////

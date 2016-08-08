@@ -1,0 +1,43 @@
+\ This file is copyright by Immersive Systems, Inc.  All rights
+\ reserved.  You are permitted to use this file subject to
+\ the provisions and restrictions in the license agreement, which
+\ is in the file LICENSE or LICENSE.txt or LICENSE.html.  If this
+\ set of files does not contain a file by one of the three
+\ preceding names, please contact the Metatopia project at
+\ sourceforge.net or at immersive.com.
+
+\ Definitions of the message structures.
+\ by Marc de Groot.
+\ Copyright (c) Immersive Systems, Inc.  All rights reserved.
+
+\ Reserved host IDs
+h# 7f000001	constant	localHost 		\ Local host's IP number: 127.0.0.1
+
+\ Reserved module IDs
+0			constant	deckID    		\ Module ID for the deck module
+-1			constant	mainTaskID		\ Module ID for the main task
+-2			constant	fileServerID	\ Module ID for the remote file server
+
+\ *****************************************************************************
+\ The header for a message
+BeginStruct
+	Int	mhSrcHostID			\ ID of source host
+	Int	mhSrcModuleID		\ ID of source module
+	Int mhDestHostID		\ ID of destination host
+	Int mhDestModuleID		\ ID of destination module
+	Int	mhMsgLen			\ Length in bytes of message (including header)
+	Lbl	mhMsgBody			\ Start of message body
+Struct MsgHeaders
+
+: MsgHeader 1 MsgHeaders ;
+
+\ *****************************************************************************
+\ The structure of a signal
+BeginStruct
+	MsgHeader	sigHeader
+	Int			sigMsgNum
+Struct Signals
+
+: Signal 1 Signals ;
+
+\ *****************************************************************************

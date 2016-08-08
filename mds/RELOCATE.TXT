@@ -1,0 +1,93 @@
+\ This file is copyright by Immersive Systems, Inc.  All rights
+\ reserved.  You are permitted to use this file subject to
+\ the provisions and restrictions in the license agreement, which
+\ is in the file LICENSE or LICENSE.txt or LICENSE.html.  If this
+\ set of files does not contain a file by one of the three
+\ preceding names, please contact the Metatopia project at
+\ sourceforge.net or at immersive.com.
+
+\ Proposed relocation scheme for modules:
+\ Currently, each byte of relocation information represents four bytes of module data.
+\ Only one bit of each relocation byte is used as a flag for relocation/no relocation.
+\
+\ The proposed scheme would use each nybble to represent two bytes as follows:
+\ Nybble=			Meaning
+\ 0					No change in the cell needed
+\ 1					The half-cell is byte-order sensitive
+\ 2					The full cell is byte-order sensitive (but needs no relocation)
+\ 3					The full cell needs primary relocation (relative to its base address)
+\ 4 through 15		The full cell needs primary and secondary relocation (relative to a library).
+\
+\ Remarks:
+\
+\ Note that relocation implies byte-order sensitivity.  Since no guarantee of being within 64k bytes
+\ is made, half-cells are not relocatable.  Because of this, all values above 1 are full-cell byte-order
+\ sensitive.
+\
+\ The libraries corresponding to values 4 through 15 could be handled more than one way.
+\ One possibility is that 4 through 14 correspond to libraries whose identities are fixed.  15 could
+\ then be a value for a library whose name is stored in the module header.
+\ Another possibility is that all the library names are stored in the module header, with no fixed
+\ identities for libraries.
+\ Perhaps 4 through 11 could be fixed identities, with 12 through 15 as stored names.
+\
+\ The file extension .ml is proposed for Meme libraries.  This distinguishes them from modules.
+\ Libraries are compiled the same way as modules and have the same header, but are intended for
+\ different uses.  In particular, libraries have no need (that I can see at this time) for either
+\ a go meme or a receiver meme, though some novel reason for sending a message may become clear.
+\
+\ It would be wise to change the name of modcode.mod to stdlib.ml or std.ml or std00000.ml or
+\ std256b.ml (incorporating the version number of the interpreter.)
+\
+\ To increase the speed of relocation, the offsets for both primary and primary+secondary relocation
+\ should be stored somewhere before relocation takes place.  Perhaps "unrelocating" the code should
+\ not take place on unload, since the absolute address could be stored in the header and used later
+\ for relocation.
+\
+\ An initial implementation of the above scheme should ignore all values except 0, 3, and 4.  This would
+\ increase the current functionality by adding secondary relocation; the only function currently
+\ implemented is primary relocation (no byte-reordering has been implemented.)  Secondary relocation
+\ would only be for modcode.mod.
+\
+\ Modcode.mod should be compiled into the dictionary.  An argument can be made that it might be better
+\ to simply compile references to the dictionary (below fence, for instance).  This might limit the
+\ user who wants to completely change the dictionary.  If a new version of the interpreter and dictionary
+\ tries to run with a module compiled on an old version, the mismatch would prevent execution.  On the
+\ other hand, if changes and bug fixes to the standard library are limited to compilation on top of the
+\ original body of code (perhaps combined with judicious hot-patching of bad code to revector functions
+\ in old versions) then compatibility would not be impacted.
+\ Better than compiling into the dictionary, modcode.mod (herein std256b.ml) could be allocated space
+\ on the heap and loaded at startup time.  This induces a time penalty on startup, and the logistical
+\ overhead of maintaining another distribution file.  If std256b.ml were compiled as the top-most item
+\ in the dictionary (as distributed to users) it could be forgotten and another version loaded if
+\ necessary.
+\
+\ Normal compilation into a module at the top of the dictionary incurs the overhead of storing the 
+\ module's relocation table, as well as the problem of not having the module's data stored in the
+\ main dictionary's relocation table.
+\
+\ The overhead of the relocation table can be tolerated in the initial implementation, however something
+\ must be done to relocate the library on startup.
+\ If BeginModule is never executed, set-module-relocation-bit() will not be called because the user
+\ variable module-compiling? will remain false.  If the context and current vocabularies are set to
+\ the vocabulary thread in the library, the linked list of names in the library will remain insulated
+\ from the main dictionary.  If the addresses of the start of the library's dictionary and the top of the
+\ main dictionary are the same at the start of library compilation, the code will end up exactly where
+\ it should have been placed for the module header, while using the main dictionary's relocation table.  The
+\ module header's dummy voc-link can be patched back to zero to keep the linked lists of vocabularies insulated.
+\
+\ Later, when a module wants to compile references to the standard library, it need only patch the link field
+\ of its bottom-most meme to point at the top-most meme in the standard library, simulating one continuous
+\ vocabulary.  After compilation, the bottom-most LF in the new module is patched back to zero.
+\
+\ The name of the library's module header in the dictionary should not change from version to version, or
+\ it will be unfindable.  However, a primitive needs to be implemented that returns the version number of the
+\ interpreter.
+\
+\ A module defined with Module: is allocated space on the heap.  The pseudo-module we will allocate in the
+\ dictionary must not have its CFA pointing at the DOES> portion of Module: (actually "Module:) or FORGET will
+\ call free-mem with the address in its MAddr field.  The MLink field would normally get set on creation, and the
+\ user variable mod-link would point at the module.  (Mod-link should not be a user variable, in case a
+\ background task wants to put a module header in the dictionary.  This linked list should be system-wide.)
+\ It is best if the module's structure is emulated, by using CREATE to build its header.
+\

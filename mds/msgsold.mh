@@ -1,0 +1,250 @@
+\ This file is copyright by Immersive Systems, Inc.  All rights
+\ reserved.  You are permitted to use this file subject to
+\ the provisions and restrictions in the license agreement, which
+\ is in the file LICENSE or LICENSE.txt or LICENSE.html.  If this
+\ set of files does not contain a file by one of the three
+\ preceding names, please contact the Metatopia project at
+\ sourceforge.net or at immersive.com.
+
+\ Definitions of the message structures.
+\ by Marc de Groot.
+\ Copyright (c) Immersive Systems, Inc.  All rights reserved.
+
+\ ***************************************************************************
+\
+\ THIS FILE IS OBSOLETE.  THE MESSAGE HEADER STRUCT HAS CHANGED.  FORMATTING
+\ OF RETURN PACKETS BEFORE SENDING ON THE OUTGOING SIDE IS PROHIBITED.  REWRITE
+\ BEFORE USING.
+\
+\
+\ ***************************************************************************
+\
+\
+
+h# 7f000001	constant	localHost \ Local host's IP number: 127.0.0.1
+0			constant	deckID    \ Module ID for the deck module
+
+\ The message codes
+0 constant MotionConstraintMsgCode
+1 constant AvatarPositionReqMsgCode
+2 constant AvatarPositionSendMsgCode
+3 constant ChangeRoomMsgCode
+4 constant TargetRoomMsgCode
+5 constant FileRequestMsgCode
+6 constant FileSendMsgCode
+7 constant HomeURLRequestMsgCode
+8 constant HomeURLSendMsgCode
+9 constant TargetPointMsgCode
+10 constant TeleportMsgCode
+11 constant SpaceToURLRequestMsgCode
+12 constant SpaceToURLReplyMsgCode
+13 constant I/EMsgCode
+14 constant GlobalPositionReqMsgCode
+15 constant GlobalPositionReplyMsgCode
+16 constant ConfigInfoReqMsgCode
+17 constant ConfigInfoReplyMsgCode
+18 constant SetBackgroundColorMsgCode
+
+\ *****************************************************************************
+\ The header for a message
+BeginStruct
+	Int	msgHeaderHostID		\ ID of destination host
+	Int	msgHeaderModuleID	\ ID of destination module
+	Int	msgHeaderMsgLength	\ Length in bytes from msgHeaderMessage
+	Lbl	msgHeaderMessage	\ Start of received message	
+Struct MessageHeader
+
+\ *****************************************************************************
+BeginStruct
+	Int	constraintMsgFld
+	IFloat	constraintXlow
+	IFloat	constraintXhigh
+	IFloat	constraintYlow
+	IFloat	constraintYhigh
+	IFloat	constraintZlow
+	IFloat	constraintZhigh
+Struct MotionConstraintMsg
+
+\ *****************************************************************************
+BeginStruct
+	Int	aPositionReqMsgFld			\ Msg code fld for msg
+	Lbl	aPositionReqRtnMsgStart		\ Pointer for sending the rtn msg
+	Int	aPositionReqRtnHostID		\ Host ID for return msg
+	Int	aPositionReqRtnModuleID		\ Module ID for return msg
+	Int	aPositionReqRtnMsgLen		\ Length of return msg
+	Int	aPositionReqRtnMsgFld		\ Msg code fld for return msg
+	IFloat	aPositionReqRtnX		\ Returned X pos
+	IFloat	aPositionReqRtnY		\ Returned Y pos
+	IFloat	aPositionReqRtnZ		\ Returned Z pos
+	IFloat	aPositionReqRtnYaw		\ Returned yaw angle
+	IFloat	aPositionReqRtnPitch	\ Returned pitch angle
+	IFloat	aPositionReqRtnRoll		\ Returned roll angle
+Struct AvatarPositionReqMsg
+
+\ *****************************************************************************
+BeginStruct
+	Int	aPositionSendMsgFld
+	IFloat	aPositionSendX
+	IFloat	aPositionSendY
+	IFloat	aPositionSendZ
+	IFloat	aPositionSendYaw
+	IFloat	aPositionSendPitch
+	IFloat	aPositionSendRoll
+Struct AvatarPositionSendMsg
+
+\ *****************************************************************************
+BeginStruct
+	Int	cRoomMsgFld
+	Lbl	cRoomFileName
+Struct ChangeRoomMsg
+
+\ *****************************************************************************
+BeginStruct
+	Int	tRoomMsgFld
+	Lbl	tRoomName
+Struct TargetRoomMsg
+\ *****************************************************************************
+BeginStruct
+	Int		HomeURLRequestMsgFld
+	IFloat	HomeURLRequestX
+	IFloat	HomeURLRequestY
+	IFloat	HomeURLRequestZ
+	Lbl		HomeURLReqRtnMsgStart
+	Int		HomeURLReqRtnHostID
+	Int		HomeURLReqRtnModuleID
+	Int		HomeURLReqRtnMsgLen
+	Int		HomeURLReqRtnMsgFld
+	Lbl		HomeURLReqRtnURLString
+Struct HomeURLRequestMsg
+\ *****************************************************************************
+BeginStruct
+	Int		HomeURLSendMsgFld
+	Lbl		HomeURLSendURLString
+Struct HomeURLSendMsg
+\ *****************************************************************************
+\ This message is sent to cdoor.mod to set its target point.
+BeginStruct
+	Int		tpMsgFld
+	Int		tpGlobFlag
+	IFloat	tpX
+	IFloat	tpY
+	IFloat	tpZ
+	IFloat	tpYaw
+	IFloat	tpPitch
+	IFloat	tpRoll
+Struct TargetPointMsg
+\ *****************************************************************************
+\ This message is sent to cdeck.mod to teleport the user to another
+\ point in either local or global space.
+BeginStruct
+	Int		teleportMsgFld
+	Int		teleportGlobFlag
+	IFloat	teleportX
+	IFloat	teleportY
+	IFloat	teleportZ
+	IFloat	teleportYaw
+	IFloat	teleportPitch
+	IFloat	teleportRoll
+Struct TeleportMsg
+\ *****************************************************************************
+\ This message is sent to cdeck.mod to request space-to-URL (local space)
+\ translation.
+BeginStruct
+	Int		stuRequestMsgFld
+	IFloat	stuRequestX
+	IFloat	stuRequestY
+	IFloat	stuRequestZ
+	Lbl		stuReqRtnMsgStart
+	Int		stuReqRtnHostID
+	Int		stuReqRtnModuleID
+	Int		stuReqRtnMsgLen
+	Int		stuReqRtnMsgFld
+	IFloat	stuReqRtnX
+	IFloat	stuReqRtnY
+	IFloat	stuReqRtnZ
+	IFloat	stuReqRtnYaw
+	IFloat	stuReqRtnPitch
+	IFloat	stuReqRtnRoll
+	Lbl		stuReqRtnURLString
+Struct SpaceToURLRequestMsg
+\ *****************************************************************************
+\ This message is returned in reply to a SpaceToURLRequestMsg.
+BeginStruct
+	Int		stuReplyMsgFld
+	IFloat	stuReplyX
+	IFloat	stuReplyY
+	IFloat	stuReplyZ
+	IFloat	stuReplyYaw
+	IFloat	stuReplyPitch
+	IFloat	stuReplyRoll
+	Lbl		stuReplyURLString
+Struct SpaceToURLReplyMsg
+\ *****************************************************************************
+\ This message is sent to a room to get it to load its interior or exterior
+BeginStruct
+	Int		ieMsgFld
+	Int		ieI/E
+Struct I/EMsg
+\ *****************************************************************************
+\ This message is sent to cdeck.m to ask for the position in the Metatopia
+\ universe of the rendering engine's coordinate system's origin.
+BeginStruct
+	Int	gPosReqMsgFld			\ Msg code fld for msg
+	Lbl	gPosReqRtnMsgStart		\ Pointer for sending the rtn msg
+	Int	gPosReqRtnHostID		\ Host ID for return msg
+	Int	gPosReqRtnModuleID		\ Module ID for return msg
+	Int	gPosReqRtnMsgLen		\ Length of return msg
+	Int	gPosReqRtnMsgFld		\ Msg code fld for return msg
+	IFloat	gPosReqRtnX			\ Returned X pos
+	IFloat	gPosReqRtnY			\ Returned Y pos
+	IFloat	gPosReqRtnZ			\ Returned Z pos
+	IFloat	gPosReqRtnYaw		\ Returned yaw angle
+	IFloat	gPosReqRtnPitch		\ Returned pitch angle
+	IFloat	gPosReqRtnRoll		\ Returned roll angle
+Struct GlobalPositionReqMsg
+
+\ *****************************************************************************
+\ This message is the return portion of the GlobalPositionReqMsg.
+BeginStruct
+	Int	gPosReplyMsgFld
+	IFloat	gPosReplyX
+	IFloat	gPosReplyY
+	IFloat	gPosReplyZ
+	IFloat	gPosReplyYaw
+	IFloat	gPosReplyPitch
+	IFloat	gPosReplyRoll
+Struct GlobalPositionReplyMsg
+\ *****************************************************************************
+\ This message is sent to cdeck.m to query the deck for its deck configuration
+\ info.
+BeginStruct
+	Int		ciReqMsgFld
+	Lbl		ciReqRtnMsgStart	\ Pointer for sending the return message
+	Int		ciReqRtnHostID
+	Int		ciReqRtnModuleID
+	Int		ciReqRtnMsgLen
+	Int		ciReqRtnMsgFld
+	IFloat	ciReqRtnHomeX			\ Home point X
+	IFloat	ciReqRtnHomeY			\ Home point Y
+	IFloat	ciReqRtnHomeZ			\ Home point Z
+	IFloat	ciReqRtnNeighborhood	\ Radius of neighborhood
+	Lbl		ciReqRtnSpaceServer		\ C-string of space server hostname
+Struct ConfigInfoReqMsg
+
+\ This is the reply portion of the above message.
+BeginStruct
+	Int		ciReplyMsgFld
+	IFloat	ciReplyHomeX			\ Home point X
+	IFloat	ciReplyHomeY			\ Home point Y
+	IFloat	ciReplyHomeZ			\ Home point Z
+	IFloat	ciReplyNeighborhood		\ Radius of neighborhood
+	Lbl		ciReplySpaceServer		\ C-string of space server hostname
+Struct ConfigInfoReplyMsg
+\ *****************************************************************************
+\ This message is sent to cdeck.m to set the background color.
+BeginStruct
+	Int		sbcMsgFld
+	IFloat	sbcR
+	IFloat	sbcG
+	IFloat	sbcB
+Struct SetBackgroundColorMsg

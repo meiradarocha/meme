@@ -1,0 +1,75 @@
+/* This file is copyright by Immersive Systems, Inc.  All rights
+ * reserved.  You are permitted to use this file subject to
+ * the provisions and restrictions in the license agreement, which
+ * is in the file LICENSE or LICENSE.txt or LICENSE.html.  If this
+ * set of files does not contain a file by one of the three
+ * preceding names, please contact the Metatopia project at
+ * sourceforge.net or at immersive.com.
+ */
+
+/* Function numbers for the Meme ops.
+ * by Marc de Groot.
+ * Copyright (c) Immersive Systems, Inc.  All rights reserved.
+ */
+
+#define	MEME_OBJECT					(1000)
+#define	MEME_RENDER					(1001)
+#define	MEME_NUMOBJECTS				(1002)
+#define	MEME_NEWCAMERA				(1003)
+#define	MEME_NEWLIGHT				(1004)
+#define	MEME_NEWVISIBLE				(1005)
+#define	MEME_NEWAUDIBLE				(1006)
+#define	MEME_NEWIMAGINARY			(1007)
+#define	MEME_CURRCAMERA				(1008)
+#define	MEME_MOUSEX					(1009)
+#define	MEME_MOUSEY					(1010)
+#define	MEME_MOUSEB					(1011)
+#define	MEME_SETSURFACE				(1012)
+#define	MEME_SETCAMERAVIEWPORT		(1013)
+#define	MEME_SETCAMERABACKCOLOR		(1014)
+#define	MEME_SETCAMERAVIEWWINDOW	(1015)
+#define	MEME_ADDTEXT				(1016)
+#define	MEME_MODIFYTEXT				(1017)
+#define	MEME_SETTEXTSURFACE			(1018)
+#define	MEME_GETTIME				(1019)
+#define	MEME_ORPHAN					(1020)
+#define	MEME_ADOPTS					(1021)
+#define	MEME_SCRHEIGHT				(1022)
+#define	MEME_SCRWIDTH				(1023)
+#define	MEME_SETCOLOR				(1024)
+#define	MEME_JOYSTICKX				(1025)
+#define	MEME_JOYSTICKY				(1026)
+#define	MEME_JOYSTICKB				(1027)
+#define	MEME_DESTROYOBJECT			(1028)
+#define MEME_PICKOBJECT				(1029)
+#define MEME_SETVERTEX				(1030)
+#define MEME_POLYGONCOUNT			(1031)
+#define	MEME_NEWTEXTURE				(1032)
+#define	MEME_SHAPETEXTURE			(1033)
+#define	MEME_TEXTUREFRAMESTEP			(1034)
+#define	MEME_TEXTURENEXTFRAME			(1035)
+#define	MEME_SETTEXTUREFRAME			(1036)
+#define	MEME_NEWMATERIAL			(1037)
+#define	MEME_DESTROYMATERIAL			(1038)
+#define	MEME_MATERIALCOLOR			(1039)
+#define	MEME_MATERIALSURFACE			(1040)
+#define	MEME_MATERIALSHADING			(1041)
+#define	MEME_MATERIALGEOMETRY			(1042)
+#define	MEME_MATERIALTEXTURE			(1043)
+#define	MEME_POLYGONMATERIAL			(1044)
+#define	MEME_SHAPEMATERIAL			(1045)
+#define	MEME_WRITESHAPE				(1046)
+#define	MEME_NEWCONTAINER			(1047)
+#define	MEME_GETTIMEOFDAY			(1048)
+#define	MEME_DESTROYTEXTURE			(1049)
+#define MEME_GETVERTEXCOUNT			(1050)
+#define	MEME_GETVERTEX				(1051)
+#define	MEME_NEWCOMPOUND			(1052)
+#define	MEME_WHICHOBJECT			(1053)
+#define	MEME_GETSURFACE				(1054)
+#define	MEME_NEWMODULE				(1055)
+#define	MEME_DESTROYMODULE			(1056)
+#define	MEME_SENDMESSAGE			(1057)
+#define	MEME_SENDFINALMESSAGE			(1058)
+#define	MEME_REGISTERDECKMODULE			(1059)
+#define MEME_CYBERMAN				(1060)

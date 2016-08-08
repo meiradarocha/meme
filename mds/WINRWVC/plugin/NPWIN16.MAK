@@ -1,0 +1,108 @@
+# Microsoft Visual C++ generated build script - Do not modify
+
+PROJ = NPWIN16
+DEBUG = 1
+PROGTYPE = 1
+CALLER = c:\nscape16\winfe\netscape.exe
+ARGS = 
+DLLS = 
+D_RCDEFINES = /d_DEBUG 
+R_RCDEFINES = /dNDEBUG 
+ORIGIN = MSVC
+ORIGIN_VER = 1.00
+PROJPATH = E:\NPSHELL\
+USEMFC = 0
+CC = cl
+CPP = cl
+CXX = cl
+CCREATEPCHFLAG = 
+CPPCREATEPCHFLAG = 
+CUSEPCHFLAG = 
+CPPUSEPCHFLAG = 
+FIRSTC =             
+FIRSTCPP = NPSHELL.CPP 
+RC = rc
+CFLAGS_D_WDLL = /nologo /G3 /W3 /Z7 /ALw /YX"stdafx.h" /Od /D "_DEBUG" /D "_WINDLL" /D "_AFXDLL" /D "TEST_USERAGENT" /FR /GD /Fp"NPdll16.PCH"
+CFLAGS_R_WDLL = /nologo /G3 /W3 /ALw /YX"stdafx.h" /O1 /D "NDEBUG" /D "_WINDLL" /D "_AFXDLL" /FR /GD /Fp"NPdll16.PCH"
+LFLAGS_D_WDLL = /NOLOGO /NOD /NOE /PACKC:61440 /ALIGN:16 /ONERROR:NOEXE /CO /MAP:FULL
+LFLAGS_R_WDLL = /NOLOGO /NOD /NOE /PACKC:61440 /ALIGN:16 /ONERROR:NOEXE /MAP:FULL
+LIBS_D_WDLL = oldnames libw ldllcew 
+LIBS_R_WDLL = oldnames libw ldllcew 
+RCFLAGS = /nologo 
+RESFLAGS = /nologo /k 
+RUNFLAGS = 
+DEFFILE = NPDLL16.DEF
+OBJS_EXT = 
+LIBS_EXT = 
+!if "$(DEBUG)" == "1"
+CFLAGS = $(CFLAGS_D_WDLL)
+LFLAGS = $(LFLAGS_D_WDLL)
+LIBS = $(LIBS_D_WDLL)
+MAPFILE = nul
+RCDEFINES = $(D_RCDEFINES)
+!else
+CFLAGS = $(CFLAGS_R_WDLL)
+LFLAGS = $(LFLAGS_R_WDLL)
+LIBS = $(LIBS_R_WDLL)
+MAPFILE = nul
+RCDEFINES = $(R_RCDEFINES)
+!endif
+!if [if exist MSVC.BND del MSVC.BND]
+!endif
+SBRS = NPSHELL.SBR \
+		NPWIN.SBR
+
+
+NPSHELL_DEP = e:\npshell\npapi.h
+
+
+NPDLL16_RCDEP = e:\npshell\res\npdll16.rc2
+
+
+NPWIN_DEP = e:\npshell\stdafx.h \
+	e:\npshell\npapi.h \
+	e:\npshell\npupp.h
+
+
+all:	$(PROJ).DLL $(PROJ).BSC
+
+NPSHELL.OBJ:	NPSHELL.CPP $(NPSHELL_DEP)
+	$(CPP) $(CFLAGS) $(CPPCREATEPCHFLAG) /c NPSHELL.CPP
+
+NPDLL16.RES:	NPDLL16.RC $(NPDLL16_RCDEP)
+	$(RC) $(RCFLAGS) $(RCDEFINES) -r NPDLL16.RC
+
+NPWIN.OBJ:	NPWIN.CPP $(NPWIN_DEP)
+	$(CPP) $(CFLAGS) $(CPPUSEPCHFLAG) /c NPWIN.CPP
+
+
+$(PROJ).DLL::	NPDLL16.RES
+
+$(PROJ).DLL::	NPSHELL.OBJ NPWIN.OBJ $(OBJS_EXT) $(DEFFILE)
+	echo >NUL @<<$(PROJ).CRF
+NPSHELL.OBJ +
+NPWIN.OBJ +
+$(OBJS_EXT)
+$(PROJ).DLL
+$(MAPFILE)
+C:\MSVC\LIB\+
+C:\MSVC\MFC\LIB\+
+$(LIBS)
+$(DEFFILE);
+<<
+	link $(LFLAGS) @$(PROJ).CRF
+	$(RC) $(RESFLAGS) NPDLL16.RES $@
+	@copy $(PROJ).CRF MSVC.BND
+	implib /nowep $(PROJ).LIB $(PROJ).DLL
+
+$(PROJ).DLL::	NPDLL16.RES
+	if not exist MSVC.BND 	$(RC) $(RESFLAGS) NPDLL16.RES $@
+
+run: $(PROJ).DLL
+	$(PROJ) $(RUNFLAGS)
+
+
+$(PROJ).BSC: $(SBRS)
+	bscmake @<<
+/o$@ $(SBRS)
+<<

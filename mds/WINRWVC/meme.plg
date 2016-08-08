@@ -1,0 +1,162 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: MEME - Win32 Meme Float Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x409 /fo".\WinRel/MEME.res" /d "NDEBUG" "C:\memedist\mds\WINRWVC\MEME.rc"" 
+Creating temporary file "C:\TEMP\RSP34.tmp" with contents
+[
+/nologo /G5 /ML /Ze /W3 /Gi- /GX /Ot /Og /Oi /Oy /Ob2 /Gy /I "\memedist\rwwin\include" /I "\memedist\mds\winrwvc" /I "\memedist\mds" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "RWFLOAT" /Fo".\WinRel/" /Fd".\WinRel/" /FD /c 
+"C:\memedist\mds\WINRWVC\Allocdic.c"
+"C:\memedist\mds\bitcon.c"
+"C:\memedist\mds\WINRWVC\Chario.c"
+"C:\memedist\mds\Cyberspc.c"
+"C:\memedist\mds\debuglog.c"
+"C:\memedist\mds\Decser.c"
+"C:\memedist\mds\WINRWVC\dkmodule.c"
+"C:\memedist\mds\WINRWVC\expiry.c"
+"C:\memedist\mds\WINRWVC\Extend.c"
+"C:\memedist\mds\Forth.c"
+"C:\memedist\mds\Globals.c"
+"C:\memedist\mds\WINRWVC\Init.c"
+"C:\memedist\mds\WINRWVC\Io.c"
+"C:\memedist\mds\WINRWVC\Main.c"
+"C:\memedist\mds\WINRWVC\Matherr.c"
+"C:\memedist\mds\Meme.c"
+"C:\memedist\mds\WINRWVC\Memejoy.c"
+"C:\memedist\mds\Mememat.c"
+"C:\memedist\mds\WINRWVC\Mememaus.c"
+"C:\memedist\mds\WINRWVC\memenet.c"
+"C:\memedist\mds\WINRWVC\Memerend.c"
+"C:\memedist\mds\WINRWVC\Memeser.c"
+"C:\memedist\mds\Mstimer.c"
+"C:\memedist\mds\WINRWVC\Often.c"
+"C:\memedist\mds\rfcache.c"
+"C:\memedist\mds\Rfile.c"
+"C:\memedist\mds\WINRWVC\Syscall.c"
+"C:\memedist\mds\Util.c"
+"C:\memedist\mds\WINRWVC\Winglobl.c"
+]
+Creating command line "cl.exe @C:\TEMP\RSP34.tmp" 
+Creating temporary file "C:\TEMP\RSP35.tmp" with contents
+[
+rwl21.lib wsock32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib uuid.lib /nologo /version:2.80 /subsystem:windows /pdb:none /map:".\WinRel/meme.map" /machine:I386 /out:".\WinRel/meme.exe" /libpath:"\memedist\rwwin\lib" 
+.\WinRel\Allocdic.obj
+.\WinRel\bitcon.obj
+.\WinRel\Chario.obj
+.\WinRel\Cyberspc.obj
+.\WinRel\debuglog.obj
+.\WinRel\Decser.obj
+.\WinRel\dkmodule.obj
+.\WinRel\expiry.obj
+.\WinRel\Extend.obj
+.\WinRel\Forth.obj
+.\WinRel\Globals.obj
+.\WinRel\Init.obj
+.\WinRel\Io.obj
+.\WinRel\Main.obj
+.\WinRel\Matherr.obj
+.\WinRel\Meme.obj
+.\WinRel\Memejoy.obj
+.\WinRel\Mememat.obj
+.\WinRel\Mememaus.obj
+.\WinRel\memenet.obj
+.\WinRel\Memerend.obj
+.\WinRel\Memeser.obj
+.\WinRel\Mstimer.obj
+.\WinRel\Often.obj
+.\WinRel\rfcache.obj
+.\WinRel\Rfile.obj
+.\WinRel\Syscall.obj
+.\WinRel\Util.obj
+.\WinRel\Winglobl.obj
+.\WinRel\MEME.res
+]
+Creating command line "link.exe @C:\TEMP\RSP35.tmp"
+Creating temporary file "C:\TEMP\RSP36.bat" with contents
+[
+@echo off
+.\WinRel\meme.exe initdict -f loadutil.m
+\memedist\util\sernum -f .\WinRel\meme.exe
+\memedist\util\config -f .\WinRel\meme.exe -n winsock 0.0.0.0
+]
+Creating command line "C:\TEMP\RSP36.bat"
+Compiling resources...
+Compiling...
+Allocdic.c
+bitcon.c
+Chario.c
+Cyberspc.c
+debuglog.c
+Decser.c
+dkmodule.c
+expiry.c
+Extend.c
+Forth.c
+Globals.c
+Init.c
+C:\memedist\mds\WINRWVC\psprotos.h(32) : warning C4028: formal parameter 1 different from declaration
+C:\memedist\mds\WINRWVC\psprotos.h(32) : warning C4028: formal parameter 2 different from declaration
+Io.c
+Main.c
+C:\memedist\mds\WINRWVC\psprotos.h(32) : warning C4028: formal parameter 1 different from declaration
+C:\memedist\mds\WINRWVC\psprotos.h(32) : warning C4028: formal parameter 2 different from declaration
+Matherr.c
+Meme.c
+Memejoy.c
+Mememat.c
+Mememaus.c
+memenet.c
+Generating Code...
+C:\memedist\mds\WINRWVC\memenet.c(576) : warning C4715: 'NetConnect' : not all control paths return a value
+C:\memedist\mds\WINRWVC\memenet.c(782) : warning C4715: 'NetConnected' : not all control paths return a value
+C:\memedist\mds\WINRWVC\memenet.c(1006) : warning C4715: 'NetAccepted' : not all control paths return a value
+C:\memedist\mds\WINRWVC\memenet.c(1294) : warning C4715: 'NetDisconnected' : not all control paths return a value
+C:\memedist\mds\WINRWVC\Init.c(718) : warning C4715: 'WindowsSetUpMeme' : not all control paths return a value
+Compiling...
+Memerend.c
+Memeser.c
+Mstimer.c
+Often.c
+rfcache.c
+Rfile.c
+Syscall.c
+C:\memedist\mds\WINRWVC\Syscall.c(206) : warning C4113: 'void (__cdecl *)(int ,int )' differs in parameter lists from 'void (__cdecl *)(int )'
+C:\memedist\mds\WINRWVC\Syscall.c(213) : warning C4113: 'void (__cdecl *)(int ,int )' differs in parameter lists from 'void (__cdecl *)(int )'
+C:\memedist\mds\WINRWVC\Syscall.c(214) : warning C4113: 'void (__cdecl *)(int ,int )' differs in parameter lists from 'void (__cdecl *)(int )'
+C:\memedist\mds\WINRWVC\Syscall.c(215) : warning C4113: 'void (__cdecl *)(int ,int )' differs in parameter lists from 'void (__cdecl *)(int )'
+C:\memedist\mds\WINRWVC\Syscall.c(216) : warning C4113: 'void (__cdecl *)(int ,int )' differs in parameter lists from 'void (__cdecl *)(int )'
+C:\memedist\mds\WINRWVC\Syscall.c(217) : warning C4113: 'void (__cdecl *)(int ,int )' differs in parameter lists from 'void (__cdecl *)(int )'
+C:\memedist\mds\WINRWVC\Syscall.c(218) : warning C4113: 'void (__cdecl *)(int ,int )' differs in parameter lists from 'void (__cdecl *)(int )'
+C:\memedist\mds\WINRWVC\Syscall.c(219) : warning C4113: 'void (__cdecl *)(int ,int )' differs in parameter lists from 'void (__cdecl *)(int )'
+Util.c
+Winglobl.c
+Generating Code...
+C:\memedist\mds\WINRWVC\Memeser.c(349) : warning C4715: 'SerialWrite' : not all control paths return a value
+Linking...
+<h3>Output Window</h3>
+Extend, serialize, config
+Serialize v1.0
+Serial number? Serialization successful.
+Meme configuration utility v 1.0
+Configuration successful.
+Creating temporary file "C:\TEMP\RSP38.bat" with contents
+[
+@echo off
+cp -m .\WinRel\meme.exe \meme
+touch meme.dic
+cp -m meme.dic \meme
+]
+Creating command line "C:\TEMP\RSP38.bat"
+Copy interpreter to \meme
+
+
+
+<h3>Results</h3>
+meme.exe - 0 error(s), 18 warning(s)
+</pre>
+</body>
+</html>

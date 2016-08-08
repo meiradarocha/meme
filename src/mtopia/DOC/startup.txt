@@ -1,0 +1,40 @@
+ok mload mtdeck.mm
+Deck loaded, moduleID 7143504 
+
+MyHost   7f000001 MyModule 7268592 
+MstrHost 0 MstrMdle 0 
+First person view
+ok Entering space: spaces\mtstreet.mm at -50.000 0.000 0.000 
+Logging in to space: spaces\mtstreet.mm
+
+Connecting to multiuser server: 204.156.156.143
+First person view
+File is: myavatar.cfg
+Sucessfully opened avatar CFG file D:\MTOPIA/myavatar.cfg
+First person view
+
+Sending request:
+ Command: A
+ Space:   spaces\mtstreet.mm
+
+Server ended connection 
+Nobody home - Telling space to go initialize itself!
+mtstreet.mm: 7000 
+mtstreet.mm: 5000 
+mtstreet.mm: 5000 
+mtstreet.mm: 5000 
+mtstreet.mm: 5000 
+mtstreet.mm: 5000 
+Avatar: 7268592 5010 
+Avatar: 7268592 -1 
+Avatar: 7268592 5011 
+Avatar: 7268592 3011 
+Avatar: 7268592 5010 
+Avatar: 7268592 -1 
+Avatar: 7268592 -1 
+Avatar: 7268592 5011 
+Avatar: 7268592 3011 
+484 bytes, 8.059 bytes/sec
+mtstreet.mm: 5000 
+0 bytes, 0.000 bytes/sec
+

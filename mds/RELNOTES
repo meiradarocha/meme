@@ -1,0 +1,103 @@
+		C Forth 83 Version 1.4
+
+Version 1.4 adds the following (mostly math-releated) features:
+
+	* Correct (I think) double-precision and mixed-precision
+	  arithmetic functions when compiled in 16-bit mode. D+ , D- ,
+	  DNEGATE , UM/MOD , UM* , double number input with "."
+
+	* Floating point.  Based on Forth Vendor's Group recommendations.
+	  See FLOATOPS.FTH for a list of words.
+
+	-- The documentation badly needs updating.  Sorry.
+
+
+		C Forth 83 Version 1.3
+
+Version 1.3 adds the following (mostly DOS-releated) features:
+
+	* support for the Microsoft C Compiler under DOS
+	* Relocatability of the dictionary file (essential for the
+	  32-bit DOS version; not a big deal on Unix and most other OS's)
+	* Huge-model (32-bit) DOS version
+	* Signal handling, system calls, system commands, and
+	  keyboard testing under DOS
+	* Reorganization of files for better separation between
+	  system-independent and system-dependent code, and for
+	  coping with the different "make" or "build" tools
+	  available on different C compilers.
+	* Configuration options are now moved from the config.h file
+	  into the Makefile (or its equivalent), so that config.h
+	  should not need to change in most cases.
+	* The direct Unix file calls, e.g. _open, _read, have been
+	  removed from the kernel.  Under Unix, they are still
+	  available through the syscall interface (see unix/unixsys.fth).
+	  The "standard io" file functions, e.g. fopen, fgets, are
+	  still available on all systems.
+
+
+		C Forth 83 Version 1.2
+
+In version 1.2 the "save-forth" function is implemented in a
+system-independent manner.  The Forth dictionary is saved in a file
+separate from the executable "forth" binary.  The dictionary file
+name ends in ".dic".  The default dictionary file is "forth.dic".  When
+the binary file "forth" is executed, it reads in a dictionary file.
+If the first command line argument ends in ".dic", that file is used
+as the dictionary file.  Otherwise, "forth.dic" is used.
+
+If the first command line argument is the word "initdict", the dictionary
+is initialized from scratch.  This is used in the Makefile in preparation
+for creating the default dictionary file "forth.exe".
+
+
+		C Forth 83 Version 1.1
+
+Version 1.1 has a number of new features:
+
+1) The portable file system interface allows you to access files from
+   within Forth in a manner similar to C "Standard I/O".
+
+2) The system call compiler and C call compiler allows you to call
+   most Unix system calls. The hooks for calling arbitrary C subroutines
+   are there too, but I haven't yet implemented the dynamic loader necessary
+   to get the C subroutines into the system.  See  unix-syscalls.f and
+   syscalls.f for more information.
+
+3) Strings collected with " and "" are now compatible with Forthmacs and F83.
+
+4) Conditionals and loops may now be typed directly from the keyboard,
+   without having to create a temporary definition.  For example:
+
+	ok 10 0 do i . loop
+	0 1 2 3 4 5 6 7 8 9
+	ok 0 if ." true" else ." false" then
+	false
+
+5) There is now a callfinder, accessed with .CALLS .  For example:
+
+	ok ' find .calls
+	\ Forth prints a list of all words which call the word FIND
+
+6) SIFTING finds the names of all words whose names contain a given string.
+
+	ok sifting her
+	\ Forth prints a list of all words whose names contain the string
+	\ "her" somewhere within the name.
+
+7) The decompiler has been improved somewhat.
+
+	ok see #
+	: #   
+	   base @ mu/mod swap dup 9 > 
+	   if    10 - ascii a ( 97 ) + 
+	   else  ascii 0 ( 48 ) + 
+	   then  hold 
+	; 
+
+8) Added conditional compilation with \? , and autoloading with NEEDS
+   and \NEEDS .  See configure.f and needs.f for more information.
+
+9) File loading now nests and the syntax is the same as in Forthmacs.
+
+

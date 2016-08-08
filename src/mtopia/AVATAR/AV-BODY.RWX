@@ -1,0 +1,159 @@
+# This file is copyright by Immersive Systems, Inc.  All rights
+# reserved.  You are permitted to use this file subject to
+# the provisions and restrictions in the license agreement, which
+# is in the file LICENSE or LICENSE.txt or LICENSE.html.  If this
+# set of files does not contain a file by one of the three
+# preceding names, please contact the Metatopia project at
+# sourceforge.net or at immersive.com.
+
+##############################################################################
+#
+# RenderWare(tm) Script File
+# <AV-BODY.rwx> Created from 3D Studio File <AV-BODY.3DS> by 3ds2rwx V2.0a
+#
+##############################################################################
+
+ModelBegin
+
+  ClumpBegin
+Hints HS EDITABLE
+
+  TransformBegin
+    Transform 1.000000 0.000000 0.000000 0.0 0.000000 0.000000 -1.000000 0.0 0.000000 1.000000 0.000000 0.0 0.000000 0.225000 0.000000 1.0
+    # Object Body
+    Vertex   0.300000   0.000000   0.175000 	UV 1.750000 1.053970
+    Vertex   0.197487   0.097487   0.175000 		UV 1.809722 0.942463
+    Vertex   0.000000   0.100000   0.225000 		UV 1.000000 0.942463
+    Vertex  -0.197487   0.097487   0.175000 		UV 1.190278 0.942463
+    Vertex  -0.299302   0.000000   0.172427 		UV 1.250000 1.059708
+    Vertex  -0.197487  -0.097487   0.175000 		UV 1.309722 0.942463
+    Vertex   0.000000  -0.100000   0.225000 		UV 1.500000 0.942463
+    Vertex   0.197487  -0.097487   0.175000 		UV 1.690278 0.942463
+    Vertex   0.100000   0.000000  -0.225000 		UV 1.750000 1.946030
+    Vertex   0.070711   0.070711  -0.225000 		UV 1.875000 1.946030
+    Vertex   0.000000   0.100000  -0.225000 		UV 1.000000 1.946030
+    Vertex  -0.070711   0.070711  -0.225000 		UV 1.125000 1.946030
+    Vertex  -0.100000   0.000000  -0.225000 		UV 1.250000 1.946030
+    Vertex  -0.070711  -0.070711  -0.225000 		UV 1.375000 1.946030
+    Vertex   0.000000  -0.100000  -0.225000 		UV 1.500000 1.946030
+    Vertex   0.070711  -0.070711  -0.225000 		UV 1.625000 1.946030
+    Vertex   0.000000   0.000000   0.225000 		UV 1.831825 0.942463
+    Vertex   0.000000   0.000000  -0.225000 		UV 1.831825 1.946030
+    Surface 0.590000 0.590000 0.590000    
+    Color 0.000000 1.000000 0.000000
+    Opacity 1.000000
+    GeometrySampling Solid
+    LightSampling Vertex
+    Texture NULL
+
+    Triangle 1 2 17
+    Triangle 2 3 17
+    Triangle 3 4 17
+    Triangle 4 5 17
+    Triangle 5 6 17
+    Triangle 6 7 17
+    Triangle 7 8 17
+    Triangle 8 1 17
+    Triangle 1 9 10
+    Triangle 1 10 2
+    Triangle 2 10 11
+    Triangle 2 11 3
+    Triangle 3 11 12
+    Triangle 3 12 4
+    Triangle 4 12 13
+    Triangle 4 13 5
+    Triangle 5 13 14
+    Triangle 5 14 6
+    Triangle 6 14 15
+    Triangle 6 15 7
+    Triangle 7 15 16
+    Triangle 7 16 8
+    Triangle 8 16 9
+    Triangle 8 9 1
+    Triangle 9 18 10
+    Triangle 10 18 11
+    Triangle 11 18 12
+    Triangle 12 18 13
+    Triangle 13 18 14
+    Triangle 14 18 15
+    Triangle 15 18 16
+    Triangle 16 18 9
+  TransformEnd
+
+  TransformBegin
+    Transform 1.000000 0.000000 0.000000 0.0 0.000000 1.000000 0.000000 0.0 0.000000 0.000000 1.000000 0.0 0.304314 0.395686 0.014943 1.0
+    # Object Body01
+    Vertex  -0.004314   0.004314   0.055768 		UV 1.713159 1.053970
+    Vertex   0.060081   0.021568  -0.038513 		UV 1.760280 1.015490
+    Vertex  -0.051454   0.051454  -0.038513 		UV 1.764793 0.948839
+    Vertex  -0.021568  -0.060081  -0.038513 		UV 1.763237 1.197580
+    Vertex   0.051454   0.019257   0.025882 		UV 1.731816 1.020645
+    Vertex  -0.045138   0.045138   0.025882 		UV 1.725135 0.962925
+    Vertex  -0.019257  -0.051454   0.025882 		UV 1.727360 1.178341
+    Vertex   0.010629   0.060081  -0.055768 		UV 1.770516 0.929600
+    Vertex  -0.060081  -0.010629  -0.055768 		UV 1.776360 1.087296
+    Vertex   0.036511  -0.036511  -0.055768 		UV 1.768974 1.145016
+    Surface 0.590000 0.590000 0.590000
+    Color 0.000000 1.000000 0.000000
+    Opacity 1.000000
+    GeometrySampling Solid
+    LightSampling Facet
+    Texture NULL
+
+    Triangle 19 23 24
+    Triangle 23 20 26
+    Triangle 23 26 24
+    Triangle 24 26 21
+    Triangle 19 24 25
+    Triangle 24 21 27
+    Triangle 24 27 25
+    Triangle 25 27 22
+    Triangle 19 25 23
+    Triangle 25 22 28
+    Triangle 25 28 23
+    Triangle 23 28 20
+    Triangle 20 28 26
+    Triangle 28 22 27
+    Triangle 28 27 26
+    Triangle 26 27 21
+  TransformEnd
+
+  TransformBegin
+    Transform 1.000000 0.000000 0.000000 0.0 0.000000 1.000000 0.000000 0.0 0.000000 0.000000 1.000000 0.0 -0.295686 0.395686 0.014943 1.0
+    # Object Body02
+    Vertex  -0.004314   0.004314   0.055768 		UV 1.286841 1.053970
+    Vertex   0.060081   0.021568  -0.038513 		UV 1.234131 1.015490
+    Vertex  -0.051454   0.051454  -0.038513 		UV 1.239210 0.948839
+    Vertex  -0.021568  -0.060081  -0.038513 		UV 1.238197 1.197580
+    Vertex   0.051454   0.019257   0.025882 		UV 1.276360 1.020645
+    Vertex  -0.045138   0.045138   0.025882 		UV 1.268974 0.962925
+    Vertex  -0.019257  -0.051454   0.025882 		UV 1.270516 1.178341
+    Vertex   0.010629   0.060081  -0.055768 		UV 1.227360 0.929600
+    Vertex  -0.060081  -0.010629  -0.055768 		UV 1.231816 1.087296
+    Vertex   0.036511  -0.036511  -0.055768 		UV 1.225134 1.145016
+    Surface 0.590000 0.590000 0.590000
+    Color 0.000000 1.000000 0.000000
+    Opacity 1.000000
+    GeometrySampling Solid
+    LightSampling Facet
+    Texture NULL
+
+    Triangle 29 33 34
+    Triangle 33 30 36
+    Triangle 33 36 34
+    Triangle 34 36 31
+    Triangle 29 34 35
+    Triangle 34 31 37
+    Triangle 34 37 35
+    Triangle 35 37 32
+    Triangle 29 35 33
+    Triangle 35 32 38
+    Triangle 35 38 33
+    Triangle 33 38 30
+    Triangle 30 38 36
+    Triangle 38 32 37
+    Triangle 38 37 36
+    Triangle 36 37 31
+  TransformEnd
+ClumpEnd
+ModelEnd

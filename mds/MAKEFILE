@@ -1,0 +1,26 @@
+MAKE=wmake
+
+all:	.SYMBOLIC
+		@echo
+		@echo
+		@echo The only make target is "clean".
+		@echo
+		@echo
+
+clean:	.SYMBOLIC
+		cd doswat
+		$(MAKE) clean
+		cd ..\winwat
+		$(MAKE) clean
+		cd ..\dosrl
+		$(MAKE) clean
+		cd ..\bsdrl
+		rm -f *.err
+		rm -f *.o
+		rm -f meme
+		rm -f meme.dic
+		rm -f sernum
+		rm -f config
+		rm -f foo
+		cd ..
+		rm -f *.mod

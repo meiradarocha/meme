@@ -1,0 +1,370 @@
+/* Interface routines for the serial comm library.
+ * by Marc de Groot.
+ * Copyright (c) Immersive Systems, Inc.  All rights reserved.
+ */
+
+/* These routines are the "standard connector" routines that plug
+ * the platform-specific serial library into Meme.
+ */
+
+#include "config.h"
+
+#include <windows.h>
+#include <stdio.h>
+
+#include "forth.h"
+#include "externs.h"
+#include "errors.h"
+
+#define	SERNOERROR		(0)
+#define	SERERROR		(-1)
+
+// The three states for a read or write piece of a comm port.
+// IDLE means no action on the pipe.
+// PENDING means an I/O operation has been initiated and we're waiting
+// for the asynchronous part to finish.
+// READY means the I/O completion routine has been called but the
+// data has not been sent back to the Meme task yet.
+#define	IDLE		(0)
+#define	PENDING		(1)
+#define	READY		(2)
+
+// The port descriptor.  The cTaskActive field is first so the Meme
+// task can write its task_active address in it without computing
+// the offset into the struct.
+typedef struct _portdesc {
+	cell *			cTaskActive;	// Ptr to task_active for the task
+	OVERLAPPED		Ov;				// The OVERLAPPED struct
+	HANDLE			hCom;			// Handle to the serial port
+	DWORD			fPending;		// =TRUE if an I/O req is pending
+	DWORD			dwIOError;		// Set by the callback routine
+	DWORD			dwActual;		// # characters actually transferred
+	HANDLE			hEventReal;		// The event handle gets moved here
+} PortDesc;
+
+
+void
+SetUpSerial(void)
+{
+}
+
+void
+CleanUpSerial(void)
+{
+}
+
+/* Return a port descriptor if successful, which
+ * is a unique 32-bit number that refers to this
+ * comm connecion.
+ * On error, SERERROR is returned, and XV_ERRNO
+ * is set to the error code.
+ */
+cell
+SerialOpen(comport, baudrate, parity, word_length, stop_bits)
+cell	comport;		/* 0 = COM1, 1 = COM2, etc.	*/
+cell	baudrate;		/* 9600 = 9600 baud, etc.	*/
+cell	parity;			/* 'N', 'E', or 'O'			*/
+cell	word_length;	/* 7 or 8					*/
+cell	stop_bits;		/* 1 or 2					*/
+{
+	HANDLE			hCom;
+	char			szPortname[24];
+	BOOL			fSuccess;
+	DCB				dcb;
+	DWORD			fdwEventMask;
+	PortDesc *		lpPD;
+	COMMTIMEOUTS	Timeouts;
+
+	if (comport < 0 || comport > 255) {
+		XV_ERRNO = SERBADPARAMS;
+		return SERERROR;
+	}
+	sprintf( szPortname, "COM%d", comport+1 );
+	hCom = CreateFile(szPortname,
+		GENERIC_READ | GENERIC_WRITE,
+		0,				/* comm devices must be opened w/exclusive-access	*/
+		NULL,					/* no security attrs						*/
+		OPEN_EXISTING,			/* comm devices must use OPEN_EXISTING		*/
+		FILE_FLAG_OVERLAPPED,	/*  overlapped I/O							*/
+		NULL					/* hTemplate must be NULL for comm devices	*/
+	);
+	if (hCom == INVALID_HANDLE_VALUE) { 
+		XV_ERRNO = SERBADOPEN;
+		return SERERROR;
+	}
+
+	/*
+	 * Omit the call to SetupComm to use the default queue sizes.
+	 * Get the current configuration.
+	 */
+	fSuccess = GetCommState(hCom, &dcb);
+	if (!fSuccess) {
+		CloseHandle(hCom);
+		XV_ERRNO = SERBADOPEN;
+		return SERERROR;
+	}
+
+	dcb.BaudRate = baudrate;
+
+	switch (word_length) {
+		case 7:
+		case 8:
+			dcb.ByteSize = (unsigned char)word_length;
+			break;
+		default:
+			CloseHandle(hCom);
+			XV_ERRNO = SERBADPARAMS;
+			return SERERROR;
+	}
+
+	if (islower(parity)) {
+		parity = toupper(parity);
+	}
+	switch (parity) {
+		case 'N':
+			dcb.Parity = NOPARITY;
+			dcb.fParity = 0;
+			break;
+		case 'E':
+			dcb.Parity = EVENPARITY;
+			dcb.fParity = 1;
+			break;
+		case 'O':
+			dcb.Parity = ODDPARITY;
+			dcb.fParity = 1;
+			break;
+		default:
+			CloseHandle(hCom);
+			XV_ERRNO = SERBADPARAMS;
+			return SERERROR;
+	}
+
+	switch (stop_bits) {
+		case 1:
+			dcb.StopBits = ONESTOPBIT;
+			break;
+		case 2:
+			dcb.StopBits = TWOSTOPBITS;
+			break;
+		default:
+			CloseHandle(hCom);
+			XV_ERRNO = SERBADPARAMS;
+			return SERERROR;
+	}
+
+	fSuccess = SetCommState(hCom, &dcb);
+	if (!fSuccess) {
+		CloseHandle(hCom);
+		XV_ERRNO = SERBADPARAMS;
+		return SERERROR;	
+	}
+
+	/* Set the event mask. */
+	fdwEventMask = EV_RXCHAR;			// Character received
+					// EV_BREAK |		// Break char detected
+					// EV_CTS |			// CTS changed
+					// EV_DSR |			// DSR changed
+					// EV_ERR |			// Framing, overrun, or parity err
+					// EV_RING |		// Ring indicator asserted
+					// EV_RLSD |		// Received-line-signal-detect changed
+					// EV_RXFLAG |		// Event character received
+					// EV_TXEMPTY;		// Xmtr buffer has emptied
+
+	fSuccess = SetCommMask(hCom, fdwEventMask);
+	if (!fSuccess) {
+		CloseHandle(hCom);
+		XV_ERRNO = SERCANTSETEVENTS;
+		return SERERROR;
+	}
+
+	/* Set the timeouts for the comm link */
+	/* A value of MAXDWORD for ReadIntervalTimeout, combined with zero values for
+	 * both the ReadTotalTimeoutConstant and ReadTotalTimeoutMultiplier, specifies
+	 * that the read operation is to return immediately with the characters
+	 * that have already been received, even if no characters have been
+	 * received. 
+	 */
+	Timeouts.ReadIntervalTimeout = MAXDWORD;
+	Timeouts.ReadTotalTimeoutMultiplier = 0;
+	Timeouts.ReadTotalTimeoutConstant = 0;
+	Timeouts.WriteTotalTimeoutMultiplier = 0;
+	Timeouts.WriteTotalTimeoutConstant = 20;	/* Constant delay */
+	fSuccess = SetCommTimeouts(hCom, &Timeouts);
+	if (!fSuccess) {
+		CloseHandle(hCom);
+		XV_ERRNO = SERCANTSETEVENTS;
+		return SERERROR;
+	}
+
+	/* Create a port descriptor */
+	lpPD = (PortDesc *)malloc(sizeof(PortDesc));
+	if (lpPD == NULL) {
+		CloseHandle(hCom);
+		XV_ERRNO = SERNOSPACE;
+		return SERERROR;
+	}
+	lpPD->Ov.hEvent = CreateEvent(
+		NULL, 					// no security attributes
+	    FALSE,					// auto-reset event
+	    FALSE,					// initially not signaled
+	    NULL 					// no name
+	);
+
+	/* If creating the event object failed */
+	if (lpPD->Ov.hEvent == NULL || GetLastError() != 0) {
+		CloseHandle(hCom);
+		free(lpPD);
+		XV_ERRNO = SERCANTSETEVENTS;
+		return SERERROR;
+	}
+
+	/* We've set up the port; let's init the descriptor */
+	lpPD->hCom = hCom;			// Set handle
+	lpPD->fPending = IDLE;		// Reset I/O-pending flag
+	lpPD->cTaskActive = NULL;	// Clear the task_active ptr
+
+	// The OS doesn't use the event field in the
+	// OVERLAPPED struct, so we can use it to
+	// pass a value to the callback routine (see the
+	// Win32 programmer's reference where it discusses
+	// FileIOCompletionRoutine).  We pass the port
+	// descriptor address to the callback routine
+	// in the hEvent field, but first we move
+	// the event pointer to another field in the 
+	// port descriptor so we can re-use it.
+	lpPD->hEventReal = lpPD->Ov.hEvent;	// Move the event ptr
+	lpPD->Ov.hEvent = (HANDLE) lpPD;	// Addr of descriptor in event field
+
+	/* Set these two fields to zero or ReadFileEx will fail */
+	lpPD->Ov.Offset = lpPD->Ov.OffsetHigh = 0;
+
+	return (cell)lpPD;
+}
+
+/* Close the serial port.  SerialClose returns
+ * SERNOERROR if successful, and SERERROR if
+ * the call failed.
+ */
+cell
+SerialClose(portdesc)
+cell portdesc;
+{
+	CloseHandle( ((PortDesc *)portdesc)->hEventReal );
+	if ( !CloseHandle( ((PortDesc *)portdesc)->hCom) ) {
+		free((void *)portdesc);
+		XV_ERRNO = SERBADCLOSE;
+		return SERERROR;
+	}
+	free((void *)portdesc);
+	return SERNOERROR;
+}
+
+/*
+ * This is the asynchronous I/O completion routine.  It stores the
+ * actual number of bytes read (plus an error flag) in the port descriptor.
+ */
+VOID WINAPI
+_SerialCompletion(DWORD fdwError, DWORD cbTransferred, LPOVERLAPPED lpo)
+{
+	// Get the port descriptor pointer that's stashed in the event field.
+	PortDesc *	lpPD = (PortDesc *)lpo->hEvent;
+
+	// This shouldn't ever be TRUE because it supposedly
+	// only happens when we read past the end of a file.
+	lpPD->dwIOError = fdwError;
+
+	// Set the number of characters received, and reset the pending flag.
+	lpPD->dwActual = cbTransferred;
+	lpPD->fPending = READY;
+
+	// If the Meme task is sleeping, wake it up.
+	if (lpPD->cTaskActive) {
+		*(lpPD->cTaskActive) = -1;
+	}
+}
+
+/* Request a read operation on the serial port.
+ * Pass a port descriptor, a character buffer address,
+ * and a maximum number of characters to read.
+ * SerialRead returns the actual number of characters
+ * read, or on error, SERERROR is returned.
+ */
+cell
+SerialRead(portdesc, buffer, len)
+cell portdesc;
+cell buffer;
+cell len;
+{
+	PortDesc *lpPD = (PortDesc *)portdesc;	// Convert to a real ptr to PortDesc
+	BOOL fSuccess;
+	cell IOActual;
+
+	do {
+		// If the state flag is READY, the I/O completion routine has been
+		// called.  Return the Actual count to the Meme task.
+		if ( lpPD->fPending == READY ) {	
+			if (lpPD->dwIOError == 0) {		
+				lpPD->fPending = IDLE;
+				IOActual = lpPD->dwActual;
+				lpPD->dwActual = 0;			// Reset the Actual count
+				return IOActual;		
+			} else {
+				CloseHandle(lpPD->hCom);
+				CloseHandle(lpPD->hEventReal);
+				free(lpPD);
+				XV_ERRNO = SERREADFAILED;
+				return SERERROR;
+			}
+		}
+
+		if ( lpPD->fPending == IDLE ) {			// If no I/O request pending,
+			fSuccess = ReadFileEx(				// initiate a read.
+						lpPD->hCom,				// handle
+						(void *)buffer,			// character buffer
+						len,					// # bytes to read
+						&lpPD->Ov,				// OVERLAPPED structure
+						_SerialCompletion );	// callback routine
+			if (!fSuccess) {
+				CloseHandle( lpPD->hCom );
+				CloseHandle( lpPD->hEventReal );
+				free( lpPD );
+				XV_ERRNO = SERREADFAILED;
+				return SERERROR;
+			}
+			lpPD->fPending = PENDING;			// I/O is now pending
+
+			// If the calling Meme task set the
+			// cTaskActive field to a non-NULL
+			// pointer, put it to sleep while
+			// I/O is pending.  The task will
+			// be awakened by the callback routine.
+			if (lpPD->cTaskActive != NULL) {
+				*(lpPD->cTaskActive) = 0;
+			}
+		}
+
+		// Arrive here if an I/O request is pending.
+		// Call SleepEx briefly so the callback routine
+		// can be called.
+		fSuccess =	SleepEx(	0,				// 0 milliseconds
+								TRUE			// Our thread is alertable
+										);
+	} while (lpPD->fPending == READY) ;
+
+	return (cell) 0;							// indicate no I/O.
+}
+
+/* Write characters on the serial port device.
+ * buff is the address of the character array.
+ * len is number of characters to write.
+ * portdesc is a pointer to a port descriptor returned by SerialOpen().
+ * The return value is the actual number of characters written.
+ */
+cell
+SerialWrite(portdesc, buff, len)
+cell portdesc;
+cell buff;
+cell len;
+{
+	return 0;
+}
